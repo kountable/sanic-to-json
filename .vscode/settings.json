@@ -1,0 +1,8 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "~/.virtualenvs/postman/bin/black",
+    "python.linting.flake8Path": "~/.virtualenvs/postman/bin/flake8"
+}
