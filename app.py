@@ -1,5 +1,5 @@
-from routes import acp_v1
-from forms_blueprint import forms_v1
+from blueprint_1 import bp1
+from blueprint_2 import bp2
 from sanic import Sanic
 
 
