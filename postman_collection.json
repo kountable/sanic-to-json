@@ -9,14 +9,14 @@
             "name": "bp1",
             "item": [
                 {
-                    "name": "/endpoint-two",
+                    "name": "/endpoint-one",
                     "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{target_url}}endpoint-two",
+                            "raw": "{{target_url}}endpoint-four",
                             "host": [
-                                "{{target_url}}endpoint-two"
+                                "{{target_url}}endpoint-four"
                             ]
                         },
                         "description": "Return JSON form request."
@@ -29,9 +29,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{target_url}}endpoint-two",
+                            "raw": "{{target_url}}endpoint-four",
                             "host": [
-                                "{{target_url}}endpoint-two"
+                                "{{target_url}}endpoint-four"
                             ]
                         },
                         "description": "Return JSON form request."
@@ -45,14 +45,14 @@
             "name": "bp2",
             "item": [
                 {
-                    "name": "/endpoint-two",
+                    "name": "/endpoint-three",
                     "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{target_url}}endpoint-two",
+                            "raw": "{{target_url}}endpoint-four",
                             "host": [
-                                "{{target_url}}endpoint-two"
+                                "{{target_url}}endpoint-four"
                             ]
                         },
                         "description": "Return JSON form request."
@@ -60,14 +60,14 @@
                     "response": []
                 },
                 {
-                    "name": "/endpoint-two",
+                    "name": "/endpoint-four",
                     "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{target_url}}endpoint-two",
+                            "raw": "{{target_url}}endpoint-four",
                             "host": [
-                                "{{target_url}}endpoint-two"
+                                "{{target_url}}endpoint-four"
                             ]
                         },
                         "description": "Return JSON form request."
