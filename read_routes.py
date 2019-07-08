@@ -14,10 +14,7 @@ atomic_request = {
     "request": {
         "method": "GET",
         "header": [],
-        "url": {
-            "raw": "{{target_url}}test-employees",
-            "host": ["{{target_url}}test-employees"],
-        },
+        "url": {"raw": "{{target_url}}endpoint", "host": ["{{target_url}}endpoint"]},
         "description": "This description can come from docs strings",
     },
     "response": [],
@@ -51,18 +48,20 @@ def blueprint_items(app):
     return items
 
 
-def populate_requests(items, app):
+def populate_requests(app):
     """Populates the requests for each blueprint.
     
     Returns the items list with 'item' key popluated with requests."""
 
-    for blueprint in items:
+    blueprints = blueprint_items(app)
+
+    for blueprint in blueprints:
         for route in app.blueprints[blueprint["name"]].routes:
             blueprint["item"].append(format_endpoint(route).copy())
     return items
 
 
-def format_endpoint(route, postman_request=atomic_request):
+def format_endpoint(route, postman_request=atomic_request.copy()):
     """Populates atomic_request dictionary with route metatdata.
     Returns a postman formatted dictionary request item."""
 
@@ -77,9 +76,7 @@ def format_endpoint(route, postman_request=atomic_request):
 
 
 def generate_postman_json(collection_name, app, filename="postman_collection.json"):
-    """Saves a JSON file to Postman schema specifications."""
-
-    # instantiate new collection
+    """Write a JSON file to Postman schema specifications."""
     api_collection = postman_JSON(collection_name, app=app)
 
     # generate a list of items
