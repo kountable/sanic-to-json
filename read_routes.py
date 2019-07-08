@@ -53,7 +53,6 @@ def populate_requests(api_json, app):
     """Populates the requests for each blueprint.
     
     Returns the items list with 'item' key popluated with requests."""
-
     for blueprint_dict in api_json["item"]:
         for route in app.blueprints[blueprint_dict["name"]].routes:
             blueprint_dict["item"].append(format_endpoint(route))
@@ -72,6 +71,8 @@ def format_endpoint(route, postman_request=atomic_request.copy()):
     url = "{{target_url}}" + name[1:]
     postman_request = {}
     postman_request["name"] = name
+    postman_request["request"] = {}
+    postman_request["request"]["url"] = {}
     postman_request["request"]["url"]["raw"] = url
     postman_request["request"]["url"]["host"] = [url]
     postman_request["request"]["description"] = description
@@ -86,11 +87,8 @@ def generate_postman_json(collection_name, app, filename="postman_collection.jso
     # generate a list of items
     api_collection = blueprint_items(api_collection, app)
 
-    # add blueprints to api
-    # api_collection["item"] = items
-
-    # populate blueprints with endpoints
-    # api_collection = populate_requests(api_collection, app)
+    # poulate blueprints with endpoints
+    api_collection = populate_requests(api_collection, app)
 
     with open(filename, "w") as file:
         dump(api_collection, file, indent=4)
