@@ -31,43 +31,46 @@ def postman_JSON(collection_name, app, api_json=collection_json):
     return api_json
 
 
-def blueprint_items(app):
-    """Converts each blueprint into a dictionary with a name, items =[], and description.
+def blueprint_items(api_json, app):
+    """Converts each blueprint into a dictionary with a name, item =[], and description.
 
-    These dictionaries become Postman folders.
-    Returns a lists of dictionary items."""
+    These dictionaries become Postman folders. The "item" dict will contain the endpoins
+    for each blueprint.
 
-    items = []
+    Returns a list of dictionary items."""
+
     blueprints = list(app.__dict__["blueprints"].keys())
     for blueprint in blueprints:
-        postman_item = {}
-        postman_item["name"] = blueprint
-        postman_item["item"] = []
-        postman_item["description"] = app.blueprints[blueprint].__doc__
-        items.append(postman_item)
-    return items
+        postman_folder = {}
+        postman_folder["name"] = blueprint
+        postman_folder["item"] = []
+        postman_folder["description"] = app.blueprints[blueprint].__doc__
+        api_json["item"].append(postman_folder)
+    return api_json
 
 
-def populate_requests(app):
+def populate_requests(api_json, app):
     """Populates the requests for each blueprint.
     
     Returns the items list with 'item' key popluated with requests."""
 
-    blueprints = blueprint_items(app)
-
-    for blueprint in blueprints:
-        for route in app.blueprints[blueprint["name"]].routes:
-            blueprint["item"].append(format_endpoint(route).copy())
-    return items
+    for blueprint_dict in api_json["item"]:
+        for route in app.blueprints[blueprint_dict["name"]].routes:
+            blueprint_dict["item"].append(format_endpoint(route))
+    return api_json
 
 
 def format_endpoint(route, postman_request=atomic_request.copy()):
     """Populates atomic_request dictionary with route metatdata.
+
+    Assumes route is a list of route items, e.g, function, url, methods
+
     Returns a postman formatted dictionary request item."""
 
     name = route[1]
     description = route[0].__doc__
     url = "{{target_url}}" + name[1:]
+    postman_request = {}
     postman_request["name"] = name
     postman_request["request"]["url"]["raw"] = url
     postman_request["request"]["url"]["host"] = [url]
@@ -77,15 +80,17 @@ def format_endpoint(route, postman_request=atomic_request.copy()):
 
 def generate_postman_json(collection_name, app, filename="postman_collection.json"):
     """Write a JSON file to Postman schema specifications."""
+    # new json dictionary
     api_collection = postman_JSON(collection_name, app=app)
 
     # generate a list of items
-    items = blueprint_items(app)
+    api_collection = blueprint_items(api_collection, app)
 
-    # populate items with requests
-    items = populate_requests(items, app)
+    # add blueprints to api
+    # api_collection["item"] = items
 
-    api_collection["item"] = items
+    # populate blueprints with endpoints
+    # api_collection = populate_requests(api_collection, app)
 
     with open(filename, "w") as file:
         dump(api_collection, file, indent=4)
