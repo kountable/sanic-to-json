@@ -1,9 +1,12 @@
+import os
 from python_to_postman import (
     collection_json,
     atomic_request,
     postman_JSON,
     blueprint_items,
     populate_requests,
+    format_endpoint,
+    generate_postman_json,
 )
 from examples.app import app
 
@@ -25,9 +28,10 @@ def test_types():
 
 def test_postman_JSON():
     """Checks 'collection_name' and doc string from Sanic app."""
-    test_json = postman_JSON("test_collection", app)
+    collection_name = "test_collection"
+    test_json = postman_JSON(collection_name, app)
 
-    assert test_json["info"]["name"] == "test_collection"
+    assert test_json["info"]["name"] == collection_name
     assert test_json["info"]["description"] == app.__doc__
 
 
@@ -43,7 +47,7 @@ def test_blue_print_items():
 
 def test_populte_requests():
     """References endpoints in examples/blueprint_1 and examples/blueprint_2."""
-    api_collection = postman_JSON("Scratchpad", app=app)
+    api_collection = postman_JSON("Testing", app=app)
     # generate a list of items
     api_collection = blueprint_items(api_collection, app)
     # poulate blueprints with endpoints
@@ -73,4 +77,31 @@ def test_populte_requests():
 
     for dict_item, str_item in zip(json_items, blueprint_strings):
         assert dict_item == str_item
+
+
+def test_format_endpoint():
+    """Tests the first endpoint in examples/blueprint for formatting."""
+    route = app.blueprints["bp1"].routes[0]
+    test = format_endpoint(route)
+
+    formatted_endpoint = {
+        "name": "/endpoint-one",
+        "request": {
+            "url": {
+                "raw": "{{target_url}}endpoint-one",
+                "host": ["{{target_url}}endpoint-one"],
+            },
+            "description": "Return text from request.",
+        },
+    }
+    assert test == formatted_endpoint
+
+
+def test_generate_postman_json():
+    """Test generation of json file. Deletes after test."""
+    filename = "Test_collection.json"
+    generate_postman_json("Testing", app, filename=filename)
+    assert os.path.exists(filename)
+    os.remove(filename)
+    assert not os.path.exists(filename)
 
