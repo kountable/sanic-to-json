@@ -11,12 +11,3 @@ diagrams/
 
 ### Scratchpad files
 scratchpad*.py
-
-# Jupyter NB Checkpoints
-.ipynb_checkpoints/
-
-# ignore wily files 
-wily*
-
-# ignore .env file
-.env

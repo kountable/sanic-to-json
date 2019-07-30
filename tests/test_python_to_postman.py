@@ -3,6 +3,7 @@ from python_to_postman import (
     atomic_request,
     postman_JSON,
     blueprint_items,
+    populate_requests,
 )
 from examples.app import app
 
@@ -38,3 +39,38 @@ def test_blue_print_items():
 
     for blueprint in api_json["item"]:
         assert blueprint["name"] in blueprints
+
+
+def test_populte_requests():
+    """References endpoints in examples/blueprint_1 and examples/blueprint_2."""
+    api_collection = postman_JSON("Scratchpad", app=app)
+    # generate a list of items
+    api_collection = blueprint_items(api_collection, app)
+    # poulate blueprints with endpoints
+    api_collection = populate_requests(api_collection, app)
+
+    json_items = [
+        api_collection["item"][0]["item"][0]["name"],
+        api_collection["item"][0]["item"][1]["name"],
+        api_collection["item"][1]["item"][0]["name"],
+        api_collection["item"][1]["item"][1]["name"],
+        api_collection["item"][0]["item"][0]["request"]["description"],
+        api_collection["item"][0]["item"][1]["request"]["description"],
+        api_collection["item"][1]["item"][0]["request"]["description"],
+        api_collection["item"][1]["item"][1]["request"]["description"],
+    ]
+
+    blueprint_strings = [
+        "/endpoint-one",
+        "/endpoint-two",
+        "/endpoint-three",
+        "/endpoint-four",
+        "Return text from request.",
+        "Return JSON form request.",
+        "Return text from request.",
+        "Return JSON form request.",
+    ]
+
+    for dict_item, str_item in zip(json_items, blueprint_strings):
+        assert dict_item == str_item
+
