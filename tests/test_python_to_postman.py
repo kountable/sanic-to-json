@@ -4,7 +4,7 @@ from python_to_postman import (
     atomic_request,
     postman_JSON,
     blueprint_items,
-    populate_requests,
+    populate_blueprint_requests,
     format_endpoint,
     generate_postman_json,
     transfer_postman_id,
@@ -52,7 +52,7 @@ def test_populte_requests():
     # generate a list of items
     api_collection = blueprint_items(api_collection, app)
     # poulate blueprints with endpoints
-    api_collection = populate_requests(api_collection, app)
+    api_collection = populate_blueprint_requests(api_collection, app)
 
     json_items = [
         api_collection["item"][0]["item"][0]["name"],

@@ -49,7 +49,7 @@ def blueprint_items(api_json, app):
     return api_json
 
 
-def populate_requests(api_json, app):
+def populate_blueprint_requests(api_json, app):
     """Populates the requests for each blueprint.
     
     Returns the items list with 'item' key popluated with requests."""
@@ -106,7 +106,7 @@ def generate_postman_json(
     api_collection = blueprint_items(api_collection, app)
 
     # poulate blueprints with endpoints
-    api_collection = populate_requests(api_collection, app)
+    api_collection = populate_blueprint_requests(api_collection, app)
 
     with open(filename, "w") as file:
         dump(api_collection, file, indent=4)
