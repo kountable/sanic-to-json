@@ -11,4 +11,3 @@ Using the postman [schema](https://schema.getpostman.com/json/collection/v2.1.0/
 - Blueprints should also a doc string, this will serve as the description to each collection folder in Postman. Again see `examples` folder
 `bp1.__doc__ = "This is the doc string for blueprint1."`
 
-# Need to add option for postman ID
