@@ -1,4 +1,4 @@
-from json import dump
+from json import dump, load
 
 collection_json = {
     "info": {
@@ -79,10 +79,28 @@ def format_endpoint(route, postman_request=atomic_request.copy()):
     return postman_request
 
 
-def generate_postman_json(collection_name, app, filename="postman_collection.json"):
+def transfer_postman_id(api_json, existing_file=None):
+    """Transfer postman_id from existing JSON file."""
+    try:
+        with open(existing_file, "r") as file:
+            data = load(file)
+            api_json["info"]["_postman_id"] = data["info"]["_postman_id"]
+    except TypeError:
+        pass
+
+    return api_json
+
+
+def generate_postman_json(
+    collection_name, app, filename="postman_collection.json", existing_file=None
+):
     """Write a JSON file to Postman schema specifications."""
+
     # new json dictionary
     api_collection = postman_JSON(collection_name, app=app)
+
+    # transfer old postman id
+    api_collection = transfer_postman_id(api_collection, existing_file=None)
 
     # generate a list of items
     api_collection = blueprint_items(api_collection, app)

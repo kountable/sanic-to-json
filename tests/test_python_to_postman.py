@@ -7,6 +7,7 @@ from python_to_postman import (
     populate_requests,
     format_endpoint,
     generate_postman_json,
+    transfer_postman_id,
 )
 from examples.app import app
 
@@ -104,3 +105,18 @@ def test_generate_postman_json():
     assert os.path.exists(filename)
     os.remove(filename)
     assert not os.path.exists(filename)
+
+
+def test_transfer_postman_id():
+    """Transfer postman_id from existing JSON file."""
+
+    api_collection = postman_JSON("Testing", app=app)
+
+    api_collection = transfer_postman_id(api_collection, existing_file=None)
+    assert "_postman_id" not in api_collection["info"].keys()
+
+    api_collection = transfer_postman_id(
+        api_collection, existing_file="examples/test.json"
+    )
+    assert "_postman_id" in api_collection["info"].keys()
+
