@@ -1,4 +1,9 @@
-from python_to_postman import collection_json, atomic_request, postman_JSON
+from python_to_postman import (
+    collection_json,
+    atomic_request,
+    postman_JSON,
+    blueprint_items,
+)
 from examples.app import app
 
 """Basic tests for python to postman script."""
@@ -23,3 +28,13 @@ def test_postman_JSON():
 
     assert test_json["info"]["name"] == "test_collection"
     assert test_json["info"]["description"] == app.__doc__
+
+
+def test_blue_print_items():
+    """Runs functions against example folder."""
+    api_json = postman_JSON("test_collection", app)
+    api_json = blueprint_items(api_json, app)
+    blueprints = ["bp1", "bp2"]
+
+    for blueprint in api_json["item"]:
+        assert blueprint["name"] in blueprints
