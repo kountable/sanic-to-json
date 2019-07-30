@@ -1,5 +1,5 @@
-from blueprint_1 import bp1
-from blueprint_2 import bp2
+from examples.blueprint_1 import bp1
+from examples.blueprint_2 import bp2
 from sanic import Sanic
 
 

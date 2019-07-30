@@ -1,7 +1,7 @@
 {
     "info": {
         "name": "Test_collection",
-        "description": "A doc string for the API. Blueprints have their own doc strings.",
+        "description": null,
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
