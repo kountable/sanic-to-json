@@ -104,4 +104,3 @@ def test_generate_postman_json():
     assert os.path.exists(filename)
     os.remove(filename)
     assert not os.path.exists(filename)
-
