@@ -19,7 +19,7 @@ async def close_db(app, loop):
 
 
 @app.route("/healthcheck", methods=["GET"])
-async def post(request):
+async def health(request):
     """Return health status."""
 
 

@@ -36,7 +36,7 @@ def atomic_request():
 
 def basic_JSON(collection_name, app, api_json=collection_json()):
     """Formats the Postman collection with 'collection_name' and doc string from Sanic app.
-    
+
     Returns JSON dictionary."""
     api_json["info"]["name"] = collection_name
     api_json["info"]["description"] = app.__doc__
@@ -44,7 +44,9 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
 
 
 def transfer_postman_id(api_json, existing_file=None):
-    """Transfer postman_id from existing JSON file."""
+    """Transfer postman_id from existing JSON file.
+
+    This is only needed if you want to keep the same url."""
     try:
         with open(existing_file, "r") as file:
             data = load(file)
@@ -94,6 +96,15 @@ def get_url_prefix(blueprint):
     return prefix
 
 
+def get_app_routes(app):
+    """Return routes in main app."""
+    routes = {}
+    for route in app.router.routes_names:
+        if "." not in route:
+            routes[route] = app.router.routes_names[route]
+    return routes
+
+
 collection = basic_JSON("Testing", app)
 collection = transfer_postman_id(collection)
 
@@ -110,4 +121,5 @@ for blueprint in blueprints:
 
 
 # test = routes[0][1][0].handlers["GET"].__doc__
-
+print(app.__dir__())
+print(app.go_fast.__dir__())
