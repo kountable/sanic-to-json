@@ -100,10 +100,7 @@ def get_url_prefix(blueprint):
 # app routes
 def get_app_routes(app):
     """Return routes in main app."""
-    routes = {}
-    for route in app.router.routes_names:
-        if "." not in route:
-            routes[route] = app.router.routes_names[route]
+    routes = app.router.routes_names
     return routes
 
 
@@ -124,8 +121,11 @@ for blueprint in blueprints:
 
 # test = routes[0][1][0].handlers["GET"].__doc__
 
-app_routes = get_app_routes(app)
-for endpoint in app_routes:
-    print(app_routes[endpoint][1][0].handlers)
-    for method in app_routes[endpoint][1][0].handlers:
-        print(app_routes[endpoint][1][0].handlers[method].__doc__)
+routes = get_app_routes(app)
+
+print(app.blueprints["database_1"].routes)
+# for endpoint in app_routes:
+#    print(app_routes[endpoint][1][0].handlers)
+#    for method in app_routes[endpoint][1][0].handlers:
+#        print(app_routes[endpoint][1][0].handlers[method].__doc__)
+#
