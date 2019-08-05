@@ -107,17 +107,18 @@ def get_app_routes(app):
     return routes
 
 
-def get_app_route_methods(route):
-    """Return CRUD method for routes in main app.
-
-    Returns dict with method as key and function as value."""
-    methods = app_routes[route][1][0].handlers
+def get_app_route_methods(route, app):
+    """Return CRUD methods for routes in main app."""
+    methods = list(app.router.routes_names[route][1].methods)
     return methods
 
 
-def get_app_route_doc_string(method):
-    """Returns doc string for embedded function."""
-    doc = app_routes[route][1][0].handlers[method].__doc__
+def get_app_route_doc_string(method, app):
+    """Returns doc string for embedded route functions."""
+    try:
+        doc = app.router.routes_names[route][1][0].handlers[method].__doc__
+    except AttributeError:
+        doc = app.router.routes_names[route][1][0].__doc__
     return doc
 
 
@@ -140,10 +141,15 @@ for blueprint in blueprints:
 
 app_routes = get_app_routes(app)
 
-
+print(app_routes)
 for route in app_routes:
-    methods = get_app_route_methods(route)
+    methods = get_app_route_methods(route, app)
+    print(route)
     print(methods)
     for method in methods:
-        doc = get_app_route_doc_string(method)
+        print(method)
+        doc = get_app_route_doc_string(method, app)
         print(doc)
+
+    # print(get_app_route_methods(route, app))
+

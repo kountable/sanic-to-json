@@ -28,5 +28,10 @@ async def health(request):
     """Post health status."""
 
 
+@app.route("/test", methods=["GET"])
+async def test(request):
+    """Another get request."""
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
