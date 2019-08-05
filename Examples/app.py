@@ -23,5 +23,10 @@ async def health(request):
     """Return health status."""
 
 
+@app.route("/healthcheck", methods=["POST"])
+async def health(request):
+    """Post health status."""
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

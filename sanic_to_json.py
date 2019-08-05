@@ -121,5 +121,9 @@ for blueprint in blueprints:
 
 
 # test = routes[0][1][0].handlers["GET"].__doc__
-print(app.__dir__())
-print(app.go_fast.__dir__())
+
+app_routes = get_app_routes(app)
+for endpoint in app_routes:
+    print(app_routes[endpoint][1][0].handlers)
+    for method in app_routes[endpoint][1][0].handlers:
+        print(app_routes[endpoint][1][0].handlers[method].__doc__)
