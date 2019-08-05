@@ -57,6 +57,7 @@ def transfer_postman_id(api_json, existing_file=None):
     return api_json
 
 
+# blueprint routes
 def find_blueprints(app):
     """Returns a list of blueprints."""
     blueprints = app.blueprints.keys()
@@ -96,6 +97,7 @@ def get_url_prefix(blueprint):
     return prefix
 
 
+# app routes
 def get_app_routes(app):
     """Return routes in main app."""
     routes = {}
