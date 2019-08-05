@@ -100,8 +100,25 @@ def get_url_prefix(blueprint):
 # app routes
 def get_app_routes(app):
     """Return routes in main app."""
-    routes = app.router.routes_names
+    routes = {}
+    for route in app.router.routes_names:
+        if "." not in route:
+            routes[route] = app.router.routes_names[route]
     return routes
+
+
+def get_app_route_methods(route):
+    """Return CRUD method for routes in main app.
+
+    Returns dict with method as key and function as value."""
+    methods = app_routes[route][1][0].handlers
+    return methods
+
+
+def get_app_route_doc_string(method):
+    """Returns doc string for embedded function."""
+    doc = app_routes[route][1][0].handlers[method].__doc__
+    return doc
 
 
 collection = basic_JSON("Testing", app)
@@ -121,11 +138,12 @@ for blueprint in blueprints:
 
 # test = routes[0][1][0].handlers["GET"].__doc__
 
-routes = get_app_routes(app)
+app_routes = get_app_routes(app)
 
-print(app.blueprints["database_1"].routes)
-# for endpoint in app_routes:
-#    print(app_routes[endpoint][1][0].handlers)
-#    for method in app_routes[endpoint][1][0].handlers:
-#        print(app_routes[endpoint][1][0].handlers[method].__doc__)
-#
+
+for route in app_routes:
+    methods = get_app_route_methods(route)
+    print(methods)
+    for method in methods:
+        doc = get_app_route_doc_string(method)
+        print(doc)
