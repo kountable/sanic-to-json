@@ -23,14 +23,14 @@ async def health(request):
     """Return health status."""
 
 
-@app.route("/healthcheck", methods=["POST"])
-async def health(request):
-    """Post health status."""
-
-
 @app.route("/test", methods=["GET"])
 async def test(request):
     """Another get request."""
+
+
+@app.route("/test", methods=["POST"])
+async def health(request):
+    """Another post request."""
 
 
 if __name__ == "__main__":

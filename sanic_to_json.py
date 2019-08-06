@@ -122,10 +122,6 @@ def get_app_route_doc_string(method, app):
     return doc
 
 
-collection = basic_JSON("Testing", app)
-collection = transfer_postman_id(collection)
-
-
 # blueprints = get_blueprint_docs("database_1", app)
 blueprints = find_blueprints(app)
 for blueprint in blueprints:
@@ -151,5 +147,8 @@ for route in app_routes:
         doc = get_app_route_doc_string(method, app)
         print(doc)
 
-    # print(get_app_route_methods(route, app))
 
+collection = basic_JSON("Testing", app)
+collection = transfer_postman_id(collection)
+
+print(collection)
