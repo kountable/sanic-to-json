@@ -148,7 +148,31 @@ for route in app_routes:
         print(doc)
 
 
+# build the json
+def add_blueprint_folders(api_json, app, blueprints):
+    """Converts each blueprint into a dictionary with a name, item =[], and description.
+     
+    These dictionaries become Postman folders. The "item" dict will contain the endpoins
+    for each blueprint.
+
+    Returns a list of dictionary items."""
+    for blueprint in blueprints:
+        postman_folder = {}
+        postman_folder["name"] = blueprint
+        postman_folder["item"] = []
+        postman_folder["description"] = get_blueprint_docs(blueprint, app)
+        api_json["item"].append(postman_folder)
+    return api_json
+
+def populate_blueprints(api_json, app):
+    for blueprint in api_json[]
+
+
 collection = basic_JSON("Testing", app)
 collection = transfer_postman_id(collection)
+collection = add_blueprint_folders(collection, app, blueprints)
+# populate blueprint endpoints
+
 
 print(collection)
+
