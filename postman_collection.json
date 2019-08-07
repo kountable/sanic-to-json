@@ -38,6 +38,21 @@
                         "description": "Return JSON from GET request."
                     },
                     "response": []
+                },
+                {
+                    "name": "/endpoint-two",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{target_url}}v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{target_url}}v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from POST request."
+                    },
+                    "response": []
                 }
             ]
         },
