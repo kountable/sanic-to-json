@@ -126,6 +126,72 @@
                     "response": []
                 }
             ]
+        },
+        {
+            "name": "/healthcheck",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{target_url}}/healthcheck",
+                    "host": [
+                        "{{target_url}}/healthcheck"
+                    ]
+                },
+                "description": "Return health status."
+            },
+            "response": []
+        },
+        {
+            "name": "/test",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{target_url}}/test",
+                    "host": [
+                        "{{target_url}}/test"
+                    ]
+                },
+                "description": "Another post request."
+            },
+            "response": []
+        },
+        {
+            "name": "/test",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{target_url}}/test",
+                    "host": [
+                        "{{target_url}}/test"
+                    ]
+                },
+                "description": "Another get request."
+            },
+            "response": []
         }
     ]
 }

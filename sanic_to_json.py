@@ -170,25 +170,57 @@ def get_app_routes(app):
     return routes
 
 
-def get_app_route_name(app, route):
+def get_app_route_name(routes, route):
     """Return app route name."""
-    name = app.router.routes_names[route][0]
+    name = routes[route][0]
     return name
 
 
-def get_app_route_methods(app, route):
+def get_app_route_url(routes, route):
+    """Return app route name."""
+    name = routes[route][1].uri
+    return name
+
+
+def get_app_route_methods(routes, route):
     """Return CRUD methods for routes in main app."""
-    methods = list(app.router.routes_names[route][1].methods)
+    methods = list(routes[route][1].methods)
     return methods
 
 
-def get_app_route_doc_string(app, route, method):
+def get_app_route_doc_string(routes, route, method):
     """Returns doc string for embedded route functions."""
     try:
-        doc = app.router.routes_names[route][1][0].handlers[method].__doc__
+        doc = routes[route][1][0].handlers[method].__doc__
     except AttributeError:
-        doc = app.router.routes_names[route][1][0].__doc__
+        doc = routes[route][1][0].__doc__
     return doc
+
+
+def format_app_request(routes, route, method):
+    """Populates atomic_request dictionary with route metatdata.
+
+    Returns a postman formatted dictionary request item."""
+    request = atomic_request()
+    request["name"] = get_app_route_name(routes, route)
+    request["request"]["method"] = method
+    request["request"]["url"]["raw"] = "{{target_url}}" + get_app_route_url(
+        routes, route
+    )
+    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
+    request["request"]["description"] = get_app_route_doc_string(routes, route, method)
+    return request
+
+
+def add_app_requests(api_json, app):
+    """Add requests defined in main to api JSON dict."""
+    routes = get_app_routes(app)
+    for route in routes:
+        methods = get_app_route_methods(routes, route)
+        for method in methods:
+            request = format_app_request(routes, route, method)
+            api_json["item"].append(request)
+    return api_json
 
 
 # export JSON
@@ -207,7 +239,7 @@ def generate_json(
     Parameters
     ----------
     collection_name: str
-        dictionary file with request data in postman schema
+        title of collection
     app: Sanic class
         Sanic app
     filename: str (optional)
@@ -219,8 +251,10 @@ def generate_json(
     collection = basic_JSON(collection_name, app)
     # transfer postman id
     collection = transfer_postman_id(collection, existing_file=existing_file)
-    # populate requests
+    # populate blueprint requests
     collection = populate_blueprints(collection, app)
+    # populate main app requests
+    add_app_requests(collection, app)
     # save dict to JSON file
     save_as_json(collection)
 
