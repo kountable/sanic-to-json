@@ -1,5 +1,5 @@
-from python_to_postman import generate_postman_json
+from sanic_to_json import generate_json
 from examples.app import app
 
 
-generate_postman_json("Test_collection", app)
+generate_json(collection_name="Test API", app=app)

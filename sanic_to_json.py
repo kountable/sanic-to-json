@@ -217,9 +217,3 @@ def generate_json(
     # save dict to JSON file
     save_as_json(collection)
 
-
-# generate_json(
-#    collection_name="Internal ACP API",
-#    app=app,
-#    existing_file="Internal ACP API.postman_collection.json",
-# )
