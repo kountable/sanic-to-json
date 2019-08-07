@@ -56,7 +56,7 @@
                 {
                     "name": "/endpoint-two",
                     "request": {
-                        "method": "GET",
+                        "method": "POST",
                         "header": [
                             {
                                 "key": "Content-Type",

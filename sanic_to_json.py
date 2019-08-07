@@ -146,7 +146,13 @@ def add_blueprint_folders(api_json, app, blueprints):
     return api_json
 
 
-def format_endpoint(blueprint, route):
+def get_method(route):
+    """Returns method (GET, POST, etc) from route."""
+    method = route[2][0]
+    return method
+
+
+def format_request(blueprint, route):
     """Populates atomic_request dictionary with route metatdata.
 
     Assumes route is a list of route items, e.g, function, url, methods
@@ -154,6 +160,7 @@ def format_endpoint(blueprint, route):
     Returns a postman formatted dictionary request item."""
     request = atomic_request()
     request["name"] = get_route_name(route)
+    request["request"]["method"] = get_method(route)
     request["request"]["url"]["raw"] = (
         "{{target_url}}" + get_url_prefix(blueprint) + request["name"]
     )
@@ -167,7 +174,7 @@ def populate_blueprints(api_json, app):
     for blueprint in find_blueprints(app):
         items = []
         for route in get_blueprint_routes(blueprint, app):
-            items.append(format_endpoint(blueprint, route))
+            items.append(format_request(blueprint, route))
         api_json["item"].append(
             {
                 "name": blueprint,
