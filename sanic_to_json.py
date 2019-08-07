@@ -1,5 +1,4 @@
 from json import load, dump
-from examples.app import app
 
 
 def collection_json():
@@ -99,7 +98,7 @@ def get_route_method(route):
     return route[2][0]
 
 
-def get_url_prefix(blueprint):
+def get_url_prefix(app, blueprint):
     prefix = app.blueprints[blueprint].version + app.blueprints[blueprint].url_prefix
     return prefix
 
@@ -132,7 +131,7 @@ def get_app_route_doc_string(method, app):
 # build the json
 def add_blueprint_folders(api_json, app, blueprints):
     """Converts each blueprint into a dictionary with a name, item =[], and description.
-     
+
     These dictionaries become Postman folders. The "item" dict will contain the endpoins
     for each blueprint.
 
@@ -152,7 +151,7 @@ def get_method(route):
     return method
 
 
-def format_request(blueprint, route):
+def format_request(app, blueprint, route):
     """Populates atomic_request dictionary with route metatdata.
 
     Assumes route is a list of route items, e.g, function, url, methods
@@ -162,7 +161,7 @@ def format_request(blueprint, route):
     request["name"] = get_route_name(route)
     request["request"]["method"] = get_method(route)
     request["request"]["url"]["raw"] = (
-        "{{target_url}}" + get_url_prefix(blueprint) + request["name"]
+        "{{target_url}}" + get_url_prefix(app, blueprint) + request["name"]
     )
     request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
     request["request"]["description"] = get_doc_string(route)
@@ -174,7 +173,7 @@ def populate_blueprints(api_json, app):
     for blueprint in find_blueprints(app):
         items = []
         for route in get_blueprint_routes(blueprint, app):
-            items.append(format_request(blueprint, route))
+            items.append(format_request(app, blueprint, route))
         api_json["item"].append(
             {
                 "name": blueprint,
@@ -193,11 +192,34 @@ def save_as_json(collection_name, filename="postman_collection.json"):
         dump(collection_name, file, indent=4)
 
 
-collection = basic_JSON("Testing", app)
-collection = transfer_postman_id(collection)
-blueprints = find_blueprints(app)
+def generate_json(
+    collection_name, app, filename="postman_collection.json", existing_file=None
+):
+    """Generates json script from Sanic docs.
 
-collection = populate_blueprints(collection, app)
-save_as_json(collection)
-print(collection)
+    Parameters
+    ----------
+    collection_name: str
+        dictionary file with request data in postman schema
+    app: Sanic class
+        Sanic app
+    filename: str (optional)
+        location of output file
+    existing_file: str (optional)
+        location of existing file, used to copy previous postman_id key
+    """
+    # build basic json schema
+    collection = basic_JSON(collection_name, app)
+    # transfer postman id
+    collection = transfer_postman_id(collection, existing_file=existing_file)
+    # populate requests
+    collection = populate_blueprints(collection, app)
+    # save dict to JSON file
+    save_as_json(collection)
 
+
+# generate_json(
+#    collection_name="Internal ACP API",
+#    app=app,
+#    existing_file="Internal ACP API.postman_collection.json",
+# )
