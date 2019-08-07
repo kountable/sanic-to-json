@@ -18,9 +18,3 @@ async def post(request):
     data = request.text
     return json(data)
 
-
-@bp1.route("/endpoint-two", methods=["POST"])
-async def post(request):
-    """Return JSON from POST request."""
-    data = request.text
-    return json(data)

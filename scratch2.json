@@ -18,11 +18,11 @@
                             "raw": "{{target_url}}v1/a-prefix/endpoint-one",
                             "host": [
                                 "{{target_url}}v1/a-prefix/endpoint-one"
-                            ]
+                            ],
                         },
-                        "description": "Return text from request."
+                        "description": "Return text from request.",
                     },
-                    "response": []
+                    "response": [],
                 },
                 {
                     "name": "/endpoint-two",
@@ -33,13 +33,13 @@
                             "raw": "{{target_url}}v1/a-prefix/endpoint-two",
                             "host": [
                                 "{{target_url}}v1/a-prefix/endpoint-two"
-                            ]
+                            ],
                         },
-                        "description": "Return JSON from GET request."
+                        "description": "Return JSON from GET request.",
                     },
-                    "response": []
-                }
-            ]
+                    "response": [],
+                },
+            ],
         },
         {
             "name": "api_1",
@@ -54,11 +54,11 @@
                             "raw": "{{target_url}}v1/another-prefix/endpoint-three",
                             "host": [
                                 "{{target_url}}v1/another-prefix/endpoint-three"
-                            ]
+                            ],
                         },
-                        "description": "Return text from request."
+                        "description": "Return text from request.",
                     },
-                    "response": []
+                    "response": [],
                 },
                 {
                     "name": "/endpoint-four",
@@ -69,7 +69,7 @@
                             "raw": "{{target_url}}v1/another-prefix/endpoint-four",
                             "host": [
                                 "{{target_url}}v1/another-prefix/endpoint-four"
-                            ]
+                            ],
                         },
                         "description": "Return JSON form request."
                     },

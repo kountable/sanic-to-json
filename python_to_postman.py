@@ -91,7 +91,7 @@ def transfer_postman_id(api_json, existing_file=None):
     return api_json
 
 
-def generate_postman_json(
+def save_as_json(
     collection_name, app, filename="postman_collection.json", existing_file=None
 ):
     """Write a JSON file to Postman schema specifications."""

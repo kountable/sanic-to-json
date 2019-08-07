@@ -1,4 +1,4 @@
-from json import load
+from json import load, dump
 from examples.app import app
 
 
@@ -122,32 +122,6 @@ def get_app_route_doc_string(method, app):
     return doc
 
 
-# blueprints = get_blueprint_docs("database_1", app)
-blueprints = find_blueprints(app)
-for blueprint in blueprints:
-    print(get_url_prefix(blueprint))
-    routes = get_blueprint_routes(blueprint, app)
-    for route in routes:
-        print(get_route_name(route))
-        print(get_route_method(route))
-        print(get_doc_string(route))
-
-
-# test = routes[0][1][0].handlers["GET"].__doc__
-
-app_routes = get_app_routes(app)
-
-print(app_routes)
-for route in app_routes:
-    methods = get_app_route_methods(route, app)
-    print(route)
-    print(methods)
-    for method in methods:
-        print(method)
-        doc = get_app_route_doc_string(method, app)
-        print(doc)
-
-
 # build the json
 def add_blueprint_folders(api_json, app, blueprints):
     """Converts each blueprint into a dictionary with a name, item =[], and description.
@@ -164,15 +138,52 @@ def add_blueprint_folders(api_json, app, blueprints):
         api_json["item"].append(postman_folder)
     return api_json
 
+
+def format_endpoint(blueprint, route):
+    """Populates atomic_request dictionary with route metatdata.
+
+    Assumes route is a list of route items, e.g, function, url, methods
+
+    Returns a postman formatted dictionary request item."""
+    request = atomic_request()
+    request["name"] = get_route_name(route)
+    request["request"]["url"]["raw"] = (
+        "{{target_url}}" + get_url_prefix(blueprint) + request["name"]
+    )
+    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
+    request["request"]["description"] = get_doc_string(route)
+    return request
+
+
 def populate_blueprints(api_json, app):
-    for blueprint in api_json[]
+    """Populates endpoints for each blueprint folder."""
+    for blueprint in find_blueprints(app):
+        items = []
+        for route in get_blueprint_routes(blueprint, app):
+            items.append(format_endpoint(blueprint, route))
+        api_json["item"].append(
+            {
+                "name": blueprint,
+                "description": get_blueprint_docs(blueprint, app),
+                "item": items,
+            }
+        )
+
+    return api_json
+
+
+def save_as_json(collection_name, filename="postman_collection.json"):
+    """Write dict to JSON file."""
+
+    with open(filename, "w") as file:
+        dump(collection_name, file, indent=4)
 
 
 collection = basic_JSON("Testing", app)
 collection = transfer_postman_id(collection)
-collection = add_blueprint_folders(collection, app, blueprints)
-# populate blueprint endpoints
+blueprints = find_blueprints(app)
 
-
+collection = populate_blueprints(collection, app)
+save_as_json(collection)
 print(collection)
 
