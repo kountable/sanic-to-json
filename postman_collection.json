@@ -1,9 +1,8 @@
 {
     "info": {
-        "name": "Internal ACP API",
+        "name": "Test API",
         "description": "A doc string for the API. Blueprints have their own doc strings.",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "3e2c899a-3e7e-4dc3-bc27-5750362e2858"
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {

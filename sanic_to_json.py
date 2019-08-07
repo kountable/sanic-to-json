@@ -103,32 +103,7 @@ def get_url_prefix(app, blueprint):
     return prefix
 
 
-# app routes
-def get_app_routes(app):
-    """Return routes in main app."""
-    routes = {}
-    for route in app.router.routes_names:
-        if "." not in route:
-            routes[route] = app.router.routes_names[route]
-    return routes
-
-
-def get_app_route_methods(route, app):
-    """Return CRUD methods for routes in main app."""
-    methods = list(app.router.routes_names[route][1].methods)
-    return methods
-
-
-def get_app_route_doc_string(method, app):
-    """Returns doc string for embedded route functions."""
-    try:
-        doc = app.router.routes_names[route][1][0].handlers[method].__doc__
-    except AttributeError:
-        doc = app.router.routes_names[route][1][0].__doc__
-    return doc
-
-
-# build the json
+# build the json from blueprints
 def add_blueprint_folders(api_json, app, blueprints):
     """Converts each blueprint into a dictionary with a name, item =[], and description.
 
@@ -185,6 +160,32 @@ def populate_blueprints(api_json, app):
     return api_json
 
 
+# app routes
+def get_app_routes(app):
+    """Return routes in main app."""
+    routes = {}
+    for route in app.router.routes_names:
+        if "." not in route:
+            routes[route] = app.router.routes_names[route]
+    return routes
+
+
+def get_app_route_methods(route, app):
+    """Return CRUD methods for routes in main app."""
+    methods = list(app.router.routes_names[route][1].methods)
+    return methods
+
+
+def get_app_route_doc_string(method, app):
+    """Returns doc string for embedded route functions."""
+    try:
+        doc = app.router.routes_names[route][1][0].handlers[method].__doc__
+    except AttributeError:
+        doc = app.router.routes_names[route][1][0].__doc__
+    return doc
+
+
+# export JSON
 def save_as_json(collection_name, filename="postman_collection.json"):
     """Write dict to JSON file."""
 
