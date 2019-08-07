@@ -13,7 +13,14 @@
                     "name": "/endpoint-one",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
                             "raw": "{{target_url}}v1/a-prefix/endpoint-one",
                             "host": [
@@ -28,7 +35,14 @@
                     "name": "/endpoint-two",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
                             "raw": "{{target_url}}v1/a-prefix/endpoint-two",
                             "host": [
@@ -43,7 +57,14 @@
                     "name": "/endpoint-two",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
                             "raw": "{{target_url}}v1/a-prefix/endpoint-two",
                             "host": [
@@ -64,7 +85,14 @@
                     "name": "/endpoint-three",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
                             "raw": "{{target_url}}v1/another-prefix/endpoint-three",
                             "host": [
@@ -79,7 +107,14 @@
                     "name": "/endpoint-four",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
                             "raw": "{{target_url}}v1/another-prefix/endpoint-four",
                             "host": [

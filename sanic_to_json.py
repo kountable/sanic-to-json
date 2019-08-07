@@ -22,7 +22,14 @@ def atomic_request():
         "name": "test request",
         "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+                {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text",
+                }
+            ],
             "url": {
                 "raw": "{{target_url}}endpoint",
                 "host": ["{{target_url}}endpoint"],
