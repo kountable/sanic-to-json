@@ -29,9 +29,9 @@
 							"raw": "{\"username\":\"{{username}}\", \"password\":\"{{password}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}token",
+							"raw": "{{data_url}}token",
 							"host": [
-								"{{target_url}}token"
+								"{{data_url}}token"
 							]
 						},
 						"description": "Returns json formatted accumulo token."
@@ -58,9 +58,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\",\n\"project_detail\":\"project_sector\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}project-details",
+							"raw": "{{acp_url}}project-details",
 							"host": [
-								"{{target_url}}project-details"
+								"{{acp_url}}project-details"
 							]
 						},
 						"description": "Retrieves project profile detail. \n    \n\nNeeds three inputs \n- token\n- project_id\n- project_detail\n\n\n    Available `project_detail` qualifiers are:\n- project_name\n- project_impact\n- project_state\n- project_sector."
@@ -117,9 +117,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{target_url}}org-names-by-types",
+							"raw": "{{acp_url}}org-names-by-types",
 							"host": [
-								"{{target_url}}org-names-by-types"
+								"{{acp_url}}org-names-by-types"
 							]
 						},
 						"description": "Retrieves org names accoding to type. \n\n    \n\nNeeds three inputs \n- token\n- project_id\n- org_type\n\n\n    Available `org_type` qualifiers are:\n    \n - supplier \n - end_customer \n - reseller\n - customs_clearing_agent \n - carrier \n - freight_forwarder\n - shipping_insurer."
@@ -146,9 +146,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}goods-descriptions",
+							"raw": "{{acp_url}}goods-descriptions",
 							"host": [
-								"{{target_url}}goods-descriptions"
+								"{{acp_url}}goods-descriptions"
 							]
 						},
 						"description": "Retrieves goods description for a specific project ID"
@@ -175,9 +175,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}base-prices",
+							"raw": "{{finance_url}}base-prices",
 							"host": [
-								"{{target_url}}base-prices"
+								"{{finance_url}}base-prices"
 							]
 						},
 						"description": "\"Given a project_id, returns the base price of the project in USD, net of reseller contributions.\n\n    \n\nInputs \n    \n- token\n- project_id\n    \n\nExtracts payable invoice amounts from cash_flow_df and converts to US dollars, then sums them,\n    \nthen subtracts reseller contribution from project_df. See get_base_price in finances.py"
@@ -204,9 +204,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}milestones",
+							"raw": "{{finance_url}}milestones",
 							"host": [
-								"{{target_url}}milestones"
+								"{{finance_url}}milestones"
 							]
 						},
 						"description": "Returns JSON of the cash flow dates, amounts, and details for the project. \n    Created for filling the \"Milestones\nOutflow/Inflow\" section of the ACP.\n\nInputs \n- token\n- project_id"
@@ -233,9 +233,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}acp-project-descriptions",
+							"raw": "{{acp_url}}acp-project-descriptions",
 							"host": [
-								"{{target_url}}acp-project-descriptions"
+								"{{acp_url}}acp-project-descriptions"
 							]
 						},
 						"description": "Returns contract numbers, po numbers, po amounts in USD, and goods item descriptions"
@@ -244,13 +244,27 @@
 				},
 				{
 					"name": "/reseller-contributions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}reseller-contributions",
+							"raw": "{{finance_url}}reseller-contributions",
 							"host": [
-								"{{target_url}}reseller-contributions"
+								"{{finance_url}}reseller-contributions"
 							]
 						},
 						"description": "Returns the sum of reseller contributions to the project in USD"
@@ -259,13 +273,27 @@
 				},
 				{
 					"name": "/coverage-ratios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}coverage-ratios",
+							"raw": "{{finance_url}}coverage-ratios",
 							"host": [
-								"{{target_url}}coverage-ratios"
+								"{{finance_url}}coverage-ratios"
 							]
 						},
 						"description": "Return data from get_acp_project_description_table"
@@ -274,13 +302,27 @@
 				},
 				{
 					"name": "/project-terms",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}project-terms",
+							"raw": "{{finance_url}}project-terms",
 							"host": [
-								"{{target_url}}project-terms"
+								"{{finance_url}}project-terms"
 							]
 						},
 						"description": "Return data from get_acp_project_description_table"
@@ -289,13 +331,27 @@
 				},
 				{
 					"name": "/break-even-dates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}break-even-dates",
+							"raw": "{{finance_url}}break-even-dates",
 							"host": [
-								"{{target_url}}break-even-dates"
+								"{{finance_url}}break-even-dates"
 							]
 						},
 						"description": "Return data from get_acp_project_description_table"
@@ -322,9 +378,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}supplier-descriptions",
+							"raw": "{{acp_url}}supplier-descriptions",
 							"host": [
-								"{{target_url}}supplier-descriptions"
+								"{{acp_url}}supplier-descriptions"
 							]
 						},
 						"description": "Return data from get_acp_project_description_table"
@@ -351,9 +407,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}project-organization-risk-levels-and-summaries",
+							"raw": "{{acp_url}}project-organization-risk-levels-and-summaries",
 							"host": [
-								"{{target_url}}project-organization-risk-levels-and-summaries"
+								"{{acp_url}}project-organization-risk-levels-and-summaries"
 							]
 						},
 						"description": "Return data from get_project_organization_risk_levels_and_summaries"
@@ -380,9 +436,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}country-exemptions",
+							"raw": "{{acp_url}}country-exemptions",
 							"host": [
-								"{{target_url}}country-exemptions"
+								"{{acp_url}}country-exemptions"
 							]
 						},
 						"description": "Return data from get_country_exemptions"
@@ -391,13 +447,27 @@
 				},
 				{
 					"name": "/red-flags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}red-flags",
+							"raw": "{{acp_url}}red-flags",
 							"host": [
-								"{{target_url}}red-flags"
+								"{{acp_url}}red-flags"
 							]
 						},
 						"description": "Return data from get_red_flags"
@@ -406,13 +476,27 @@
 				},
 				{
 					"name": "/site-reports",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}site-reports",
+							"raw": "{{acp_url}}site-reports",
 							"host": [
-								"{{target_url}}site-reports"
+								"{{acp_url}}site-reports"
 							]
 						},
 						"description": "Return data from get_site_report"
@@ -421,13 +505,27 @@
 				},
 				{
 					"name": "/contract-activities",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}contract-activities",
+							"raw": "{{acp_url}}contract-activities",
 							"host": [
-								"{{target_url}}contract-activities"
+								"{{acp_url}}contract-activities"
 							]
 						},
 						"description": "Descriptions of the activities that need to be carried out in the course of completing each contract"
@@ -436,13 +534,27 @@
 				},
 				{
 					"name": "/contract-verifications",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}contract-verifications",
+							"raw": "{{acp_url}}contract-verifications",
 							"host": [
-								"{{target_url}}contract-verifications"
+								"{{acp_url}}contract-verifications"
 							]
 						},
 						"description": "Returns whether the end customer contract was verified and who verified it."
@@ -469,9 +581,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}contract-amounts",
+							"raw": "{{finance_url}}contract-amounts",
 							"host": [
-								"{{target_url}}contract-amounts"
+								"{{finance_url}}contract-amounts"
 							]
 						},
 						"description": "Return the amounts in USD for all the contracts and POs"
@@ -498,9 +610,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}payment-terms",
+							"raw": "{{finance_url}}payment-terms",
 							"host": [
-								"{{target_url}}payment-terms"
+								"{{finance_url}}payment-terms"
 							]
 						},
 						"description": "Return data from get_payment_terms"
@@ -509,13 +621,27 @@
 				},
 				{
 					"name": "/performance-bonds",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}performance-bonds",
+							"raw": "{{finance_url}}performance-bonds",
 							"host": [
-								"{{target_url}}performance-bonds"
+								"{{finance_url}}performance-bonds"
 							]
 						},
 						"description": "Returns details about the performance bonds in the project"
@@ -524,13 +650,27 @@
 				},
 				{
 					"name": "/contract-and-po-numbers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}contract-and-po-numbers",
+							"raw": "{{acp_url}}contract-and-po-numbers",
 							"host": [
-								"{{target_url}}contract-and-po-numbers"
+								"{{acp_url}}contract-and-po-numbers"
 							]
 						},
 						"description": "Returns contract and po numbers in the project"
@@ -539,13 +679,27 @@
 				},
 				{
 					"name": "/product-costs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}product-costs",
+							"raw": "{{finance_url}}product-costs",
 							"host": [
-								"{{target_url}}product-costs"
+								"{{finance_url}}product-costs"
 							]
 						},
 						"description": "Returns the total cost of just the physical goods in the project"
@@ -554,13 +708,27 @@
 				},
 				{
 					"name": "/logistics-and-insurance-and-inspection-costs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}logistics-and-insurance-and-inspection-costs",
+							"raw": "{{finance_url}}logistics-and-insurance-and-inspection-costs",
 							"host": [
-								"{{target_url}}logistics-and-insurance-and-inspection-costs"
+								"{{finance_url}}logistics-and-insurance-and-inspection-costs"
 							]
 						},
 						"description": "Returns the total cost of logistics, insurance, and customs inspection in the project."
@@ -569,13 +737,27 @@
 				},
 				{
 					"name": "/duty-and-agency-customs-and-vat-costs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}duty-and-agency-customs-and-vat-costs",
+							"raw": "{{finance_url}}duty-and-agency-customs-and-vat-costs",
 							"host": [
-								"{{target_url}}duty-and-agency-customs-and-vat-costs"
+								"{{finance_url}}duty-and-agency-customs-and-vat-costs"
 							]
 						},
 						"description": "Returns returns the total cost of duty, customs clearing agency charges, and vat in the project"
@@ -584,13 +766,27 @@
 				},
 				{
 					"name": "/other-costs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}other-costs",
+							"raw": "{{finance_url}}other-costs",
 							"host": [
-								"{{target_url}}other-costs"
+								"{{finance_url}}other-costs"
 							]
 						},
 						"description": "Returns the total cost 'other' costs in the project (USD)"
@@ -599,13 +795,27 @@
 				},
 				{
 					"name": "/collateral-tables",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}collateral-tables",
+							"raw": "{{finance_url}}collateral-tables",
 							"host": [
-								"{{target_url}}collateral-tables"
+								"{{finance_url}}collateral-tables"
 							]
 						},
 						"description": "Return data from get_other_cost_usd"
@@ -614,13 +824,27 @@
 				},
 				{
 					"name": "/funding-conditions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}funding-conditions",
+							"raw": "{{finance_url}}funding-conditions",
 							"host": [
-								"{{target_url}}funding-conditions"
+								"{{finance_url}}funding-conditions"
 							]
 						},
 						"description": "Conditions that the project needs to fulfill in order to be considered for funding"
@@ -647,9 +871,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}is-framework-contract",
+							"raw": "{{acp_url}}is-framework-contract",
 							"host": [
-								"{{target_url}}is-framework-contract"
+								"{{acp_url}}is-framework-contract"
 							]
 						},
 						"description": "Contract numbers and a boolean representing whether they are\n    framework contracts"
@@ -702,13 +926,27 @@
 				},
 				{
 					"name": "/contract-incoterms",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}contract-incoterms",
+							"raw": "{{acp_url}}contract-incoterms",
 							"host": [
-								"{{target_url}}contract-incoterms"
+								"{{acp_url}}contract-incoterms"
 							]
 						},
 						"description": "Returns a data frame of contract number and a string indicating the contract's incoterm"
@@ -735,9 +973,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}customs-clearing-agent-approval-status",
+							"raw": "{{acp_url}}customs-clearing-agent-approval-status",
 							"host": [
-								"{{target_url}}customs-clearing-agent-approval-status"
+								"{{acp_url}}customs-clearing-agent-approval-status"
 							]
 						},
 						"description": "Returns a data indexed by organization ID. \n\n    Includes a boolean for 'approved customs clearing agent' \n    and a free text justification for using the customs clearing agent\n    if it's the first time using them. Also contains a column for customs clearing agent name.\n    "
@@ -764,9 +1002,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}person-credit-report-findings",
+							"raw": "{{acp_url}}person-credit-report-findings",
 							"host": [
-								"{{target_url}}person-credit-report-findings"
+								"{{acp_url}}person-credit-report-findings"
 							]
 						},
 						"description": "Returns a dataframe by person given name, family name, credit report number, and date"
@@ -793,9 +1031,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}organization-credit-report-findings",
+							"raw": "{{acp_url}}organization-credit-report-findings",
 							"host": [
-								"{{target_url}}organization-credit-report-findings"
+								"{{acp_url}}organization-credit-report-findings"
 							]
 						},
 						"description": "Return data by organization name, credit report number, and date"
@@ -822,9 +1060,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}credit-report-consent-letters",
+							"raw": "{{acp_url}}credit-report-consent-letters",
 							"host": [
-								"{{target_url}}credit-report-consent-letters"
+								"{{acp_url}}credit-report-consent-letters"
 							]
 						},
 						"description": "Return organization ID and a boolean for whether consent letter is signed for credit report running."
@@ -833,13 +1071,27 @@
 				},
 				{
 					"name": "/business-intelligence-report-findings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}business-intelligence-report-findings",
+							"raw": "{{acp_url}}business-intelligence-report-findings",
 							"host": [
-								"{{target_url}}business-intelligence-report-findings"
+								"{{acp_url}}business-intelligence-report-findings"
 							]
 						},
 						"description": "Returns organization name, business intelligence report number, and date"
@@ -848,13 +1100,27 @@
 				},
 				{
 					"name": "/country-of-origin-from-supplier-pro-forma-invoices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}country-of-origin-from-supplier-pro-forma-invoices",
+							"raw": "{{acp_url}}country-of-origin-from-supplier-pro-forma-invoices",
 							"host": [
-								"{{target_url}}country-of-origin-from-supplier-pro-forma-invoices"
+								"{{acp_url}}country-of-origin-from-supplier-pro-forma-invoices"
 							]
 						},
 						"description": "Return data by organization name, invoice number, and country of origin"
@@ -881,9 +1147,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}base-price-of-previous-kountable-reseller-projects",
+							"raw": "{{finance_url}}base-price-of-previous-kountable-reseller-projects",
 							"host": [
-								"{{target_url}}base-price-of-previous-kountable-reseller-projects"
+								"{{finance_url}}base-price-of-previous-kountable-reseller-projects"
 							]
 						},
 						"description": "Each row is a reseller organization in the given project and each column is either\n    a previous project count or a the base price sum of all previous projects by project status."
@@ -910,9 +1176,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}receivables-of-previous-kountable-end-customer-projects",
+							"raw": "{{finance_url}}receivables-of-previous-kountable-end-customer-projects",
 							"host": [
-								"{{target_url}}receivables-of-previous-kountable-end-customer-projects"
+								"{{finance_url}}receivables-of-previous-kountable-end-customer-projects"
 							]
 						},
 						"description": "Each row is an end customer organization in the given project and each column is either\n    a previous project count or the total receivables sum of all previous projects by project status."
@@ -921,13 +1187,27 @@
 				},
 				{
 					"name": "/previous-project-advances-to-suppliers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}previous-project-advances-to-suppliers",
+							"raw": "{{finance_url}}previous-project-advances-to-suppliers",
 							"host": [
-								"{{target_url}}previous-project-advances-to-suppliers"
+								"{{finance_url}}previous-project-advances-to-suppliers"
 							]
 						},
 						"description": "Returns data where each row is an end customer organization in the given project and each column is either\n    a previous project count or the total receivables sum of all previous projects by project status"
@@ -954,9 +1234,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}shipper-and-reseller-exp-of-supplier-pro-forma-invoices",
+							"raw": "{{acp_url}}shipper-and-reseller-exp-of-supplier-pro-forma-invoices",
 							"host": [
-								"{{target_url}}shipper-and-reseller-exp-of-supplier-pro-forma-invoices"
+								"{{acp_url}}shipper-and-reseller-exp-of-supplier-pro-forma-invoices"
 							]
 						},
 						"description": "Returns shipper organization IDs, shipper types (carrier or freight forwarder), supplier_pro_forma_invoice\n    numbers, and supplier organization IDs"
@@ -983,9 +1263,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}reseller-non-kountable-experience-with-end-customers",
+							"raw": "{{acp_url}}reseller-non-kountable-experience-with-end-customers",
 							"host": [
-								"{{target_url}}reseller-non-kountable-experience-with-end-customers"
+								"{{acp_url}}reseller-non-kountable-experience-with-end-customers"
 							]
 						},
 						"description": "Returns reseller IDs, end customer IDs, and the non-Kountable experience between the two."
@@ -994,13 +1274,27 @@
 				},
 				{
 					"name": "/reseller-non-kountable-experience-with-suppliers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
+						},
 						"url": {
-							"raw": "{{target_url}}reseller-non-kountable-experience-with-suppliers",
+							"raw": "{{acp_url}}reseller-non-kountable-experience-with-suppliers",
 							"host": [
-								"{{target_url}}reseller-non-kountable-experience-with-suppliers"
+								"{{acp_url}}reseller-non-kountable-experience-with-suppliers"
 							]
 						},
 						"description": "Returns reseller IDs, end customer IDs, and the non-Kountable experience between the two."
@@ -1027,9 +1321,9 @@
 							"raw": "{ \"token\":\"{{token}}\", \n\"project_id\":\"{{project_id}}\"}"
 						},
 						"url": {
-							"raw": "{{target_url}}logistics",
+							"raw": "{{acp_url}}logistics",
 							"host": [
-								"{{target_url}}logistics"
+								"{{acp_url}}logistics"
 							]
 						},
 						"description": "Returns incoterms, ports of loading and discharge, ground transport, final destination\n    address, and warehouse location for each shipment of the project.\n\n    (for the time being this is supplier_pro_forma_invoice based, but in the future it could be consignment based\n    or shipper (freight_forwarder/carrier) pro_forma_invoice based)"
@@ -1152,6 +1446,96 @@
 							"body": "{\n    \"data\": {\n        \"P00014287\": 0\n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "New ACP Vote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{token}}\",\n    \"project_id\": \"{{project_id}}\",\n    \"email\": \"bob_the_underwriter@kountable.com\",\n    \"vote\": \"approve\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}v1/voting/acp-votes",
+							"host": [
+								"{{base_url}}v1"
+							],
+							"path": [
+								"voting",
+								"acp-votes"
+							]
+						},
+						"description": "A user will submitted an approve or reject vote for a project, based on review of the project's approval committee packet (ACP)"
+					},
+					"response": []
+				},
+				{
+					"name": "Change ACP Vote",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{token}}\",\n    \"project_id\": \"{{project_id}}\",\n    \"email\": \"bob_the_underwriter@kountable.com\",\n    \"vote\": \"reject\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}v1/voting/acp-votes",
+							"host": [
+								"{{base_url}}v1"
+							],
+							"path": [
+								"voting",
+								"acp-votes"
+							]
+						},
+						"description": "A user will submitted an approve or reject vote for a project, based on review of the project's approval committee packet (ACP)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ACP Vote",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{token}}\",\n    \"project_id\": \"{{project_id}}\",\n    \"email\": \"bob_the_underwriter@kountable.com\",\n    \"vote\": \"reject\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}v1/voting/acp-votes",
+							"host": [
+								"{{base_url}}v1"
+							],
+							"path": [
+								"voting",
+								"acp-votes"
+							]
+						},
+						"description": "A user will submitted an approve or reject vote for a project, based on review of the project's approval committee packet (ACP)"
+					},
+					"response": []
 				}
 			]
 		},
@@ -1181,62 +1565,76 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Health Check example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}healthz",
+							"host": [
+								"{{base_url}}healthz"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 07 Aug 2019 17:44:17 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"uptime\": \" 17:44:17 up 13 days 21:56\"\n}"
+				}
+			]
 		},
 		{
-			"name": "notifications",
+			"name": "/notifications",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "x-amz-sns-message-type",
-						"value": "Notification",
-						"type": "text"
-					},
-					{
-						"key": "x-amz-sns-message-id",
-						"value": "da41e39f-ea4d-435a-b922-c6aae3915ebe",
-						"type": "text"
-					},
-					{
-						"key": "x-amz-sns-topic-arn",
-						"value": "arn:aws:sns:us-west-2:123456789012:MyTopic",
-						"type": "text"
-					},
-					{
-						"key": "x-amz-sns-subscription-arn",
-						"value": "arn:aws:sns:us-west-2:123456789012:MyTopic:2bcfbf39-05c3-41de-beaa-fcfcc21c8f55",
-						"type": "text"
-					},
-					{
-						"key": "Content-Length",
-						"value": "761",
+						"value": " Notification",
 						"type": "text"
 					},
 					{
 						"key": "Content-Type",
-						"value": "text/plain; charset=UTF-8",
-						"type": "text"
-					},
-					{
-						"key": "Host",
-						"value": "ec2-50-17-44-49.compute-1.amazonaws.com",
-						"type": "text"
-					},
-					{
-						"key": "Connection",
-						"value": "Keep-Alive",
-						"type": "text"
-					},
-					{
-						"key": "User-Agent",
-						"value": "Amazon Simple Notification Service Agent",
+						"name": "Content-Type",
+						"value": "application/json",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"Type\" : \"Notification\",\n  \"MessageId\" : \"da41e39f-ea4d-435a-b922-c6aae3915ebe\",\n  \"TopicArn\" : \"arn:aws:sns:us-west-2:123456789012:MyTopic\",\n  \"Subject\" : \"test\",\n  \"Message\" : \"test message\",\n  \"Timestamp\" : \"2012-04-25T21:49:25.719Z\",\n  \"SignatureVersion\" : \"1\",\n  \"Signature\" : \"EXAMPLElDMXvB8r9R83tGoNn0ecwd5UjllzsvSvbItzfaMpN2nk5HVSw7XnOn/49IkxDKz8YrlH2qJXj2iZB0Zo2O71c4qQk1fMUDi3LGpij7RCW7AW9vYYsSqIKRnFS94ilu7NFhUzLiieYr4BKHpdTmdD6c0esKEYBpabxDSc=\",\n  \"SigningCertURL\" : \"https://sns.us-west-2.amazonaws.com/SimpleNotificationService-f3ecfb7224c7233fe7bb5f59f96de52f.pem\",\n  \"UnsubscribeURL\" : \"https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:123456789012:MyTopic:2bcfbf39-05c3-41de-beaa-fcfcc21c8f55\"\n}"
+					"raw": "{\"project_id\":\"P00014287\"}"
 				},
 				"url": {
 					"raw": "{{base_url}}v1/project-feed/notifications",
@@ -1248,6 +1646,18 @@
 						"notifications"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "/projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "get all projects "
 			},
 			"response": []
 		}
