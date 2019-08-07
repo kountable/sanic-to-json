@@ -29,7 +29,7 @@ async def test(request):
 
 
 @app.route("/test", methods=["POST"])
-async def health(request):
+async def test(request):
     """Another post request."""
 
 

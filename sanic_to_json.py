@@ -170,13 +170,19 @@ def get_app_routes(app):
     return routes
 
 
-def get_app_route_methods(route, app):
+def get_app_route_name(app, route):
+    """Return app route name."""
+    name = app.router.routes_names[route][0]
+    return name
+
+
+def get_app_route_methods(app, route):
     """Return CRUD methods for routes in main app."""
     methods = list(app.router.routes_names[route][1].methods)
     return methods
 
 
-def get_app_route_doc_string(method, app):
+def get_app_route_doc_string(app, route, method):
     """Returns doc string for embedded route functions."""
     try:
         doc = app.router.routes_names[route][1][0].handlers[method].__doc__
