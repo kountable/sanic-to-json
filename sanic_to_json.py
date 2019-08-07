@@ -151,7 +151,7 @@ def get_method(route):
     return method
 
 
-def format_request(app, blueprint, route):
+def format_blueprint_request(app, blueprint, route):
     """Populates atomic_request dictionary with route metatdata.
 
     Assumes route is a list of route items, e.g, function, url, methods
@@ -173,7 +173,7 @@ def populate_blueprints(api_json, app):
     for blueprint in find_blueprints(app):
         items = []
         for route in get_blueprint_routes(blueprint, app):
-            items.append(format_request(app, blueprint, route))
+            items.append(format_blueprint_request(app, blueprint, route))
         api_json["item"].append(
             {
                 "name": blueprint,
