@@ -1,5 +1,5 @@
 import os
-from sanic_to_json import collection_json
+from sanic_to_json import collection_json, atomic_request
 from examples.app import app
 
 
@@ -9,11 +9,12 @@ def test_collection_json():
     assert set(collection_json().keys()) == set(items)
 
 
- def test_types():
+def test_types():
     """Assert json templates are dicionaries."""
-    json_templates = [collection_json, atomic_request]
+    json_templates = [collection_json(), atomic_request()]
     for template in json_templates:
         assert isinstance(template, dict)
+
 
 #
 # def test_postman_JSON():
