@@ -33,3 +33,8 @@ Unfortunately, there is not a streamlined method to retreive routes in blueprint
 Arguments to the header key could be passed in the doc strings, but I'll leave that for a future endevaor. 
 
 - Because Sanic routes are accessed through a dictionary, `app.router.routes_names`, the underlying function names need to be unique for each route, .i.e., async defining routes `/health` and `/test`. 
+
+
+# Contributors
+
+See the [GitHub contributor page](https://github.com/caheredia/python_to_postman/graphs/contributors)
