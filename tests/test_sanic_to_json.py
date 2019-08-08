@@ -1,5 +1,5 @@
 import os
-from sanic_to_json import collection_json, atomic_request
+from sanic_to_json import collection_json, atomic_request, basic_JSON
 from examples.app import app
 
 
@@ -16,14 +16,15 @@ def test_types():
         assert isinstance(template, dict)
 
 
-#
-# def test_postman_JSON():
-#    """Checks 'collection_name' and doc string from Sanic app."""
-#    collection_name = "test_collection"
-#    test_json = postman_JSON(collection_name, app)
-#
-#    assert test_json["info"]["name"] == collection_name
-#    assert test_json["info"]["description"] == app.__doc__
+def test_basic_JSON():
+    """Checks 'collection_name' and doc string from Sanic app."""
+    collection_name = "test_collection"
+    test_json = basic_JSON(collection_name, app)
+
+    assert test_json["info"]["name"] == collection_name
+    assert test_json["info"]["description"] == app.__doc__
+
+
 #
 #
 # def test_blue_print_items():
