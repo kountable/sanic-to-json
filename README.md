@@ -37,4 +37,9 @@ Arguments to the header key could be passed in the doc strings, but I'll leave t
 
 # Contributors
 
-See the [GitHub contributor page](https://github.com/caheredia/sanic_to_json/graphs/contributors)
+See the [GitHub contributor page](https://github.com/kountable/sanic-to-json/graphs/contributors)
+
+
+## License
+
+sanic-to-json is open source software [licensed as MIT](https://github.com/kountable/sanic-to-json/blob/master/LICENSE).
