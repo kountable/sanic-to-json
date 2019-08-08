@@ -50,25 +50,24 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
 
 
 # blueprint routes
-def find_blueprints(app):
-    """Returns a list of blueprints."""
-    blueprints = app.blueprints.keys()
-    return list(blueprints)
+def get_blueprints(app):
+    """Returns a dict of blueprints."""
+    return app.blueprints
 
 
-def get_blueprint_docs(blueprint, app):
+def get_blueprint_docs(blueprints, blueprint):
     """Returns doc string for blueprint."""
-    doc_string = app.blueprints[blueprint].__doc__
+    doc_string = blueprints[blueprint].__doc__
     return doc_string
 
 
-def get_blueprint_routes(blueprint, app):
+def get_blueprint_routes(blueprints, blueprint):
     """Return a list of routes."""
-    routes = app.blueprints[blueprint].routes
+    routes = blueprints[blueprint].routes
     return routes
 
 
-def get_route_name(route):
+def get_blueprint_route_name(route):
     """Returns route name."""
     name = route[1]
     return name
@@ -119,7 +118,7 @@ def format_blueprint_request(app, blueprint, route):
 
     Returns a postman formatted dictionary request item."""
     request = atomic_request()
-    request["name"] = get_route_name(route)
+    request["name"] = get_blueprint_route_name(route)
     request["request"]["method"] = get_method(route)
     request["request"]["url"]["raw"] = (
         "{{target_url}}" + get_url_prefix(app, blueprint) + request["name"]

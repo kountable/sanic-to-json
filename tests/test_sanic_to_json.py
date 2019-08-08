@@ -1,5 +1,13 @@
 import os
-from sanic_to_json import collection_json, atomic_request, basic_JSON
+from sanic_to_json import (
+    collection_json,
+    atomic_request,
+    basic_JSON,
+    get_blueprints,
+    get_blueprint_docs,
+    get_blueprint_routes,
+    get_blueprint_route_name,
+)
 from examples.app import app
 
 
@@ -25,17 +33,37 @@ def test_basic_JSON():
     assert test_json["info"]["description"] == app.__doc__
 
 
-#
-#
-# def test_blue_print_items():
-#    """Runs functions against example folder."""
-#    api_json = postman_JSON("test_collection", app)
-#    api_json = blueprint_items(api_json, app)
-#    blueprints = ["bp1", "bp2"]
-#
-#    for blueprint in api_json["item"]:
-#        assert blueprint["name"] in blueprints
-#
+def test_get_blueprints():
+    assert get_blueprints(app) == app.blueprints
+
+
+# get example app blueprints
+blueprints = get_blueprints(app)
+
+
+def test_get_blueprint_docs():
+    """Returns doc string for blueprint."""
+    for blueprint in blueprints:
+        assert (
+            get_blueprint_docs(blueprints, blueprint) == blueprints[blueprint].__doc__
+        )
+
+
+def test_get_blueprint_routes():
+    """Return a list of routes."""
+    for blueprint in blueprints:
+        assert (
+            get_blueprint_routes(blueprints, blueprint) == blueprints[blueprint].routes
+        )
+
+
+def test_get_blueprint_route_name():
+    """Returns route name."""
+    for blueprint in blueprints:
+        for route in get_blueprint_routes(blueprints, blueprint):
+            get_blueprint_route_name(route) == route[1]
+
+
 #
 # def test_populte_requests():
 #    """References endpoints in examples/blueprint_1 and examples/blueprint_2."""
