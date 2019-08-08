@@ -7,6 +7,9 @@ from sanic_to_json import (
     get_blueprint_docs,
     get_blueprint_routes,
     get_blueprint_route_name,
+    get_doc_string,
+    get_route_method,
+    get_url_prefix,
 )
 from examples.app import app
 
@@ -62,6 +65,27 @@ def test_get_blueprint_route_name():
     for blueprint in blueprints:
         for route in get_blueprint_routes(blueprints, blueprint):
             get_blueprint_route_name(route) == route[1]
+
+
+def test_get_doc_string():
+    """Return doc string for function in blueprint route."""
+    for blueprint in blueprints:
+        for route in get_blueprint_routes(blueprints, blueprint):
+            get_doc_string(route) == route[0].__doc__
+
+
+def test_get_route_method():
+    """Return route CRUD method."""
+    for blueprint in blueprints:
+        for route in get_blueprint_routes(blueprints, blueprint):
+            get_route_method(route) == route[2][0]
+
+
+def test_get_url_prefix():
+    for blueprint in blueprints:
+        get_url_prefix(blueprints, blueprint) == blueprints[
+            blueprint
+        ].version + blueprints[blueprint].url_prefix
 
 
 #

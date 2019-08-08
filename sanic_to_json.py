@@ -74,7 +74,7 @@ def get_blueprint_route_name(route):
 
 
 def get_doc_string(route):
-    """Return doc string for function in route."""
+    """Return doc string for function in blueprint route."""
     return route[0].__doc__
 
 
@@ -83,8 +83,8 @@ def get_route_method(route):
     return route[2][0]
 
 
-def get_url_prefix(app, blueprint):
-    prefix = app.blueprints[blueprint].version + app.blueprints[blueprint].url_prefix
+def get_url_prefix(blueprints, blueprint):
+    prefix = blueprints[blueprint].version + blueprints[blueprint].url_prefix
     return prefix
 
 
