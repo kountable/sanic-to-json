@@ -37,4 +37,4 @@ Arguments to the header key could be passed in the doc strings, but I'll leave t
 
 # Contributors
 
-See the [GitHub contributor page](https://github.com/caheredia/python_to_json/graphs/contributors)
+See the [GitHub contributor page](https://github.com/caheredia/sanic_to_json/graphs/contributors)
