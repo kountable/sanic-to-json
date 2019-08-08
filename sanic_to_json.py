@@ -49,20 +49,6 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
     return api_json
 
 
-def transfer_postman_id(api_json, existing_file=None):
-    """Transfer postman_id from existing JSON file.
-
-    This is only needed if you want to keep the same url."""
-    try:
-        with open(existing_file, "r") as file:
-            data = load(file)
-            api_json["info"]["_postman_id"] = data["info"]["_postman_id"]
-    except TypeError:
-        pass
-
-    return api_json
-
-
 # blueprint routes
 def find_blueprints(app):
     """Returns a list of blueprints."""
@@ -249,8 +235,6 @@ def generate_json(
     """
     # build basic json schema
     collection = basic_JSON(collection_name, app)
-    # transfer postman id
-    collection = transfer_postman_id(collection, existing_file=existing_file)
     # populate blueprint requests
     collection = populate_blueprints(collection, app)
     # populate main app requests
