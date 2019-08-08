@@ -1,5 +1,5 @@
 import os
-from python_to_postman import (
+from sanic_to_json import (
     collection_json,
     atomic_request,
     postman_JSON,

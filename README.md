@@ -18,7 +18,7 @@ Unfortunately, there is not a streamlined method to retreive routes in blueprint
 
 - In the main Sanic app routes should have different funcion names, multiple methods are ok. In contrast, Blueprints are allowed to repeat function names e.g., `aysnc def post(request)`
 
-# To do 
+## To do 
 - At the moment endpoints are assumed to accept raw JSON, as passed by the header option in `sanic_to_json.atomic_requests`  
 ```
 "header": [
