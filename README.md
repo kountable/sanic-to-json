@@ -1,5 +1,5 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-# sanic_to_postman
+# sanic_to_json
 Generate Postman JSON file from python endpoints
 
 Using the postman [schema](https://schema.getpostman.com/json/collection/v2.1.0/collection.json) we can build Postman Collections using python endpoints from Sanic (Flask apps need testing). The script reads Sanic app. It searches for blueprints. The blueprints, through routes, provide docs strings data. The doc string data is used to populate a Postman formatted JSON file. The JSON file can be uploaded to Postman as a collection. 
@@ -37,4 +37,8 @@ Arguments to the header key could be passed in the doc strings, but I'll leave t
 
 # Contributors
 
+<<<<<<< HEAD
 See the [GitHub contributor page](https://github.com/caheredia/sanic_to_postman/graphs/contributors)
+=======
+See the [GitHub contributor page](https://github.com/caheredia/python_to_json/graphs/contributors)
+>>>>>>> 6f50189ffd14edc251b554686384179006c92cf8
