@@ -49,6 +49,11 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
     return api_json
 
 
+def get_all_routes(app):
+    """Returns all routes from Sanic app."""
+    return app.router.routes_all
+
+
 # blueprint routes
 def get_blueprints(app):
     """Returns a dict of blueprints."""
