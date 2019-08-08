@@ -140,9 +140,9 @@
                     }
                 ],
                 "url": {
-                    "raw": "{{target_url}}/healthcheck",
+                    "raw": "{{target_url}}health",
                     "host": [
-                        "{{target_url}}/healthcheck"
+                        "{{target_url}}health"
                     ]
                 },
                 "description": "Return health status."
@@ -162,9 +162,9 @@
                     }
                 ],
                 "url": {
-                    "raw": "{{target_url}}/test",
+                    "raw": "{{target_url}}test",
                     "host": [
-                        "{{target_url}}/test"
+                        "{{target_url}}test"
                     ]
                 },
                 "description": "Another post request."
@@ -184,9 +184,9 @@
                     }
                 ],
                 "url": {
-                    "raw": "{{target_url}}/test",
+                    "raw": "{{target_url}}test",
                     "host": [
-                        "{{target_url}}/test"
+                        "{{target_url}}test"
                     ]
                 },
                 "description": "Another get request."

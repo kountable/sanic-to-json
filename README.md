@@ -4,6 +4,8 @@ Generate Postman JSON file from python endpoints
 
 Using the postman [schema](https://schema.getpostman.com/json/collection/v2.1.0/collection.json) we can build Postman Collections using python endpoints from Sanic (Flask apps need testing). The script reads Sanic app. It searches for blueprints. The blueprints, through routes, provide docs strings data. The doc string data is used to populate a Postman formatted JSON file. The JSON file can be uploaded to Postman as a collection. 
 
+Once we have Postman formatted JSON we can create API documentation through the Postman [API](https://docs.api.getpostman.com/?version=latest#3190c896-4216-a0a3-aa38-a041d0c2eb72)
+
 Unfortunately, there is not a streamlined method to retreive routes in blueprints and main app. Ok, there is, but if you reuse function names, (e.g., `aysnc def post(request)` ) then some of the route method retrieval methods don't work because routes get saved in a dictionary. And dictionaries can't have duplicate keys. 
 
 - run `generate_postman_json("collection_name", app)` Formats the Postman collection with 'collection_name' and doc strings from Sanic app, e.g., `postman_collection.json` 

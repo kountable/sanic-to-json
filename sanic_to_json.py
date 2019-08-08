@@ -178,7 +178,7 @@ def get_app_route_name(routes, route):
 
 def get_app_route_url(routes, route):
     """Return app route name."""
-    name = routes[route][1].uri
+    name = routes[route][1].name
     return name
 
 
