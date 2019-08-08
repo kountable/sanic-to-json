@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "python_to_postman"
+name = "sanic-to-json"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Cristian Heredia <cheredia@kountable.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
