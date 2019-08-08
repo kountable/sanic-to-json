@@ -37,8 +37,4 @@ Arguments to the header key could be passed in the doc strings, but I'll leave t
 
 # Contributors
 
-<<<<<<< HEAD
-See the [GitHub contributor page](https://github.com/caheredia/sanic_to_postman/graphs/contributors)
-=======
 See the [GitHub contributor page](https://github.com/caheredia/python_to_json/graphs/contributors)
->>>>>>> 6f50189ffd14edc251b554686384179006c92cf8
