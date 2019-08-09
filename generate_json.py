@@ -141,17 +141,13 @@ def populate_blueprint(api_json, blueprint, routes, base_url="{{base_Url}}"):
 def add_non_blueprint_requests(api_json, routes, base_url="{{base_Url}}"):
     """Add requests not added in populate_blueprints."""
     for route in routes:
-        if "." not in route:
+        if "." not in routes[route].name:
             for method in get_app_route_methods(routes, route):
                 request = format_request(routes, route, method, base_url=base_url)
                 api_json["item"].append(request)
     return api_json
 
 
-# ______________________________________
-
-
-# export JSON
 def save_as_json(collection_name, filename="postman_collection.json"):
     """Write dict to JSON file."""
 
@@ -185,7 +181,7 @@ def generate_sanic_json(collection_name, app, filename="postman_collection.json"
         collection = populate_blueprint(collection, blueprint, routes)
 
     # populate main app requests
-    # collection = add_non_blueprint_requests(collection, routes)
+    collection = add_non_blueprint_requests(collection, routes)
 
     # save dict to JSON file
     save_as_json(collection)

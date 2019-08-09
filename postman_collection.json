@@ -6,8 +6,8 @@
     },
     "item": [
         {
-            "name": "database_1",
-            "description": "Return JSON from GET request.",
+            "name": "api_1",
+            "description": "Return JSON from POST request.",
             "item": [
                 {
                     "name": "endpoint-one",
@@ -34,28 +34,6 @@
                 {
                     "name": "endpoint-two",
                     "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "value": "application/json",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from POST request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "endpoint-two",
-                    "request": {
                         "method": "GET",
                         "header": [
                             {
@@ -74,11 +52,33 @@
                         "description": "Return JSON from GET request."
                     },
                     "response": []
+                },
+                {
+                    "name": "endpoint-two",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from POST request."
+                    },
+                    "response": []
                 }
             ]
         },
         {
-            "name": "api_1",
+            "name": "api_2",
             "description": "Return JSON form request.",
             "item": [
                 {
@@ -126,6 +126,72 @@
                     "response": []
                 }
             ]
+        },
+        {
+            "name": "healthcheck",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_Url}}/healthcheck",
+                    "host": [
+                        "{{base_Url}}/healthcheck"
+                    ]
+                },
+                "description": "Return health status."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another get request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another post request."
+            },
+            "response": []
         }
     ]
 }
