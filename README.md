@@ -7,7 +7,7 @@ Using the postman [schema](https://schema.getpostman.com/json/collection/v2.1.0/
 Once we have Postman formatted JSON we can create API documentation through the Postman [API](https://docs.api.getpostman.com/?version=latest#3190c896-4216-a0a3-aa38-a041d0c2eb72)
 
 ## How to use
-- run `generate_postman_json("collection_name", app)` Formats the Postman collection with 'collection_name' and doc strings from Sanic app, e.g., `postman_collection.json`
+- run `generate_sanic_json("collection_name", app)` Formats the Postman collection with 'collection_name' and doc strings from Sanic app, e.g., `postman_collection.json`
 
 - to execute an example run `python -m examples.example_script`
 
