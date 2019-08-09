@@ -54,6 +54,10 @@ def test_get_blueprints():
     assert get_blueprints(app) == app.blueprints
 
 
+def test_get_blueprints_type():
+    assert isinstance(get_blueprints(app), dict)
+
+
 # get example app blueprints
 blueprints = get_blueprints(app)
 

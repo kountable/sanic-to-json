@@ -55,7 +55,6 @@ def get_all_routes(app):
     return routes
 
 
-# blueprint routes
 def get_blueprints(app):
     """Returns blueprints dict."""
     return app.blueprints
@@ -99,12 +98,13 @@ def get_route_doc_string(routes, route, method):
     return doc
 
 
+def get_url(route, base_url="{{base_Url}}"):
+    """Adds base_url environment variable to url prefix."""
+    url = base_url + route
+    return url
+
+
 # ______________________________________
-
-
-def get_url_prefix(blueprints, blueprint):
-    prefix = blueprints[blueprint].version + blueprints[blueprint].url_prefix
-    return prefix
 
 
 # build the json from blueprints
