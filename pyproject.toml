@@ -1,9 +1,14 @@
 [tool.poetry]
 name = "sanic-to-json"
 version = "0.1.0"
-description = ""
+description = "Create JSON API documentation files from Sanic "
+homepage = "https://github.com/kountable/sanic-to-json"
+repository = "https://github.com/kountable/sanic-to-json"
 authors = ["Cristian Heredia <cheredia@kountable.com>"]
 license = "MIT"
+readme = "README.md"
+
+
 
 [tool.poetry.dependencies]
 python = "^3.7"
