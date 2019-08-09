@@ -1,8 +1,0 @@
-{
-    "info": {
-        "name": "Scratchpad",
-        "description": "A doc string for the API. Blueprints have their own doc strings.",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_postman_id": "abcd"
-    }
-}
