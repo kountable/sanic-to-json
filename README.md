@@ -9,6 +9,8 @@ Once we have Postman formatted JSON we can create API documentation through the 
 ## How to use
 - run `generate_postman_json("collection_name", app)` Formats the Postman collection with 'collection_name' and doc strings from Sanic app, e.g., `postman_collection.json`
 
+- to execute an example run `python -m examples.example_script`
+
 
 ## How to document Sanic app and Blueprints
 - As the example shows, the Sanic app should have a `.doc` attribute. This doc string will serve as the introduction to the API in Postman docs, e.g., `app.__doc__ = "This API does stuff."`
