@@ -50,8 +50,14 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
 
 
 def get_all_routes(app):
-    """Returns all routes from Sanic app."""
-    routes = app.router.routes_all
+    """Returns all routes from Sanic app.
+    
+    Exclue duplicates."""
+    all_routes = app.router.routes_all
+    routes = {}
+    for route in all_routes:
+        if route[-1] != "/":
+            routes[route] = all_routes[route]
     return routes
 
 
@@ -65,8 +71,8 @@ def get_blueprint_routes(blueprint, routes):
     blueprint_routes = {}
     for route in routes:
         bp_name = routes[route].name.split(".")[0]
-        # match route to blueprint exclude duplicate routes
-        if blueprint == bp_name and route[-1] != "/":
+        # match route to blueprint
+        if blueprint == bp_name:
             blueprint_routes[route] = routes[route]
     return blueprint_routes
 
@@ -104,6 +110,19 @@ def get_url(route, base_url="{{base_Url}}"):
     return url
 
 
+def format_request(routes, route, method, base_url="{{base_Url}}"):
+    """Populates atomic_request dictionary with route metatdata.
+
+    Returns a postman formatted dictionary request item."""
+    request = atomic_request()
+    request["name"] = get_route_name(route)
+    request["request"]["method"] = method
+    request["request"]["url"]["raw"] = get_url(route, base_url=base_url)
+    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
+    request["request"]["description"] = get_route_doc_string(routes, route, method)
+    return request
+
+
 # ______________________________________
 
 
@@ -124,23 +143,6 @@ def add_blueprint_folders(api_json, blueprints):
     return api_json
 
 
-def format_blueprint_request(blueprints, blueprint, route):
-    """Populates atomic_request dictionary with route metatdata.
-
-    Assumes route is a list of route items, e.g, function, url, methods
-
-    Returns a postman formatted dictionary request item."""
-    request = atomic_request()
-    request["name"] = get_blueprint_route_name(route)
-    request["request"]["method"] = get_route_method(route)
-    request["request"]["url"]["raw"] = (
-        "{{target_url}}" + get_url_prefix(blueprints, blueprint) + request["name"]
-    )
-    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
-    request["request"]["description"] = get_doc_string(route)
-    return request
-
-
 def populate_blueprints(api_json, blueprints):
     """Populates endpoints for each blueprint folder."""
     for blueprint in blueprints:
@@ -156,52 +158,6 @@ def populate_blueprints(api_json, blueprints):
         )
 
     return api_json
-
-
-# app routes
-def get_app_routes(app):
-    """Return routes in main app."""
-    routes = {}
-    for route in app.router.routes_names:
-        if "." not in route:
-            routes[route] = app.router.routes_names[route]
-    return routes
-
-
-def get_app_route_name(routes, route):
-    """Return app route name."""
-    name = routes[route][0]
-    return name
-
-
-def get_app_route_url(routes, route):
-    """Return app route name."""
-    name = routes[route][1].name
-    return name
-
-
-def get_app_route_doc_string(routes, route, method):
-    """Returns doc string for embedded route functions."""
-    try:
-        doc = routes[route][1][0].handlers[method].__doc__
-    except AttributeError:
-        doc = routes[route][1][0].__doc__
-    return doc
-
-
-def format_app_request(routes, route, method):
-    """Populates atomic_request dictionary with route metatdata.
-
-    Returns a postman formatted dictionary request item."""
-    request = atomic_request()
-    request["name"] = get_app_route_name(routes, route)
-    request["request"]["method"] = method
-    request["request"]["url"]["raw"] = "{{target_url}}" + get_app_route_url(
-        routes, route
-    )
-    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
-    request["request"]["description"] = get_app_route_doc_string(routes, route, method)
-    return request
 
 
 def add_app_requests(api_json, app):
