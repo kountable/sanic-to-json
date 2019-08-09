@@ -1,16 +1,16 @@
 {
     "info": {
-        "name": "Test API",
+        "name": "Testing scratchpad",
         "description": "A doc string for the API. Blueprints have their own doc strings.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {
             "name": "database_1",
-            "description": "This is the doc string for blueprint1.",
+            "description": "Return JSON from GET request.",
             "item": [
                 {
-                    "name": "/endpoint-one",
+                    "name": "endpoint-one",
                     "request": {
                         "method": "GET",
                         "header": [
@@ -22,9 +22,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{target_url}}v1/a-prefix/endpoint-one",
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-one",
                             "host": [
-                                "{{target_url}}v1/a-prefix/endpoint-one"
+                                "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
                         "description": "Return text from request."
@@ -32,29 +32,7 @@
                     "response": []
                 },
                 {
-                    "name": "/endpoint-two",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "value": "application/json",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{target_url}}v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{target_url}}v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from GET request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "/endpoint-two",
+                    "name": "endpoint-two",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -66,12 +44,34 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{target_url}}v1/a-prefix/endpoint-two",
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
                             "host": [
-                                "{{target_url}}v1/a-prefix/endpoint-two"
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
                             ]
                         },
                         "description": "Return JSON from POST request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "endpoint-two",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from GET request."
                     },
                     "response": []
                 }
@@ -79,10 +79,10 @@
         },
         {
             "name": "api_1",
-            "description": "This is the doc string for blueprint2.",
+            "description": "Return JSON form request.",
             "item": [
                 {
-                    "name": "/endpoint-three",
+                    "name": "endpoint-three",
                     "request": {
                         "method": "GET",
                         "header": [
@@ -94,9 +94,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{target_url}}v1/another-prefix/endpoint-three",
+                            "raw": "{{base_Url}}/v1/another-prefix/endpoint-three",
                             "host": [
-                                "{{target_url}}v1/another-prefix/endpoint-three"
+                                "{{base_Url}}/v1/another-prefix/endpoint-three"
                             ]
                         },
                         "description": "Return text from request."
@@ -104,7 +104,7 @@
                     "response": []
                 },
                 {
-                    "name": "/endpoint-four",
+                    "name": "endpoint-four",
                     "request": {
                         "method": "GET",
                         "header": [
@@ -116,9 +116,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{target_url}}v1/another-prefix/endpoint-four",
+                            "raw": "{{base_Url}}/v1/another-prefix/endpoint-four",
                             "host": [
-                                "{{target_url}}v1/another-prefix/endpoint-four"
+                                "{{base_Url}}/v1/another-prefix/endpoint-four"
                             ]
                         },
                         "description": "Return JSON form request."
@@ -126,72 +126,6 @@
                     "response": []
                 }
             ]
-        },
-        {
-            "name": "/healthcheck",
-            "request": {
-                "method": "GET",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                    }
-                ],
-                "url": {
-                    "raw": "{{target_url}}health",
-                    "host": [
-                        "{{target_url}}health"
-                    ]
-                },
-                "description": "Return health status."
-            },
-            "response": []
-        },
-        {
-            "name": "/test",
-            "request": {
-                "method": "POST",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                    }
-                ],
-                "url": {
-                    "raw": "{{target_url}}test",
-                    "host": [
-                        "{{target_url}}test"
-                    ]
-                },
-                "description": "Another post request."
-            },
-            "response": []
-        },
-        {
-            "name": "/test",
-            "request": {
-                "method": "GET",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                    }
-                ],
-                "url": {
-                    "raw": "{{target_url}}test",
-                    "host": [
-                        "{{target_url}}test"
-                    ]
-                },
-                "description": "Another get request."
-            },
-            "response": []
         }
     ]
 }

@@ -1,7 +1,7 @@
 from sanic import Blueprint
 from sanic.response import json, text
 
-bp1 = Blueprint("database_1", url_prefix="/a-prefix", version="v1")
+bp1 = Blueprint("api_1", url_prefix="/a-prefix", version="v1")
 bp1.__doc__ = "This is the doc string for blueprint1."
 
 
