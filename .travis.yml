@@ -14,9 +14,7 @@ before_deploy:
 deploy:
   provider: script
   script: poetry publish
-  on:
-    tags: true
-    condition: "$TRAVIS_PYTHON_VERSION == 3.7"
+
 env:
   global:
   - secure: DR9J5TQLVNXFILfpGWaEZeJYgFu0EDeHrZ4GUFdky4uziqPDrBEKBtZ78DXiO+PPDXN+sVHp/37/7D3wB+mUr4Ff/H5tfznTvhG6kEU16YMPUUCSro3TRGbRTsYcuVAxRJxOMuWp6TOYAn2/Yrj0SIs1teo0K/LLZ6/k5JRy1AJ+u8Dy3UwFUVbAX5xMurAXjpVoswMmSPMH694a7t+9gurtxpltypcX4q2EpHgQAsjyeGG0tCo2E65x4wo1lbOh/NPZ40fuwbhalrLBGsH3+yZh3cKAArsuk1b5b0V9mriqFxkZSE8fhtps0xLYLGbDo7mET0z9ZqF6INza+2Uo6oiAPhqnVE5vqCsrEQPW1gyc/TWpkzbP2sb8PD66r1CSuAzUgg6TJcN0RHOJSzg95enrp+w/15HdPFiAatS6pNUts1iQD7AhYyDH/z6rpOT0jD90WyOSTEpWDdaZ4uk2csLY1bheh0HgwgPosukJ163PtLOT/TZdy/W8vucb0H+W84jWIj5gBYzFmYF9A37AoBdnpIDkkLrkdqP/whURMLCRNPsF8bIWu5eml1+cqZmcEA0fPd02M5eEVsEnLU7yyg7b9ERfsvswVZsZ+rv2hlvxtWwwQWAk8oNacADfTKjpm6vew+Rat8HobUg8jsmxUx/bW4WSs9VPPdipNgC4nzM=
