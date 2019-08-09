@@ -51,13 +51,25 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
 
 def get_all_routes(app):
     """Returns all routes from Sanic app."""
-    return app.router.routes_all
+    routes = app.router.routes_all
+    return routes
 
 
 # blueprint routes
 def get_blueprints(app):
-    """Returns a dict of blueprints."""
+    """Returns blueprints dict."""
     return app.blueprints
+
+
+def get_blueprint_routes(blueprint, routes):
+    """Return routes related to a given blueprint."""
+    blueprint_routes = {}
+    for route in routes:
+        bp_name = routes[route].name.split(".")[0]
+        # match route to blueprint exclude duplicate routes
+        if blueprint == bp_name and route[-1] != "/":
+            blueprint_routes[route] = routes[route]
+    return blueprint_routes
 
 
 def get_blueprint_docs(blueprints, blueprint):
@@ -66,10 +78,10 @@ def get_blueprint_docs(blueprints, blueprint):
     return doc_string
 
 
-def get_blueprint_routes(blueprints, blueprint):
-    """Return a list of routes."""
-    routes = blueprints[blueprint].routes
-    return routes
+# ef get_blueprint_routes(blueprints, blueprint):
+#   """Return a list of routes."""
+#   routes = blueprints[blueprint].routes
+#   return routes
 
 
 def get_blueprint_route_name(route):
