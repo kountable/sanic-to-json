@@ -1,4 +1,4 @@
-from json import load, dump
+from json import dump
 
 
 def collection_json():
@@ -78,26 +78,28 @@ def get_blueprint_docs(blueprints, blueprint):
     return doc_string
 
 
-# ef get_blueprint_routes(blueprints, blueprint):
-#   """Return a list of routes."""
-#   routes = blueprints[blueprint].routes
-#   return routes
-
-
-def get_blueprint_route_name(route):
+def get_route_name(route):
     """Returns route name."""
-    name = route[1]
+    name = route.split("/")[-1]
     return name
 
 
-def get_doc_string(route):
-    """Return doc string for function in blueprint route."""
-    return route[0].__doc__
+def get_app_route_methods(routes, route):
+    """Return route CRUD method (GET, POST, etc)."""
+    methods = list(routes[route].methods)
+    return methods
 
 
-def get_route_method(route):
-    """Return route CRUD method (GET, POST, etc) from route."""
-    return route[2][0]
+def get_route_doc_string(routes, route, method):
+    """Returns doc string for embedded route functions."""
+    try:
+        doc = routes[route][0].handlers[method].__doc__
+    except AttributeError:
+        doc = routes[route][0].__doc__
+    return doc
+
+
+# ______________________________________
 
 
 def get_url_prefix(blueprints, blueprint):
@@ -176,12 +178,6 @@ def get_app_route_url(routes, route):
     """Return app route name."""
     name = routes[route][1].name
     return name
-
-
-def get_app_route_methods(routes, route):
-    """Return CRUD methods for routes in main app."""
-    methods = list(routes[route][1].methods)
-    return methods
 
 
 def get_app_route_doc_string(routes, route, method):
