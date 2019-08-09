@@ -1,25 +1,20 @@
 import os
-from sanic_to_json import (
-    collection_json,
+from generate_json import (
     atomic_request,
+    collection_json,
     basic_JSON,
     get_blueprints,
     get_blueprint_docs,
+    get_all_routes,
     get_blueprint_routes,
-    get_blueprint_route_name,
-    get_doc_string,
-    get_route_method,
-    get_url_prefix,
-    add_blueprint_folders,
-    format_blueprint_request,
-    populate_blueprints,
-    get_app_routes,
-    get_app_route_name,
-    get_app_route_url,
+    get_route_name,
     get_app_route_methods,
-    get_app_route_doc_string,
-    format_app_request,
-    add_app_requests,
+    get_route_doc_string,
+    get_url,
+    format_request,
+    populate_blueprint,
+    add_non_blueprint_requests,
+    generate_sanic_json,
 )
 from examples.app import app
 
@@ -45,9 +40,13 @@ def test_basic_JSON():
     """Checks 'collection_name' and doc string from Sanic app."""
     collection_name = "test_collection"
     test_json = basic_JSON(collection_name, app)
-
     assert test_json["info"]["name"] == collection_name
     assert test_json["info"]["description"] == app.__doc__
+
+
+def test_get_all_routes():
+    """Returns all routes from Sanic app, excludes duplicates."""
+    assert get_all_routes(app).items() <= app.router.routes_all.items()
 
 
 def test_get_blueprints():
@@ -60,6 +59,13 @@ def test_get_blueprints_type():
 
 # get example app blueprints
 blueprints = get_blueprints(app)
+routes = get_all_routes(app)
+
+
+def test_get_blueprint_routes():
+    """Return a list of routes."""
+    for blueprint in blueprints:
+        assert get_blueprint_routes(blueprint, routes).items() <= routes.items()
 
 
 def test_get_blueprint_docs():
@@ -70,126 +76,61 @@ def test_get_blueprint_docs():
         )
 
 
-def test_get_blueprint_routes():
-    """Return a list of routes."""
-    for blueprint in blueprints:
-        assert (
-            get_blueprint_routes(blueprints, blueprint) == blueprints[blueprint].routes
-        )
-
-
-def test_get_blueprint_route_name():
+def test_get_route_name():
     """Returns route name."""
-    for blueprint in blueprints:
-        for route in get_blueprint_routes(blueprints, blueprint):
-            get_blueprint_route_name(route) == route[1]
-
-
-def test_get_doc_string():
-    """Return doc string for function in blueprint route."""
-    for blueprint in blueprints:
-        for route in get_blueprint_routes(blueprints, blueprint):
-            get_doc_string(route) == route[0].__doc__
-
-
-def test_get_route_method():
-    """Return route CRUD method."""
-    for blueprint in blueprints:
-        for route in get_blueprint_routes(blueprints, blueprint):
-            get_route_method(route) == route[2][0]
-
-
-def test_get_url_prefix():
-    for blueprint in blueprints:
-        get_url_prefix(blueprints, blueprint) == blueprints[
-            blueprint
-        ].version + blueprints[blueprint].url_prefix
-
-
-def test_add_blueprint_folders():
-    collection = collection_json()
-    collection = add_blueprint_folders(collection, blueprints)
-    assert set(blueprints.keys()) == set([item["name"] for item in collection["item"]])
-
-
-def test_format_blueprint_request():
-    for blueprint in blueprints:
-        for route in get_blueprint_routes(blueprints, blueprint):
-            assert (
-                format_blueprint_request(blueprints, blueprint, route).keys()
-                == atomic_request().keys()
-            )
-
-
-def test_populate_blueprints():
-    collection = collection_json()
-    collection = populate_blueprints(collection, blueprints)
-    for folder, blueprint in zip(collection["item"], app.blueprints):
-        assert len(folder["item"]) == len(app.blueprints[blueprint].routes)
-
-
-# app routes
-def test_get_app_routes():
-    """Return routes in main app."""
-    routes = {}
-    for route in app.router.routes_names:
-        if "." not in route:
-            routes[route] = app.router.routes_names[route]
-    assert routes == get_app_routes(app)
-
-
-routes = get_app_routes(app)
-
-
-def test_get_app_route_name():
-    """Return app route name."""
     for route in routes:
-        assert get_app_route_name(routes, route) == routes[route][0]
-
-
-def test_get_app_route_url():
-    """Return app route name."""
-    for route in routes:
-        assert get_app_route_url(routes, route) == routes[route][1].name
+        assert get_route_name(route) == route.split("/")[-1]
 
 
 def test_get_app_route_methods():
-    """Return CRUD methods for routes in main app."""
+    """Return route CRUD method (GET, POST, etc)."""
     for route in routes:
-        assert set(get_app_route_methods(routes, route)) == set(
-            routes[route][1].methods
-        )
+        assert get_app_route_methods(routes, route) == list(routes[route].methods)
 
 
-def test_get_app_route_doc_string():
-    """Return CRUD methods for routes in main app."""
+def test_get_route_doc_string():
+    """Returns doc string for embedded route functions."""
     for route in routes:
         for method in get_app_route_methods(routes, route):
-            assert isinstance(get_app_route_doc_string(routes, route, method), str)
+            doc = get_route_doc_string(routes, route, method)
+            assert isinstance(doc, str)
 
 
-def test_format_app_request():
-    """validate dicts have same keys."""
+def test_get_url():
+    """Adds base_url environment variable to url prefix."""
+    route = "test"
+    assert get_url(route) == "{{base_Url}}" + route
+
+
+def test_format_request():
+    """Confirms atomic_request is a subset of request."""
     for route in routes:
         for method in get_app_route_methods(routes, route):
-            assert (
-                format_app_request(routes, route, method).keys()
-                == atomic_request().keys()
-            )
+            request = format_request(routes, route, method)
+            assert atomic_request().keys() <= request.keys()
 
 
-def test_add_app_requests():
+def test_populate_blueprint():
+    """Confirm subset of collection."""
     collection = collection_json()
-    collection = add_app_requests(collection, app)
-    assert len(collection["item"]) == len(get_blueprints(app)) + len(routes)
+    test_collection = collection.copy()
+    for blueprint in blueprints:
+        test_collection = populate_blueprint(collection, blueprint, routes)
+    assert collection.keys() <= test_collection.keys()
 
 
-# def test_generate_postman_json():
-#    """Test generation of json file. Deletes after test."""
-#    filename = "Test_collection.json"
-#    generate_postman_json("Testing", app, filename=filename)
-#    assert os.path.exists(filename)
-#    os.remove(filename)
-#    assert not os.path.exists(filename)
-#
+def test_populate_non_blueprint():
+    """Confirm subset of collection."""
+    collection = collection_json()
+    test_collection = collection.copy()
+    test_collection = add_non_blueprint_requests(collection, routes)
+    assert collection.keys() <= test_collection.keys()
 
+
+def test_generate_sanic_json():
+    """Test generation of json file. Deletes after test."""
+    filename = "pytest_collection.json"
+    generate_sanic_json("Testing with pytest", app, filename=filename)
+    assert os.path.exists(filename)
+    os.remove(filename)
+    assert not os.path.exists(filename)

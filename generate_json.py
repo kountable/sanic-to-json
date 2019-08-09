@@ -184,4 +184,4 @@ def generate_sanic_json(collection_name, app, filename="postman_collection.json"
     collection = add_non_blueprint_requests(collection, routes)
 
     # save dict to JSON file
-    save_as_json(collection)
+    save_as_json(collection, filename=filename)
