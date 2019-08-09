@@ -1,6 +1,6 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 # sanic-to-json
-Generate a [Postman](https://www.getpostman.com) JSON file from a [Sanic app](https://sanic.readthedocs.io/en/latest/index.html#). 
+Generate a Postman [JSON](http://json.org) file from a [Sanic app](https://sanic.readthedocs.io/en/latest/index.html#). The JSON file can directly uploaded into the [Postman client](https://www.getpostman.com) or through their [API](https://docs.api.getpostman.com/?version=latest#3190c896-4216-a0a3-aa38-a041d0c2eb72).  
 
 Using the postman [schema](https://schema.getpostman.com/json/collection/v2.1.0/collection.json) we can build Postman Collections using python endpoints from Sanic (Flask apps need testing). The script reads Sanic app. It searches for blueprints. The blueprints, through routes, provide docs strings data. The doc string data is used to populate a Postman formatted JSON file. The JSON file can be uploaded to Postman as a collection. 
 
