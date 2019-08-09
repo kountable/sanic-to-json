@@ -1,4 +1,4 @@
-from generate_json import generate_sanic_json
+from sanic_to_json import generate_sanic_json
 from examples.app import app
 
 

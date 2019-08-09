@@ -1,5 +1,5 @@
 import os
-from generate_json import (
+from sanic_to_json import (
     atomic_request,
     collection_json,
     basic_JSON,

@@ -1,4 +1,4 @@
-from json import load, dump
+from json import dump
 
 
 def collection_json():
@@ -49,10 +49,30 @@ def basic_JSON(collection_name, app, api_json=collection_json()):
     return api_json
 
 
-# blueprint routes
+def get_all_routes(app):
+    """Returns all routes from Sanic app, excludes duplicates."""
+    all_routes = app.router.routes_all
+    routes = {}
+    for route in all_routes:
+        if route[-1] != "/":
+            routes[route] = all_routes[route]
+    return routes
+
+
 def get_blueprints(app):
-    """Returns a dict of blueprints."""
+    """Returns blueprints dict."""
     return app.blueprints
+
+
+def get_blueprint_routes(blueprint, routes):
+    """Return routes related to a given blueprint."""
+    blueprint_routes = {}
+    for route in routes:
+        bp_name = routes[route].name.split(".")[0]
+        # match route to blueprint
+        if blueprint == bp_name:
+            blueprint_routes[route] = routes[route]
+    return blueprint_routes
 
 
 def get_blueprint_docs(blueprints, blueprint):
@@ -61,148 +81,73 @@ def get_blueprint_docs(blueprints, blueprint):
     return doc_string
 
 
-def get_blueprint_routes(blueprints, blueprint):
-    """Return a list of routes."""
-    routes = blueprints[blueprint].routes
-    return routes
-
-
-def get_blueprint_route_name(route):
+def get_route_name(route):
     """Returns route name."""
-    name = route[1]
-    return name
-
-
-def get_doc_string(route):
-    """Return doc string for function in blueprint route."""
-    return route[0].__doc__
-
-
-def get_route_method(route):
-    """Return route CRUD method (GET, POST, etc) from route."""
-    return route[2][0]
-
-
-def get_url_prefix(blueprints, blueprint):
-    prefix = blueprints[blueprint].version + blueprints[blueprint].url_prefix
-    return prefix
-
-
-# build the json from blueprints
-def add_blueprint_folders(api_json, blueprints):
-    """Converts each blueprint into a dictionary with a name, item =[], and description.
-
-    These dictionaries become Postman folders. The "item" dict will contain the endpoins
-    for each blueprint.
-
-    Returns a list of dictionary items."""
-    for blueprint in blueprints:
-        postman_folder = {}
-        postman_folder["name"] = blueprint
-        postman_folder["item"] = []
-        postman_folder["description"] = get_blueprint_docs(blueprints, blueprint)
-        api_json["item"].append(postman_folder)
-    return api_json
-
-
-def format_blueprint_request(blueprints, blueprint, route):
-    """Populates atomic_request dictionary with route metatdata.
-
-    Assumes route is a list of route items, e.g, function, url, methods
-
-    Returns a postman formatted dictionary request item."""
-    request = atomic_request()
-    request["name"] = get_blueprint_route_name(route)
-    request["request"]["method"] = get_route_method(route)
-    request["request"]["url"]["raw"] = (
-        "{{target_url}}" + get_url_prefix(blueprints, blueprint) + request["name"]
-    )
-    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
-    request["request"]["description"] = get_doc_string(route)
-    return request
-
-
-def populate_blueprints(api_json, blueprints):
-    """Populates endpoints for each blueprint folder."""
-    for blueprint in blueprints:
-        items = []
-        for route in get_blueprint_routes(blueprints, blueprint):
-            items.append(format_blueprint_request(blueprints, blueprint, route))
-        api_json["item"].append(
-            {
-                "name": blueprint,
-                "description": get_blueprint_docs(blueprints, blueprint),
-                "item": items,
-            }
-        )
-
-    return api_json
-
-
-# app routes
-def get_app_routes(app):
-    """Return routes in main app."""
-    routes = {}
-    for route in app.router.routes_names:
-        if "." not in route:
-            routes[route] = app.router.routes_names[route]
-    return routes
-
-
-def get_app_route_name(routes, route):
-    """Return app route name."""
-    name = routes[route][0]
-    return name
-
-
-def get_app_route_url(routes, route):
-    """Return app route name."""
-    name = routes[route][1].name
+    name = route.split("/")[-1]
     return name
 
 
 def get_app_route_methods(routes, route):
-    """Return CRUD methods for routes in main app."""
-    methods = list(routes[route][1].methods)
+    """Return route CRUD method (GET, POST, etc)."""
+    methods = list(routes[route].methods)
     return methods
 
 
-def get_app_route_doc_string(routes, route, method):
+def get_route_doc_string(routes, route, method):
     """Returns doc string for embedded route functions."""
     try:
-        doc = routes[route][1][0].handlers[method].__doc__
+        doc = routes[route][0].handlers[method].__doc__
     except AttributeError:
-        doc = routes[route][1][0].__doc__
+        doc = routes[route][0].__doc__
     return doc
 
 
-def format_app_request(routes, route, method):
+def get_url(route, base_url="{{base_Url}}"):
+    """Adds base_url environment variable to url prefix."""
+    url = base_url + route
+    return url
+
+
+def format_request(routes, route, method, base_url="{{base_Url}}"):
     """Populates atomic_request dictionary with route metatdata.
 
     Returns a postman formatted dictionary request item."""
     request = atomic_request()
-    request["name"] = get_app_route_name(routes, route)
+    request["name"] = get_route_name(route)
     request["request"]["method"] = method
-    request["request"]["url"]["raw"] = "{{target_url}}" + get_app_route_url(
-        routes, route
-    )
+    request["request"]["url"]["raw"] = get_url(route, base_url=base_url)
     request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
-    request["request"]["description"] = get_app_route_doc_string(routes, route, method)
+    request["request"]["description"] = get_route_doc_string(routes, route, method)
     return request
 
 
-def add_app_requests(api_json, app):
-    """Add requests defined in main to api JSON dict."""
-    routes = get_app_routes(app)
-    for route in routes:
-        methods = get_app_route_methods(routes, route)
-        for method in methods:
-            request = format_app_request(routes, route, method)
-            api_json["item"].append(request)
+def populate_blueprint(api_json, blueprint, routes, base_url="{{base_Url}}"):
+    """Populates endpoints for blueprint."""
+
+    items = []
+    for route in get_blueprint_routes(blueprint, routes):
+        for method in get_app_route_methods(routes, route):
+            items.append(format_request(routes, route, method, base_url=base_url))
+    api_json["item"].append(
+        {
+            "name": blueprint,
+            "description": get_route_doc_string(routes, route, method),
+            "item": items,
+        }
+    )
     return api_json
 
 
-# export JSON
+def add_non_blueprint_requests(api_json, routes, base_url="{{base_Url}}"):
+    """Add requests not added in populate_blueprints."""
+    for route in routes:
+        if "." not in routes[route].name:
+            for method in get_app_route_methods(routes, route):
+                request = format_request(routes, route, method, base_url=base_url)
+                api_json["item"].append(request)
+    return api_json
+
+
 def save_as_json(collection_name, filename="postman_collection.json"):
     """Write dict to JSON file."""
 
@@ -210,9 +155,7 @@ def save_as_json(collection_name, filename="postman_collection.json"):
         dump(collection_name, file, indent=4)
 
 
-def generate_json(
-    collection_name, app, filename="postman_collection.json", existing_file=None
-):
+def generate_sanic_json(collection_name, app, filename="postman_collection.json"):
     """Generates json script from Sanic docs.
 
     Parameters
@@ -228,10 +171,17 @@ def generate_json(
     """
     # build basic json schema
     collection = basic_JSON(collection_name, app)
-    # populate blueprint requests
-    collection = populate_blueprints(collection, app)
-    # populate main app requests
-    add_app_requests(collection, app)
-    # save dict to JSON file
-    save_as_json(collection)
 
+    # get routes and blueprints
+    routes = get_all_routes(app)
+    blueprints = get_blueprints(app)
+
+    # populate blueprint requests
+    for blueprint in blueprints:
+        collection = populate_blueprint(collection, blueprint, routes)
+
+    # populate main app requests
+    collection = add_non_blueprint_requests(collection, routes)
+
+    # save dict to JSON file
+    save_as_json(collection, filename=filename)
