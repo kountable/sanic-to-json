@@ -19,7 +19,7 @@ Once we have Postman formatted JSON we can create API documentation through the 
 `bp1.__doc__ = "This is the doc string for blueprint1."`
 
 ## How to install 
-`pip install sanic-json`
+`pip install sanic-to-json`
 
 ## To do 
 - At the moment endpoints are assumed to accept raw JSON, as passed by the header option in `sanic_to_json.atomic_requests`  
