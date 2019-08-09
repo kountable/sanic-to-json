@@ -1,4 +1,7 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+
+[![Build Status](https://travis-ci.org/kountable/sanic-to-json.svg?branch=master)](https://travis-ci.org/kountable/sanic-to-json)
+
 # sanic-to-json
 Generate a Postman [JSON](http://json.org) file from a [Sanic app](https://sanic.readthedocs.io/en/latest/index.html#). The JSON file can directly uploaded into the [Postman client](https://www.getpostman.com) or through their [API](https://docs.api.getpostman.com/?version=latest#3190c896-4216-a0a3-aa38-a041d0c2eb72).  
 
