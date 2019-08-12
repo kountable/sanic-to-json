@@ -15,7 +15,7 @@ Once we have Postman formatted JSON we can create API documentation through the 
 from sanic_to_json import generate_sanic_json  
 generate_sanic_json("collection_name", app)
 ``` 
-The above code formats the Postman collection with 'collection_name' and doc strings from Sanic app, `app`, and yields `postman_collection.json`
+The above code formats the Postman collection with 'collection_name' and doc strings from Sanic app, `app`, and yields [postman_collection.json](https://github.com/kountable/sanic-to-json/blob/master/postman_collection.json)
 
 - to execute an example run `python -m examples.example_script`
 
