@@ -7,7 +7,12 @@ bp1.__doc__ = "This is the doc string for blueprint1."
 
 @bp1.route("/endpoint-one", methods=["GET"])
 async def post(request):
-    """Return text from request."""
+    """Return text from request.
+       
+    JSON BODY
+    --------
+    { "token":"{{token}}" ,"project_id":"{{project_id}}" }
+    """
     data = request.text
     return text(data)
 

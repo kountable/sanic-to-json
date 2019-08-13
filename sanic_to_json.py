@@ -108,7 +108,19 @@ def get_url(route, base_url="{{base_Url}}"):
     return url
 
 
-def format_request(routes, route, method, base_url="{{base_Url}}"):
+def format_json_body(doc, divider):
+    """Extracts JSON BODY from doc string as raw JSON."""
+    if divider in doc:
+        body = {}
+        body["mode"] = "raw"
+        body["raw"] = doc.split(divider)[-1].strip()
+        return body
+    return {}
+
+
+def format_request(
+    routes, route, method, base_url="{{base_Url}}", divider="JSON BODY\n    --------"
+):
     """Populates atomic_request dictionary with route metatdata.
 
     Returns a postman formatted dictionary request item."""
@@ -118,16 +130,27 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     request["request"]["url"]["raw"] = get_url(route, base_url=base_url)
     request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
     request["request"]["description"] = get_route_doc_string(routes, route, method)
+    request["request"]["body"] = format_json_body(request["request"]["description"])
     return request
 
 
-def populate_blueprint(api_json, blueprint, routes, base_url="{{base_Url}}"):
+def populate_blueprint(
+    api_json,
+    blueprint,
+    routes,
+    base_url="{{base_Url}}",
+    divider="JSON BODY\n    --------",
+):
     """Populates endpoints for blueprint."""
 
     items = []
     for route in get_blueprint_routes(blueprint, routes):
         for method in get_app_route_methods(routes, route):
-            items.append(format_request(routes, route, method, base_url=base_url))
+            items.append(
+                format_request(
+                    routes, route, method, base_url=base_url, divider=divider
+                )
+            )
     api_json["item"].append(
         {
             "name": blueprint,
@@ -138,12 +161,16 @@ def populate_blueprint(api_json, blueprint, routes, base_url="{{base_Url}}"):
     return api_json
 
 
-def add_non_blueprint_requests(api_json, routes, base_url="{{base_Url}}"):
+def add_non_blueprint_requests(
+    api_json, routes, base_url="{{base_Url}}", divider="JSON BODY\n    --------"
+):
     """Add requests not added in populate_blueprints."""
     for route in routes:
         if "." not in routes[route].name:
             for method in get_app_route_methods(routes, route):
-                request = format_request(routes, route, method, base_url=base_url)
+                request = format_request(
+                    routes, route, method, base_url=base_url, divider=divider
+                )
                 api_json["item"].append(request)
     return api_json
 
