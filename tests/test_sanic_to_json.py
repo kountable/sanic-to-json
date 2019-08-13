@@ -1,5 +1,5 @@
 import os
-from sanic_to_json import (
+from sanic_to_json.sanic_to_json import (
     atomic_request,
     collection_json,
     basic_JSON,
@@ -14,7 +14,7 @@ from sanic_to_json import (
     format_request,
     populate_blueprint,
     add_non_blueprint_requests,
-    generate_sanic_json,
+    sanic_to_json,
     format_json_body,
 )
 from examples.app import app
@@ -145,10 +145,10 @@ def test_populate_non_blueprint():
     assert collection.keys() <= test_collection.keys()
 
 
-def test_generate_sanic_json():
+def test_sanic_to_json():
     """Test generation of json file. Deletes after test."""
     filename = "tests/pytest_collection.json"
-    generate_sanic_json("Testing with pytest", app, filename=filename)
+    sanic_to_json("Testing with pytest", app, filename=filename)
     assert os.path.exists(filename)
     os.remove(filename)
     assert not os.path.exists(filename)
