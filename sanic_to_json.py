@@ -130,7 +130,9 @@ def format_request(
     request["request"]["url"]["raw"] = get_url(route, base_url=base_url)
     request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
     request["request"]["description"] = get_route_doc_string(routes, route, method)
-    request["request"]["body"] = format_json_body(request["request"]["description"])
+    request["request"]["body"] = format_json_body(
+        request["request"]["description"], divider
+    )
     return request
 
 

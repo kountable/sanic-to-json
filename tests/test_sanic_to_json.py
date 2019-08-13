@@ -15,6 +15,7 @@ from sanic_to_json import (
     populate_blueprint,
     add_non_blueprint_requests,
     generate_sanic_json,
+    format_json_body,
 )
 from examples.app import app
 
@@ -73,6 +74,23 @@ def test_get_blueprint_docs():
     for blueprint in blueprints:
         assert (
             get_blueprint_docs(blueprints, blueprint) == blueprints[blueprint].__doc__
+        )
+
+
+def test_format_json_body():
+    """Extracts JSON BODY from doc string as raw JSON."""
+    test_routes = {
+        "/v1/a-prefix/endpoint-one": {
+            "mode": "raw",
+            "raw": '{ "token":"{{token}}" ,"project_id":"{{project_id}}" }',
+        },
+        "/v1/a-prefix/endpoint-two": {},
+    }
+    for route in test_routes:
+        doc = app.router.routes_all[route].handler.__doc__
+        assert (
+            format_json_body(doc, divider="JSON BODY\n    --------")
+            == test_routes[route]
         )
 
 
