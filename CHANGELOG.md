@@ -1,8 +1,9 @@
-# Version 19.6.2
+# Version 0.1.5
 
 ## Features
 
--  
+- added CHANGELOG
+- added format_json_body, which parses doc strings for JSON BODY examples requests
 
 ##  Bugfixes
 - 
