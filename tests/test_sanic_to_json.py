@@ -79,19 +79,17 @@ def test_get_blueprint_docs():
 
 def test_format_json_body():
     """Extracts JSON BODY from doc string as raw JSON."""
-    test_routes = {
-        "/v1/a-prefix/endpoint-one": {
+    test_routes = ["/v1/a-prefix/endpoint-one", "/v1/a-prefix/endpoint-two"]
+    json_body = [
+        {
             "mode": "raw",
             "raw": '{ "token":"{{token}}" ,"project_id":"{{project_id}}" }',
         },
-        "/v1/a-prefix/endpoint-two": {},
-    }
-    for route in test_routes:
+        {},
+    ]
+    for route, body in zip(test_routes, json_body):
         doc = app.router.routes_all[route].handler.__doc__
-        assert (
-            format_json_body(doc, divider="JSON BODY\n    --------")
-            == test_routes[route]
-        )
+        assert format_json_body(doc, divider="JSON BODY\n    --------") == body
 
 
 def test_get_route_name():
