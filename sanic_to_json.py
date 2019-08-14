@@ -184,7 +184,7 @@ def save_as_json(collection_name, filename="postman_collection.json"):
         dump(collection_name, file, indent=4)
 
 
-def sanic_to_json(collection_name, app, filename="postman_collection.json"):
+def generate_sanic_json(collection_name, app, filename="postman_collection.json"):
     """Generates json script from Sanic docs.
 
     Parameters

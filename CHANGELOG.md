@@ -2,8 +2,8 @@
 
 ## Features
 
-- added CHANGELOG
-- added format_json_body, which parses doc strings for JSON BODY examples requests
+- CHANGELOG
+- format_json_body, which parses doc strings for JSON BODY examples requests
 
 ##  Bugfixes
 - 
