@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "fa2116af-118b-48e2-84cb-1878317e85ea",
-		"name": "Test API",
+		"_postman_id": "17084a48-d95a-4e44-ac15-23e9539feb59",
+		"name": "Testing scratchpad",
 		"description": "A doc string for the API. Blueprints have their own doc strings.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,9 +11,6 @@
 			"item": [
 				{
 					"name": "endpoint-one",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [
@@ -24,10 +21,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"token\":\"{{token}}\" ,\"project_id\":\"{{project_ids}}\" }"
-						},
 						"url": {
 							"raw": "{{base_Url}}/v1/a-prefix/endpoint-one",
 							"host": [
@@ -39,7 +32,7 @@
 								"endpoint-one"
 							]
 						},
-						"description": "Return text from request."
+						"description": "Return text from request.\n       \n    JSON BODY\n    --------\n    { \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }\n    "
 					},
 					"response": []
 				},

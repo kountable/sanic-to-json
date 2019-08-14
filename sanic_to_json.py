@@ -125,14 +125,18 @@ def format_request(
 
     Returns a postman formatted dictionary request item."""
     request = atomic_request()
-    request["name"] = get_route_name(route)
+    doc = get_route_doc_string(routes, route, method)
+    name = get_route_name(route)
+    url = get_url(route, base_url=base_url)
+    request["name"] = name
     request["request"]["method"] = method
-    request["request"]["url"]["raw"] = get_url(route, base_url=base_url)
-    request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
-    request["request"]["description"] = get_route_doc_string(routes, route, method)
-    request["request"]["body"] = format_json_body(
-        request["request"]["description"], divider
-    )
+    request["request"]["url"]["raw"] = url
+    request["request"]["url"]["host"] = [url]
+    request["request"]["description"] = doc
+    if divider in doc:
+        body = format_json_body(request["request"]["description"], divider)
+        request["request"]["body"] = body
+        request["protocolProfileBehavior"] = {"disableBodyPruning": True}
     return request
 
 

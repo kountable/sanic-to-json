@@ -1,6 +1,6 @@
 {
     "info": {
-        "name": "Test API",
+        "name": "Testing scratchpad",
         "description": "A doc string for the API. Blueprints have their own doc strings.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -27,9 +27,16 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
-                        "description": "Return text from request."
+                        "description": "Return text from request.\n       \n    JSON BODY\n    --------\n    { \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }\n    ",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{ \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }"
+                        }
                     },
-                    "response": []
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
                 },
                 {
                     "name": "endpoint-two",
