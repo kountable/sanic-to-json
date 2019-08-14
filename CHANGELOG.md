@@ -3,7 +3,7 @@
 ## Features
 
 - CHANGELOG
-- format_json_body, which parses doc strings for JSON BODY examples requests
+- format_json_body, which parses doc strings for JSON BODY examples requests. The function adds the JSON as Body request code in Postman. 
 
 ##  Bugfixes
 - 
