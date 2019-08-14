@@ -1,13 +1,13 @@
 {
     "info": {
-        "name": "Testing scratchpad",
+        "name": "Test API",
         "description": "A doc string for the API. Blueprints have their own doc strings.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {
             "name": "api_1",
-            "description": "Return JSON from POST request.",
+            "description": "Return JSON from GET request.",
             "item": [
                 {
                     "name": "endpoint-one",
@@ -41,28 +41,6 @@
                 {
                     "name": "endpoint-two",
                     "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "value": "application/json",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from GET request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "endpoint-two",
-                    "request": {
                         "method": "POST",
                         "header": [
                             {
@@ -79,6 +57,28 @@
                             ]
                         },
                         "description": "Return JSON from POST request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "endpoint-two",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from GET request."
                     },
                     "response": []
                 }
@@ -159,28 +159,6 @@
         {
             "name": "test",
             "request": {
-                "method": "GET",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "name": "Content-Type",
-                        "value": "application/json",
-                        "type": "text"
-                    }
-                ],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another get request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "POST",
                 "header": [
                     {
@@ -197,6 +175,28 @@
                     ]
                 },
                 "description": "Another post request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another get request."
             },
             "response": []
         }

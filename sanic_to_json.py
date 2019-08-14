@@ -133,6 +133,7 @@ def format_request(
     request["request"]["url"]["raw"] = url
     request["request"]["url"]["host"] = [url]
     request["request"]["description"] = doc
+    # check doc for divider add extra key if needed
     if divider in doc:
         body = format_json_body(request["request"]["description"], divider)
         request["request"]["body"] = body
