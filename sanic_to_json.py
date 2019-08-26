@@ -130,9 +130,12 @@ def format_json_body(doc_config):
     body = {}
     body["mode"] = "raw"
     body["raw"] = {}
-    for key in doc_config["body"]:
-        body["raw"][key] = doc_config["body"][key]
-    body["raw"] = dumps(body["raw"])
+    try:
+        for key in doc_config["body"]:
+            body["raw"][key] = doc_config["body"][key]
+        body["raw"] = dumps(body["raw"])
+    except KeyError:
+        body["raw"] = ""
     return body
 
 

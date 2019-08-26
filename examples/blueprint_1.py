@@ -28,22 +28,10 @@ async def post(request):
 async def post(request):
     """Return JSON from POST request.
     
-    [DEFAULT]
-    ServerAliveInterval = 45
-    Compression = yes
-    CompressionLevel = 9
-    ForwardX11 = yes
-    home_dir = /kountable
-
-    [bitbucket.org]
-    User = hg, what does 
-        do in a different line. 
-    UPPER = test
-    url = %(home_dir)s/endpoint
-
-    [topsecret.server.com]
-    Port = 50022
-    ForwardX11 = no"""
+    INI
+    [header]
+    Content-Type = application/json
+    """
     data = request.text
     return json(data)
 

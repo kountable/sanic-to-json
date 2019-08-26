@@ -27,6 +27,34 @@
                 {
                     "name": "endpoint-two",
                     "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from POST request.\n    \n    INI\n    [header]\n    Content-Type = application/json\n    ",
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        }
+                    },
+                    "response": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "name": "endpoint-two",
+                    "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
@@ -36,21 +64,6 @@
                             ]
                         },
                         "description": "Return JSON from GET request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "endpoint-two",
-                    "request": {
-                        "method": "POST",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from POST request.\n    \n    [DEFAULT]\n    ServerAliveInterval = 45\n    Compression = yes\n    CompressionLevel = 9\n    ForwardX11 = yes\n    home_dir = /kountable\n\n    [bitbucket.org]\n    User = hg, what does \n        do in a different line. \n    UPPER = test\n    url = %(home_dir)s/endpoint\n\n    [topsecret.server.com]\n    Port = 50022\n    ForwardX11 = no"
                     },
                     "response": []
                 },
@@ -143,21 +156,6 @@
         {
             "name": "test",
             "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another get request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "POST",
                 "header": [],
                 "url": {
@@ -167,6 +165,21 @@
                     ]
                 },
                 "description": "Another post request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another get request."
             },
             "response": []
         }
