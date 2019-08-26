@@ -1,4 +1,5 @@
-from json import dump
+from json import dump, dumps
+import configparser
 
 
 def collection_json():
@@ -21,14 +22,7 @@ def atomic_request():
         "name": "test request",
         "request": {
             "method": "GET",
-            "header": [
-                {
-                    "key": "Content-Type",
-                    "name": "Content-Type",
-                    "value": "application/json",
-                    "type": "text",
-                }
-            ],
+            "header": [],
             "url": {
                 "raw": "{{target_url}}endpoint",
                 "host": ["{{target_url}}endpoint"],
@@ -108,19 +102,41 @@ def get_url(route, base_url="{{base_Url}}"):
     return url
 
 
-def format_json_body(doc, divider):
-    """Extracts JSON BODY from doc string as raw JSON."""
-    if divider in doc:
-        body = {}
-        body["mode"] = "raw"
-        body["raw"] = doc.split(divider)[-1].strip()
-        return body
-    return {}
+def extract_ini_from_doc(doc):
+    """Extracts INI from doc strings."""
+    return doc.rsplit("INI")[-1]
 
 
-def format_request(
-    routes, route, method, base_url="{{base_Url}}", divider="JSON BODY\n    --------"
-):
+def load_config(ini_string):
+    """Load config parse from string."""
+    # Override lower case key conversion
+    config = configparser.RawConfigParser()
+    config.optionxform = lambda option: option
+    config.read_string(ini_string)
+    return config
+
+
+def format_headers(doc_config):
+    """Returns a list of formatted header dictionaries."""
+    request_header = []
+    for header in doc_config["header"]:
+        item = {"key": header, "value": doc_config["header"][header], "type": "text"}
+        request_header.append(item)
+    return request_header
+
+
+def format_json_body(doc_config):
+    """formats JSON body from config as raw JSON."""
+    body = {}
+    body["mode"] = "raw"
+    body["raw"] = {}
+    for key in doc_config["body"]:
+        body["raw"][key] = doc_config["body"][key]
+    body["raw"] = dumps(body["raw"])
+    return body
+
+
+def format_request(routes, route, method, base_url="{{base_Url}}"):
     """Populates atomic_request dictionary with route metatdata.
 
     Returns a postman formatted dictionary request item."""
@@ -134,34 +150,33 @@ def format_request(
     request["request"]["url"]["host"] = [url]
     request["request"]["description"] = doc
     # check doc for divider add extra key if needed
-    if divider in doc:
-        body = format_json_body(request["request"]["description"], divider)
+    if "INI" in doc:
+        config_string = extract_ini_from_doc(doc)
+        doc_config = load_config(config_string)
+
+        body = format_json_body(doc_config)
         request["request"]["body"] = body
+
+        head = format_headers(doc_config)
+        request["request"]["header"] = head
+
         request["protocolProfileBehavior"] = {"disableBodyPruning": True}
     return request
 
 
 def populate_blueprint(
-    api_json,
-    blueprint,
-    routes,
-    base_url="{{base_Url}}",
-    divider="JSON BODY\n    --------",
+    api_json, blueprints, blueprint, routes, base_url="{{base_Url}}"
 ):
     """Populates endpoints for blueprint."""
 
     items = []
     for route in get_blueprint_routes(blueprint, routes):
         for method in get_app_route_methods(routes, route):
-            items.append(
-                format_request(
-                    routes, route, method, base_url=base_url, divider=divider
-                )
-            )
+            items.append(format_request(routes, route, method, base_url=base_url))
     api_json["item"].append(
         {
             "name": blueprint,
-            "description": get_route_doc_string(routes, route, method),
+            "description": get_blueprint_docs(blueprints, blueprint),
             "item": items,
         }
     )
@@ -175,9 +190,7 @@ def add_non_blueprint_requests(
     for route in routes:
         if "." not in routes[route].name:
             for method in get_app_route_methods(routes, route):
-                request = format_request(
-                    routes, route, method, base_url=base_url, divider=divider
-                )
+                request = format_request(routes, route, method, base_url=base_url)
                 api_json["item"].append(request)
     return api_json
 
@@ -212,10 +225,11 @@ def generate_sanic_json(collection_name, app, filename="postman_collection.json"
 
     # populate blueprint requests
     for blueprint in blueprints:
-        collection = populate_blueprint(collection, blueprint, routes)
+        collection = populate_blueprint(collection, blueprints, blueprint, routes)
 
     # populate main app requests
     collection = add_non_blueprint_requests(collection, routes)
 
     # save dict to JSON file
     save_as_json(collection, filename=filename)
+
