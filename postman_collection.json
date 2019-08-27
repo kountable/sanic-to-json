@@ -15,7 +15,7 @@
                         "method": "GET",
                         "header": [
                             {
-                                "key": "Content-Type",
+                                "key": "Content-Typ e",
                                 "value": "application/json",
                                 "type": "text"
                             },
@@ -31,7 +31,7 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
-                        "description": "Return text from request.\n       \n    INI\n    [header]\n    header = {\"Content-Type\": \"application/json\", \"x-amz-sns-message-type\": \"Notification\"}\n    ",
+                        "description": "Return text from request.\n       \n    INI\n    [header]\n    header = {\"Content-Typ e\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n\n    [example.one]\n    query = ?days=1\n    header = {\"Content-Typ e\": \"application/json\"}\n    body = {\"token\": \"1234\"}\n    ",
                         "body": {
                             "mode": "raw",
                             "raw": {}
@@ -45,21 +45,6 @@
                 {
                     "name": "endpoint-two",
                     "request": {
-                        "method": "POST",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from POST request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "endpoint-two",
-                    "request": {
                         "method": "GET",
                         "header": [],
                         "url": {
@@ -69,6 +54,21 @@
                             ]
                         },
                         "description": "Return JSON from GET request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "endpoint-two",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from POST request."
                     },
                     "response": []
                 },
@@ -166,21 +166,6 @@
         {
             "name": "test",
             "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another post request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "GET",
                 "header": [],
                 "url": {
@@ -190,6 +175,21 @@
                     ]
                 },
                 "description": "Another get request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another post request."
             },
             "response": []
         }

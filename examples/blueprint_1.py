@@ -11,7 +11,13 @@ async def post(request):
        
     INI
     [header]
-    header = {"Content-Type": "application/json", "x-amz-sns-message-type": "Notification"}
+    header = {"Content-Typ e": "application/json","x-amz-sns-message-type": "Notification"}
+
+    [example.one]
+    method = "GET"
+    query = ?days=1
+    header = {"Content-Typ e": "application/json"}
+    body = {"token": "1234"}
     """
     data = request.text
     return text(data)
@@ -52,15 +58,3 @@ async def post(request):
     data = request.text
     return json(data)
 
-
-"""    [example.one]
-    name = "first example"
-    headers = {} 
-    body = {}
-    params = {}
-
-    [example.two]
-    name = "asecond example"
-    days = 1
-    time = 60
-    units = metric """

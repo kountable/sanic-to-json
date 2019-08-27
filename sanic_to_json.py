@@ -146,6 +146,20 @@ def format_json_body(config):
     return body
 
 
+def add_INI_data(doc, request):
+    """adds INI elements to atomic request. Returns altered request."""
+    config_string = extract_ini_from_doc(doc)
+    config = load_config(config_string)
+    body = format_json_body(config)
+    request["request"]["body"] = body
+
+    head = format_headers(config)
+    request["request"]["header"] = head
+
+    request["protocolProfileBehavior"] = {"disableBodyPruning": True}
+    return request
+
+
 def format_request(routes, route, method, base_url="{{base_Url}}"):
     """Populates atomic_request dictionary with route metatdata.
 
@@ -161,15 +175,7 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     request["request"]["description"] = doc
     # check doc for divider add extra key if needed
     if "INI" in doc:
-        config_string = extract_ini_from_doc(doc)
-        config = load_config(config_string)
-        body = format_json_body(config)
-        request["request"]["body"] = body
-
-        head = format_headers(config)
-        request["request"]["header"] = head
-
-        request["protocolProfileBehavior"] = {"disableBodyPruning": True}
+        request = add_INI_data(doc, request)
     return request
 
 
