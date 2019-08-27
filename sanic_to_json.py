@@ -116,23 +116,23 @@ def load_config(ini_string):
     return config
 
 
-def format_headers(doc_config):
+def format_headers(config):
     """Returns a list of formatted header dictionaries."""
     request_header = []
-    for header in doc_config["header"]:
-        item = {"key": header, "value": doc_config["header"][header], "type": "text"}
+    for header in config["header"]:
+        item = {"key": header, "value": config["header"][header], "type": "text"}
         request_header.append(item)
     return request_header
 
 
-def format_json_body(doc_config):
+def format_json_body(config):
     """formats JSON body from config as raw JSON."""
     body = {}
     body["mode"] = "raw"
     body["raw"] = {}
     try:
-        for key in doc_config["body"]:
-            body["raw"][key] = doc_config["body"][key]
+        for key in config["body"]:
+            body["raw"][key] = config["body"][key]
         body["raw"] = dumps(body["raw"])
     except KeyError:
         body["raw"] = ""
@@ -155,12 +155,12 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     # check doc for divider add extra key if needed
     if "INI" in doc:
         config_string = extract_ini_from_doc(doc)
-        doc_config = load_config(config_string)
+        config = load_config(config_string)
 
-        body = format_json_body(doc_config)
+        body = format_json_body(config)
         request["request"]["body"] = body
 
-        head = format_headers(doc_config)
+        head = format_headers(config)
         request["request"]["header"] = head
 
         request["protocolProfileBehavior"] = {"disableBodyPruning": True}

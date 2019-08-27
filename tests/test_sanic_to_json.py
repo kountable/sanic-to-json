@@ -16,8 +16,13 @@ from sanic_to_json import (
     add_non_blueprint_requests,
     generate_sanic_json,
     format_json_body,
+    extract_ini_from_doc,
+    load_config,
+    format_headers,
+    format_json_body,
 )
 from examples.app import app
+import configparser
 
 
 def test_atomic_request():
@@ -77,19 +82,39 @@ def test_get_blueprint_docs():
         )
 
 
-def test_format_json_body():
-    """Extracts JSON BODY from doc string as raw JSON."""
-    test_routes = ["/v1/a-prefix/endpoint-one", "/v1/a-prefix/endpoint-two"]
-    json_body = [
-        {
-            "mode": "raw",
-            "raw": '{ "token":"{{token}}" ,"project_id":"{{project_id}}" }',
-        },
-        {},
+# INI functions
+test_doc = app.router.routes_all["/v1/a-prefix/endpoint-three"].handler.__doc__
+
+
+def test_extract_ini_from_doc():
+    """Extracts INI from doc strings."""
+
+    assert extract_ini_from_doc(test_doc) == test_doc.rsplit("INI")[-1]
+
+
+def test_load_config():
+    test_ini = extract_ini_from_doc(test_doc)
+    test_config = load_config(test_ini)
+    assert isinstance(test_config, configparser.RawConfigParser)
+
+
+def test_format_headers():
+    test_ini = extract_ini_from_doc(test_doc)
+    test_config = load_config(test_ini)
+    assert format_headers(test_config) == [
+        {"key": "Content-Type", "value": "application/json", "type": "text"},
+        {"key": "x-amz-sns-message-type", "value": "Notification", "type": "text"},
     ]
-    for route, body in zip(test_routes, json_body):
-        doc = app.router.routes_all[route].handler.__doc__
-        assert format_json_body(doc, divider="JSON BODY\n    --------") == body
+
+
+def test_format_json_body():
+    test_ini = extract_ini_from_doc(test_doc)
+    test_config = load_config(test_ini)
+    test_body = format_json_body(test_config)
+    assert test_body == {
+        "mode": "raw",
+        "raw": '{"username": "{{username}}", "password": "{{password}}"}',
+    }
 
 
 def test_get_route_name():
@@ -131,7 +156,7 @@ def test_populate_blueprint():
     collection = collection_json()
     test_collection = collection.copy()
     for blueprint in blueprints:
-        test_collection = populate_blueprint(collection, blueprint, routes)
+        test_collection = populate_blueprint(collection, blueprints, blueprint, routes)
     assert collection.keys() <= test_collection.keys()
 
 
