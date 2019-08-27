@@ -13,44 +13,49 @@
                     "name": "endpoint-one",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            },
+                            {
+                                "key": "x-amz-sns-message-type",
+                                "value": "Notification",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
                             "raw": "{{base_Url}}/v1/a-prefix/endpoint-one",
                             "host": [
                                 "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
-                        "description": "Return text from request.\n       \n    JSON BODY\n    --------\n    { \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }\n    "
-                    },
-                    "response": []
-                },
-                {
-                    "name": "endpoint-two",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json",
-                                "type": "text"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from POST request.\n    \n    INI\n    [header]\n    Content-Type = application/json\n    ",
+                        "description": "Return text from request.\n       \n    INI\n    [header]\n    header = {\"Content-Type\": \"application/json\", \"x-amz-sns-message-type\": \"Notification\"}\n    ",
                         "body": {
                             "mode": "raw",
-                            "raw": ""
+                            "raw": {}
                         }
                     },
                     "response": [],
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     }
+                },
+                {
+                    "name": "endpoint-two",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from POST request."
+                    },
+                    "response": []
                 },
                 {
                     "name": "endpoint-two",
@@ -81,6 +86,11 @@
                                 "key": "x-amz-sns-message-type",
                                 "value": "Notification",
                                 "type": "text"
+                            },
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "text"
                             }
                         ],
                         "url": {
@@ -89,10 +99,10 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-three"
                             ]
                         },
-                        "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [header]\n    Content-Type = application/json\n    x-amz-sns-message-type = Notification\n\n    [body]\n    username = {{username}}\n    password = {{password}}\n    ",
+                        "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n  \n    [header]\n    header = {\"Content-Type\": \"application/json\", \"x-amz-sns-message-type\": \"Notification\"}\n    header2 = {\"token\":\"{{token}}\"}\n    \n    [body]\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    more_body = {\"token\": \"1234\"}\n\n\n\n    ",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+                            "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\", \"token\": \"1234\"}"
                         }
                     },
                     "response": [],

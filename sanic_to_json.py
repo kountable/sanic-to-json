@@ -163,7 +163,6 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     if "INI" in doc:
         config_string = extract_ini_from_doc(doc)
         config = load_config(config_string)
-
         body = format_json_body(config)
         request["request"]["body"] = body
 

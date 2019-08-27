@@ -11,11 +11,7 @@ async def post(request):
        
     INI
     [header]
-    Content-Type = application/json
-
-    [body]
-    username = {{username}}
-    password = {{password}}
+    header = {"Content-Type": "application/json", "x-amz-sns-message-type": "Notification"}
     """
     data = request.text
     return text(data)
@@ -30,21 +26,7 @@ async def post(request):
 
 @bp1.route("/endpoint-two", methods=["POST"])
 async def post(request):
-    """Return JSON from POST request.
-    
-    INI
-    [header]
-    {
-        "key": "Content-Type",
-        "value": "application/json",
-        "type": "text"
-    },
-    {
-        "key": "x-amz-sns-message-type",
-        "value": "Notification",
-        "type": "text"
-    }
-    """
+    """Return JSON from POST request."""
     data = request.text
     return json(data)
 
@@ -64,7 +46,14 @@ async def post(request):
     body = {"username": "{{username}}", "password": "{{password}}"}
     more_body = {"token": "1234"}
 
-    [example.one]
+
+
+    """
+    data = request.text
+    return json(data)
+
+
+"""    [example.one]
     name = "first example"
     headers = {} 
     body = {}
@@ -74,8 +63,4 @@ async def post(request):
     name = "asecond example"
     days = 1
     time = 60
-    units = metric 
-
-    """
-    data = request.text
-    return json(data)
+    units = metric """
