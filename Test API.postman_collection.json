@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "238aa682-7c1e-4eaf-9552-40f2e069e31d",
+		"_postman_id": "4656ad3e-28b9-4a69-845c-3a2065b66049",
 		"name": "Test API",
 		"description": "A doc string for the API. Blueprints have their own doc strings.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -11,23 +11,9 @@
 			"item": [
 				{
 					"name": "endpoint-one",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }"
-						},
+						"header": [],
 						"url": {
 							"raw": "{{base_Url}}/v1/a-prefix/endpoint-one",
 							"host": [
@@ -41,20 +27,78 @@
 						},
 						"description": "Return text from request.\n       \n    JSON BODY\n    --------\n    { \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }\n    "
 					},
-					"response": []
+					"response": [
+						{
+							"name": "example two",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"v1",
+										"a-prefix",
+										"endpoint-one"
+									],
+									"query": [
+										{
+											"key": "days",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "example one",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=3&units=metric&time=1400",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"v1",
+										"a-prefix",
+										"endpoint-one"
+									],
+									"query": [
+										{
+											"key": "days",
+											"value": "3"
+										},
+										{
+											"key": "units",
+											"value": "metric"
+										},
+										{
+											"key": "time",
+											"value": "1400"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "endpoint-two",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
 							"host": [
@@ -74,14 +118,7 @@
 					"name": "endpoint-two",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
 							"host": [
@@ -104,19 +141,18 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
 							},
 							{
 								"key": "x-amz-sns-message-type",
-								"value": "Notification ",
+								"value": "Notification",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\":\"{{username}}\", \"password\":\"{{pasword}}\"}"
+							"raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
 						},
 						"url": {
 							"raw": "{{base_Url}}/v1/a-prefix/endpoint-three",
@@ -129,34 +165,12 @@
 								"endpoint-three"
 							]
 						},
-						"description": "Hello World.\n    And more text on the second line. \n    \n\n\t[DEFAULT]\n\tServerAliveInterval = 45\n\tCompression = yes\n\tCompressionLevel = 9\n\tForwardX11 = yes\n\thome_dir = /kountable\n\t\n\t[bitbucket.org]\n\tUser = hg, what does \n\t    do in a different line. \n\tUPPER = test\n\turl = %(home_dir)s/endpoint\n\t\n\t[topsecret.server.com]\n\tPort = 50022\n\tForwardX11 = no"
+						"description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [header]\n    Content-Type = application/json\n    x-amz-sns-message-type = Notification\n\n    [body]\n    username = {{username}}\n    password = {{password}}\n    "
 					},
 					"response": []
 				}
 			],
-			"description": "Blueprint doc string ",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "358d11a1-c1b9-4d48-9050-e4f88c038b4e",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "75553daf-51e6-48a3-b5ad-08a7d8ba4fa2",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
+			"description": "This is the doc string for blueprint1."
 		},
 		{
 			"name": "api_2",
@@ -165,14 +179,7 @@
 					"name": "endpoint-three",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_Url}}/v1/another-prefix/endpoint-three",
 							"host": [
@@ -192,14 +199,7 @@
 					"name": "endpoint-four",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_Url}}/v1/another-prefix/endpoint-four",
 							"host": [
@@ -216,20 +216,13 @@
 					"response": []
 				}
 			],
-			"description": "Return JSON form request."
+			"description": "This is the doc string for blueprint2."
 		},
 		{
 			"name": "healthcheck",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{base_Url}}/healthcheck",
 					"host": [
@@ -247,14 +240,7 @@
 			"name": "test",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{base_Url}}/test",
 					"host": [
@@ -272,14 +258,7 @@
 			"name": "test",
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{base_Url}}/test",
 					"host": [

@@ -9,9 +9,13 @@ bp1.__doc__ = "This is the doc string for blueprint1."
 async def post(request):
     """Return text from request.
        
-    JSON BODY
-    --------
-    { "token":"{{token}}" ,"project_id":"{{project_id}}" }
+    INI
+    [header]
+    Content-Type = application/json
+
+    [body]
+    username = {{username}}
+    password = {{password}}
     """
     data = request.text
     return text(data)
@@ -30,7 +34,16 @@ async def post(request):
     
     INI
     [header]
-    Content-Type = application/json
+    {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+    },
+    {
+        "key": "x-amz-sns-message-type",
+        "value": "Notification",
+        "type": "text"
+    }
     """
     data = request.text
     return json(data)
@@ -42,13 +55,27 @@ async def post(request):
     And more text on the second line. 
     
     INI
+  
     [header]
-    Content-Type = application/json
-    x-amz-sns-message-type = Notification
-
+    header = {"Content-Type": "application/json", "x-amz-sns-message-type": "Notification"}
+    header2 = {"token":"{{token}}"}
+    
     [body]
-    username = {{username}}
-    password = {{password}}
+    body = {"username": "{{username}}", "password": "{{password}}"}
+    more_body = {"token": "1234"}
+
+    [example.one]
+    name = "first example"
+    headers = {} 
+    body = {}
+    params = {}
+
+    [example.two]
+    name = "asecond example"
+    days = 1
+    time = 60
+    units = metric 
+
     """
     data = request.text
     return json(data)

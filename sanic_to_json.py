@@ -119,9 +119,14 @@ def load_config(ini_string):
 def format_headers(config):
     """Returns a list of formatted header dictionaries."""
     request_header = []
-    for header in config["header"]:
-        item = {"key": header, "value": config["header"][header], "type": "text"}
-        request_header.append(item)
+    try:
+        for item in config["header"]:
+            header_items = eval(config["header"][item])
+            for key in header_items:
+                header = {"key": key, "value": header_items[key], "type": "text"}
+                request_header.append(header)
+    except KeyError:
+        pass
     return request_header
 
 
@@ -131,11 +136,13 @@ def format_json_body(config):
     body["mode"] = "raw"
     body["raw"] = {}
     try:
-        for key in config["body"]:
-            body["raw"][key] = config["body"][key]
+        for item in config["body"]:
+            body_dict = eval(config["body"][item])
+            for key in body_dict:
+                body["raw"][key] = body_dict[key]
         body["raw"] = dumps(body["raw"])
     except KeyError:
-        body["raw"] = ""
+        pass
     return body
 
 
