@@ -146,10 +146,8 @@ def format_json_body(config):
     return body
 
 
-def add_INI_data(doc, request):
+def add_INI_data(doc, request, config):
     """adds INI elements to atomic request. Returns altered request."""
-    config_string = extract_ini_from_doc(doc)
-    config = load_config(config_string)
     body = format_json_body(config)
     request["request"]["body"] = body
 
@@ -171,11 +169,14 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     request["name"] = name
     request["request"]["method"] = method
     request["request"]["url"]["raw"] = url
-    request["request"]["url"]["host"] = [url]
+    request["request"]["url"]["host"] = [base_url]
     request["request"]["description"] = doc
-    # check doc for divider add extra key if needed
+    # check doc strings for INI add extra keys
     if "INI" in doc:
-        request = add_INI_data(doc, request)
+        config_string = extract_ini_from_doc(doc)
+        config = load_config(config_string)
+
+        request = add_INI_data(doc, request, config)
     return request
 
 

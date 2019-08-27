@@ -14,6 +14,7 @@ async def post(request):
     header = {"Content-Typ e": "application/json","x-amz-sns-message-type": "Notification"}
 
     [example.one]
+    name = "day query"
     method = "GET"
     query = ?days=1
     header = {"Content-Typ e": "application/json"}
