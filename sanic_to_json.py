@@ -122,7 +122,12 @@ def format_headers(config_section):
     try:
         header_items = eval(config_section["header"])
         for key in header_items:
-            header = {"key": key, "value": header_items[key], "type": "text"}
+            header = {
+                "key": key,
+                "name": key,
+                "value": header_items[key],
+                "type": "text",
+            }
             request_header.append(header)
     except KeyError:
         pass
@@ -188,17 +193,17 @@ def add_responses(request, config):
         if "example" in section:
             example_request["name"] = config[section]["name"]
             example_request["originalRequest"]["method"] = config[section]["method"]
-            example_request["originalRequest"]["url"] = request["request"]["url"].copy()
-            example_request["originalRequest"]["url"]["raw"] += config[section]["query"]
-            example_request["originalRequest"]["url"]["host"] = [
-                example_request["originalRequest"]["url"]["raw"]
-            ]
             example_request["originalRequest"]["header"] = format_headers(
                 config[section]
             )
             example_request["originalRequest"]["body"] = format_json_body(
                 config[section]
             )
+            example_request["originalRequest"]["url"] = request["request"]["url"].copy()
+            example_request["originalRequest"]["url"]["raw"] += config[section]["query"]
+            example_request["originalRequest"]["url"]["host"] = [
+                example_request["originalRequest"]["url"]["raw"]
+            ]
 
             response.append(example_request)
     return response

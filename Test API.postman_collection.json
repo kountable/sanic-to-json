@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4656ad3e-28b9-4a69-845c-3a2065b66049",
+		"_postman_id": "f47d5954-f829-47a7-b4d4-aceb4c5773f5",
 		"name": "Test API",
 		"description": "A doc string for the API. Blueprints have their own doc strings.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -11,9 +11,29 @@
 			"item": [
 				{
 					"name": "endpoint-one",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-amz-sns-message-type",
+								"name": "x-amz-sns-message-type",
+								"value": "Notification",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+						},
 						"url": {
 							"raw": "{{base_Url}}/v1/a-prefix/endpoint-one",
 							"host": [
@@ -25,42 +45,25 @@
 								"endpoint-one"
 							]
 						},
-						"description": "Return text from request.\n       \n    JSON BODY\n    --------\n    { \"token\":\"{{token}}\" ,\"project_id\":\"{{project_id}}\" }\n    "
+						"description": "Return text from request.\n       \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n\n\n    [example.multiple]\n    name = multiple query\n    method = POST\n    query = ?days=3&units=metric&time=1400\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"token\"}\n\n    [example.another]\n    name = another query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n\n    [example.single]\n    name = single query\n    method = GET\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n    "
 					},
 					"response": [
 						{
-							"name": "example two",
+							"name": "multiple query",
 							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1",
-									"host": [
-										"{{base_Url}}"
-									],
-									"path": [
-										"v1",
-										"a-prefix",
-										"endpoint-one"
-									],
-									"query": [
-										{
-											"key": "days",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": null
-						},
-						{
-							"name": "example one",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"token\": \"token\"}"
+								},
 								"url": {
 									"raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=3&units=metric&time=1400",
 									"host": [
@@ -87,12 +90,118 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
-							"body": null
+							"body": ""
+						},
+						{
+							"name": "another query",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"token\": \"POST token\"}"
+								},
+								"url": {
+									"raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1&units=metric",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"v1",
+										"a-prefix",
+										"endpoint-one"
+									],
+									"query": [
+										{
+											"key": "days",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "metric"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "single query",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\"token\": \"donde estas\"}"
+								},
+								"url": {
+									"raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1&units=metric",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"v1",
+										"a-prefix",
+										"endpoint-one"
+									],
+									"query": [
+										{
+											"key": "days",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "metric"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
 						}
 					]
+				},
+				{
+					"name": "endpoint-two",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+							"host": [
+								"{{base_Url}}"
+							],
+							"path": [
+								"v1",
+								"a-prefix",
+								"endpoint-two"
+							]
+						},
+						"description": "Return JSON from POST request."
+					},
+					"response": []
 				},
 				{
 					"name": "endpoint-two",
@@ -115,38 +224,14 @@
 					"response": []
 				},
 				{
-					"name": "endpoint-two",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-							"host": [
-								"{{base_Url}}"
-							],
-							"path": [
-								"v1",
-								"a-prefix",
-								"endpoint-two"
-							]
-						},
-						"description": "Return JSON from POST request.\n    \n    [DEFAULT]\n    ServerAliveInterval = 45\n    Compression = yes\n    CompressionLevel = 9\n    ForwardX11 = yes\n    home_dir = /kountable\n\n    [bitbucket.org]\n    User = hg, what does \n        do in a different line. \n    UPPER = test\n    url = %(home_dir)s/endpoint\n\n    [topsecret.server.com]\n    Port = 50022\n    ForwardX11 = no"
-					},
-					"response": []
-				},
-				{
 					"name": "endpoint-three",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
+								"name": "Content-Type",
 								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "x-amz-sns-message-type",
-								"value": "Notification",
 								"type": "text"
 							}
 						],
@@ -165,7 +250,7 @@
 								"endpoint-three"
 							]
 						},
-						"description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [header]\n    Content-Type = application/json\n    x-amz-sns-message-type = Notification\n\n    [body]\n    username = {{username}}\n    password = {{password}}\n    "
+						"description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    "
 					},
 					"response": []
 				}
@@ -239,24 +324,6 @@
 		{
 			"name": "test",
 			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_Url}}/test",
-					"host": [
-						"{{base_Url}}"
-					],
-					"path": [
-						"test"
-					]
-				},
-				"description": "Another get request."
-			},
-			"response": []
-		},
-		{
-			"name": "test",
-			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
@@ -269,6 +336,24 @@
 					]
 				},
 				"description": "Another post request."
+			},
+			"response": []
+		},
+		{
+			"name": "test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_Url}}/test",
+					"host": [
+						"{{base_Url}}"
+					],
+					"path": [
+						"test"
+					]
+				},
+				"description": "Another get request."
 			},
 			"response": []
 		}

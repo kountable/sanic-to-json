@@ -12,14 +12,28 @@ async def post(request):
     INI
     [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
+    body = {"username": "{{username}}", "password": "{{password}}"}
 
-
-    [example.one]
-    name = day query
-    method = GET
-    query = ?days=1
+    [example.single]
+    name = single query
+    method = POST
+    query = ?days=1&units=metric
     header = {"Content-Type": "application/json"}
-    body = {"token": "1234"}
+    body = {"token": "POST token"}
+
+    [example.multiple]
+    name = multiple query
+    method = POST
+    query = ?days=3&units=metric&time=1400
+    header = {"Content-Type": "application/json"}
+    body = {"token": "token"}
+
+    [example.another]
+    name = another query
+    method = POST
+    query = ?days=1&units=metric
+    header = {"Content-Type": "application/json"}
+    body = {"token": "POST token"}
     """
     data = request.text
     return text(data)
@@ -46,7 +60,7 @@ async def post(request):
     
     INI
     [request]
-    header = {"Content-Type": "application/json", "x-amz-sns-message-type": "Notification"}
+    header = {"Content-Type": "application/json"}
     body = {"username": "{{username}}", "password": "{{password}}"}
     """
     data = request.text
