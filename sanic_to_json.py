@@ -167,7 +167,7 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     request["name"] = name
     request["request"]["method"] = method
     request["request"]["url"]["raw"] = url
-    request["request"]["url"]["host"] = [base_url]
+    request["request"]["url"]["host"] = [url]
     request["request"]["description"] = doc
     # check doc strings for INI add extra keys
     if "INI" in doc:
@@ -188,8 +188,11 @@ def add_responses(request, config):
         if "example" in section:
             example_request["name"] = config[section]["name"]
             example_request["originalRequest"]["method"] = config[section]["method"]
-            example_request["originalRequest"]["url"] = request["request"]["url"]
+            example_request["originalRequest"]["url"] = request["request"]["url"].copy()
             example_request["originalRequest"]["url"]["raw"] += config[section]["query"]
+            example_request["originalRequest"]["url"]["host"] = [
+                example_request["originalRequest"]["url"]["raw"]
+            ]
             example_request["originalRequest"]["header"] = format_headers(
                 config[section]
             )

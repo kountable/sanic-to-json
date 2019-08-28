@@ -26,9 +26,9 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1",
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-one",
                             "host": [
-                                "{{base_Url}}"
+                                "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
                         "description": "Return text from request.\n       \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n\n\n    [example.one]\n    name = day query\n    method = GET\n    query = ?days=1\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"1234\"}\n    ",
@@ -44,7 +44,7 @@
                                 "url": {
                                     "raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1",
                                     "host": [
-                                        "{{base_Url}}"
+                                        "{{base_Url}}/v1/a-prefix/endpoint-one?days=1"
                                     ]
                                 },
                                 "header": [
@@ -69,30 +69,30 @@
                 {
                     "name": "endpoint-two",
                     "request": {
-                        "method": "POST",
+                        "method": "GET",
                         "header": [],
                         "url": {
                             "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
                             "host": [
-                                "{{base_Url}}"
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
                             ]
                         },
-                        "description": "Return JSON from POST request."
+                        "description": "Return JSON from GET request."
                     },
                     "response": []
                 },
                 {
                     "name": "endpoint-two",
                     "request": {
-                        "method": "GET",
+                        "method": "POST",
                         "header": [],
                         "url": {
                             "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
                             "host": [
-                                "{{base_Url}}"
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
                             ]
                         },
-                        "description": "Return JSON from GET request."
+                        "description": "Return JSON from POST request."
                     },
                     "response": []
                 },
@@ -115,7 +115,7 @@
                         "url": {
                             "raw": "{{base_Url}}/v1/a-prefix/endpoint-three",
                             "host": [
-                                "{{base_Url}}"
+                                "{{base_Url}}/v1/a-prefix/endpoint-three"
                             ]
                         },
                         "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\", \"x-amz-sns-message-type\": \"Notification\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
@@ -143,7 +143,7 @@
                         "url": {
                             "raw": "{{base_Url}}/v1/another-prefix/endpoint-three",
                             "host": [
-                                "{{base_Url}}"
+                                "{{base_Url}}/v1/another-prefix/endpoint-three"
                             ]
                         },
                         "description": "Return text from request."
@@ -158,7 +158,7 @@
                         "url": {
                             "raw": "{{base_Url}}/v1/another-prefix/endpoint-four",
                             "host": [
-                                "{{base_Url}}"
+                                "{{base_Url}}/v1/another-prefix/endpoint-four"
                             ]
                         },
                         "description": "Return JSON form request."
@@ -175,25 +175,10 @@
                 "url": {
                     "raw": "{{base_Url}}/healthcheck",
                     "host": [
-                        "{{base_Url}}"
+                        "{{base_Url}}/healthcheck"
                     ]
                 },
                 "description": "Return health status."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}"
-                    ]
-                },
-                "description": "Another post request."
             },
             "response": []
         },
@@ -205,10 +190,25 @@
                 "url": {
                     "raw": "{{base_Url}}/test",
                     "host": [
-                        "{{base_Url}}"
+                        "{{base_Url}}/test"
                     ]
                 },
                 "description": "Another get request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another post request."
             },
             "response": []
         }
