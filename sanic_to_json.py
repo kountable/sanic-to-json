@@ -116,11 +116,11 @@ def load_config(ini_string):
     return config
 
 
-def format_headers(config):
+def format_headers(config_section):
     """Returns a list of formatted header dictionaries."""
     request_header = []
     try:
-        header_items = eval(config["header"]["header"])
+        header_items = eval(config_section["header"])
         for key in header_items:
             header = {"key": key, "value": header_items[key], "type": "text"}
             request_header.append(header)
@@ -129,13 +129,13 @@ def format_headers(config):
     return request_header
 
 
-def format_json_body(config):
+def format_json_body(config_section):
     """formats JSON body from config as raw JSON."""
     body = {}
     body["mode"] = "raw"
     body["raw"] = {}
     try:
-        body_dict = eval(config["body"]["body"])
+        body_dict = eval(config_section["body"])
         for key in body_dict:
             body["raw"][key] = body_dict[key]
         body["raw"] = dumps(body["raw"])
@@ -146,10 +146,10 @@ def format_json_body(config):
 
 def add_INI_data(doc, request, config):
     """adds INI elements to atomic request. Returns altered request."""
-    body = format_json_body(config)
+    body = format_json_body(config["request"])
     request["request"]["body"] = body
 
-    head = format_headers(config)
+    head = format_headers(config["request"])
     request["request"]["header"] = head
 
     request["protocolProfileBehavior"] = {"disableBodyPruning": True}

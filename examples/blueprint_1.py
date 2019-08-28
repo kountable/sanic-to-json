@@ -10,8 +10,9 @@ async def post(request):
     """Return text from request.
        
     INI
-    [header]
+    [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
+
 
     [example.one]
     name = day query
@@ -44,17 +45,9 @@ async def post(request):
     And more text on the second line. 
     
     INI
-  
-    [header]
+    [request]
     header = {"Content-Type": "application/json", "x-amz-sns-message-type": "Notification"}
-
-    
-    [body]
     body = {"username": "{{username}}", "password": "{{password}}"}
-  
-
-
-
     """
     data = request.text
     return json(data)
