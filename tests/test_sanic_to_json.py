@@ -83,7 +83,7 @@ def test_get_blueprint_docs():
 
 
 # INI functions
-test_doc = app.router.routes_all["/v1/a-prefix/endpoint-three"].handler.__doc__
+test_doc = app.router.routes_all["/v1/a-prefix/endpoint-one"].handler.__doc__
 
 
 def test_extract_ini_from_doc():
@@ -101,16 +101,26 @@ def test_load_config():
 def test_format_headers():
     test_ini = extract_ini_from_doc(test_doc)
     test_config = load_config(test_ini)
-    assert format_headers(test_config) == [
-        {"key": "Content-Type", "value": "application/json", "type": "text"},
-        {"key": "x-amz-sns-message-type", "value": "Notification", "type": "text"},
+    assert format_headers(test_config["request"]) == [
+        {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+        },
+        {
+            "key": "x-amz-sns-message-type",
+            "name": "x-amz-sns-message-type",
+            "value": "Notification",
+            "type": "text",
+        },
     ]
 
 
 def test_format_json_body():
     test_ini = extract_ini_from_doc(test_doc)
     test_config = load_config(test_ini)
-    test_body = format_json_body(test_config)
+    test_body = format_json_body(test_config["request"])
     assert test_body == {
         "mode": "raw",
         "raw": '{"username": "{{username}}", "password": "{{password}}"}',
