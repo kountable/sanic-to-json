@@ -21,6 +21,51 @@ generate_sanic_json("Test API", app, filename="postman_collection.json")
 ```
 The above code formats the Postman collection with 'Test API' and doc strings from Sanic app, `app`, and yields [postman_collection.json](https://github.com/kountable/sanic-to-json/blob/master/postman_collection.json)
 
+### To add `body` and `header` elements to Postman JSON 
+Placing `INI` in doc string will cause the text below to be loaded into a python config object. 
+
+For example, as found in `endpoint-three`
+```
+    INI
+    [request]
+    header = {"Content-Type": "application/json"}
+    body = {"username": "{{username}}", "password": "{{password}}"}
+```
+
+### To add example requests
+Similar to above placing sections under INI that are prefixed will start a example request. 
+For example, as found in `endpoint-one`
+```
+    """Return text from request.
+       
+    INI
+    [request]
+    header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
+    body = {"username": "{{username}}", "password": "{{password}}"}
+
+    [example.single]
+    name = single query
+    method = POST
+    query = ?days=1&units=metric
+    header = {"Content-Type": "application/json"}
+    body = {"token": "POST token"}
+
+    [example.multiple]
+    name = multiple query
+    method = POST
+    query = ?days=3&units=metric&time=1400
+    header = {"Content-Type": "application/json"}
+    body = {"token": "token"}
+
+    [example.another]
+    name = another query
+    method = POST
+    query = ?days=1&units=metric
+    header = {"Content-Type": "application/json"}
+    body = {"token": "POST token"}
+    """
+```
+
 ## How to document Sanic app and Blueprints
 - As the example shows, the Sanic app should have a `.doc` attribute. This doc string will serve as the introduction to the API in Postman docs, e.g., `app.__doc__ = "This API does stuff."`
 
@@ -29,20 +74,6 @@ The above code formats the Postman collection with 'Test API' and doc strings fr
 
 ## How to install 
 `pip install sanic-to-json`
-
-## To do 
-- At the moment endpoints are assumed to accept raw JSON, as passed by the header option in `sanic_to_json.atomic_requests`  
-```
-"header": [
-            {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text",
-            }
-          ]
-```
-Arguments to the header key could be passed in the doc strings, but I'll leave that for a future endevaor. 
 
 ## Contributors
 See the [GitHub contributor page](https://github.com/kountable/sanic-to-json/graphs/contributors)
