@@ -11,11 +11,11 @@ async def post(request):
        
     INI
     [header]
-    header = {"Content-Typ e": "application/json","x-amz-sns-message-type": "Notification"}
+    header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
 
     [example.one]
-    name = "day query"
-    method = "GET"
+    name = day query
+    method = GET
     query = ?days=1
     header = {"Content-Typ e": "application/json"}
     body = {"token": "1234"}
@@ -47,11 +47,11 @@ async def post(request):
   
     [header]
     header = {"Content-Type": "application/json", "x-amz-sns-message-type": "Notification"}
-    header2 = {"token":"{{token}}"}
+
     
     [body]
     body = {"username": "{{username}}", "password": "{{password}}"}
-    more_body = {"token": "1234"}
+  
 
 
 

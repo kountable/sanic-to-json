@@ -120,11 +120,10 @@ def format_headers(config):
     """Returns a list of formatted header dictionaries."""
     request_header = []
     try:
-        for item in config["header"]:
-            header_items = eval(config["header"][item])
-            for key in header_items:
-                header = {"key": key, "value": header_items[key], "type": "text"}
-                request_header.append(header)
+        header_items = eval(config["header"]["header"])
+        for key in header_items:
+            header = {"key": key, "value": header_items[key], "type": "text"}
+            request_header.append(header)
     except KeyError:
         pass
     return request_header
