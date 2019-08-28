@@ -175,7 +175,30 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
         config = load_config(config_string)
 
         request = add_INI_data(doc, request, config)
+        request["response"] = add_responses(request, config)
     return request
+
+
+def add_responses(request, config):
+    """Response is a list of dictionary requests."""
+    response = []
+    for section in config.sections():
+        example_request = {}
+        example_request["originalRequest"] = {}
+        if "example" in section:
+            example_request["name"] = config[section]["name"]
+            example_request["originalRequest"]["method"] = config[section]["method"]
+            example_request["originalRequest"]["url"] = request["request"]["url"]
+            example_request["originalRequest"]["url"]["raw"] += config[section]["query"]
+            example_request["originalRequest"]["header"] = format_headers(
+                config[section]
+            )
+            example_request["originalRequest"]["body"] = format_json_body(
+                config[section]
+            )
+
+            response.append(example_request)
+    return response
 
 
 def populate_blueprint(

@@ -18,7 +18,7 @@ async def post(request):
     name = day query
     method = GET
     query = ?days=1
-    header = {"Content-Typ e": "application/json"}
+    header = {"Content-Type": "application/json"}
     body = {"token": "1234"}
     """
     data = request.text
