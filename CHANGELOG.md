@@ -1,3 +1,10 @@
+# Version 0.1.7
+
+## Features
+- Use INI divider to parse doc strings 
+- Use body, and header keys inside INI to pass header, body values. 
+- Added abiliity to add examples from doc strings using [examples.xxx] section 
+
 # Version 0.1.6
 
 ## Features

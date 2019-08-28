@@ -258,8 +258,6 @@ def generate_sanic_json(collection_name, app, filename="postman_collection.json"
         Sanic app
     filename: str (optional)
         location of output file
-    existing_file: str (optional)
-        location of existing file, used to copy previous postman_id key
     """
     # build basic json schema
     collection = basic_JSON(collection_name, app)
