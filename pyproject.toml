@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sanic-to-json"
-version = "0.1.6"
+version = "0.1.7"
 description = "Create Postman JSON API documentation files from Sanic."
 homepage = "https://github.com/kountable/sanic-to-json"
 repository = "https://github.com/kountable/sanic-to-json"
