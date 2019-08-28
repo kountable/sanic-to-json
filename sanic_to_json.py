@@ -135,10 +135,9 @@ def format_json_body(config):
     body["mode"] = "raw"
     body["raw"] = {}
     try:
-        for item in config["body"]:
-            body_dict = eval(config["body"][item])
-            for key in body_dict:
-                body["raw"][key] = body_dict[key]
+        body_dict = eval(config["body"]["body"])
+        for key in body_dict:
+            body["raw"][key] = body_dict[key]
         body["raw"] = dumps(body["raw"])
     except KeyError:
         pass
