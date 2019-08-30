@@ -59,3 +59,28 @@ def add_INI_data(doc, request, config):
 
     request["protocolProfileBehavior"] = {"disableBodyPruning": True}
     return request
+
+
+def add_responses(request, config):
+    """Response is a list of dictionary requests."""
+    response = []
+    for section in config.sections():
+        example_request = {}
+        example_request["originalRequest"] = {}
+        if "example" in section:
+            example_request["name"] = config[section]["name"]
+            example_request["originalRequest"]["method"] = config[section]["method"]
+            example_request["originalRequest"]["header"] = format_headers(
+                config[section]
+            )
+            example_request["originalRequest"]["body"] = format_json_body(
+                config[section]
+            )
+            example_request["originalRequest"]["url"] = request["request"]["url"].copy()
+            example_request["originalRequest"]["url"]["raw"] += config[section]["query"]
+            example_request["originalRequest"]["url"]["host"] = [
+                example_request["originalRequest"]["url"]["raw"]
+            ]
+
+            response.append(example_request)
+    return response
