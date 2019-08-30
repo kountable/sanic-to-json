@@ -20,7 +20,7 @@ def test_get_all_routes():
 def test_get_route_name():
     """Returns route name."""
     for route in routes:
-        assert get_route_name(route) == route.split("/")[-1]
+        assert get_route_name(route) == route.split("/", 1)[-1]
 
 
 def test_get_app_route_methods():
