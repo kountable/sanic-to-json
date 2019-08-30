@@ -81,3 +81,9 @@ See the [GitHub contributor page](https://github.com/kountable/sanic-to-json/gra
 
 ## License
 sanic-to-json is open source software [licensed as MIT](https://github.com/kountable/sanic-to-json/blob/master/LICENSE).
+
+
+# To do 
+- split up functions into  data type modules
+- import generate_json in __init__ of parent folder
+- split up tests, one file for each module
