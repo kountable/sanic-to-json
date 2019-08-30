@@ -12,7 +12,7 @@ async def post(request):
     INI
     [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
-    body = {"username": "{{username}}", "password": "{{password}}"}
+    
 
     [example.single]
     name = single query

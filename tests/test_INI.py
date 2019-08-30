@@ -46,7 +46,4 @@ def test_format_json_body():
     test_ini = extract_ini_from_doc(test_doc)
     test_config = load_config(test_ini)
     test_body = format_json_body(test_config["request"])
-    assert test_body == {
-        "mode": "raw",
-        "raw": '{"username": "{{username}}", "password": "{{password}}"}',
-    }
+    assert test_body == {"mode": "raw", "raw": {}}

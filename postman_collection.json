@@ -33,10 +33,10 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
-                        "description": "Return text from request.\n       \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n\n    [example.single]\n    name = single query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n\n    [example.multiple]\n    name = multiple query\n    method = POST\n    query = ?days=3&units=metric&time=1400\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"token\"}\n\n    [example.another]\n    name = another query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n    ",
+                        "description": "Return text from request.\n       \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n    \n\n    [example.single]\n    name = single query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n\n    [example.multiple]\n    name = multiple query\n    method = POST\n    query = ?days=3&units=metric&time=1400\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"token\"}\n\n    [example.another]\n    name = another query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n    ",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+                            "raw": {}
                         }
                     },
                     "response": [
@@ -120,6 +120,21 @@
                 {
                     "name": "v1/a-prefix/endpoint-two",
                     "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from GET request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "v1/a-prefix/endpoint-two",
+                    "request": {
                         "method": "POST",
                         "header": [],
                         "url": {
@@ -133,19 +148,58 @@
                     "response": []
                 },
                 {
-                    "name": "v1/a-prefix/endpoint-two",
+                    "name": "v1/a-prefix/endpoint-three/<resource>",
                     "request": {
-                        "method": "GET",
-                        "header": [],
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>",
                             "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                                "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>"
                             ]
                         },
-                        "description": "Return JSON from GET request."
+                        "description": "resource endpoint with subresource.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n        \n    [example.paths]\n    name = adding paths\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"token\": \"POST token\"}"
+                        }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "name": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+                                },
+                                "url": {
+                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>",
+                                    "host": [
+                                        "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>"
+                                    ]
+                                }
+                            },
+                            "name": "adding paths"
+                        }
+                    ],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
                 },
                 {
                     "name": "v1/a-prefix/endpoint-three/<resource>/<subresource>",
@@ -165,7 +219,7 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>"
                             ]
                         },
-                        "description": "Hello World.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n        \n    [example.subpaths]\n    name = adding paths\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
+                        "description": "resource endpoint with subresource.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n        \n    [example.subpaths]\n    name = adding sub paths\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
                         "body": {
                             "mode": "raw",
                             "raw": "{\"token\": \"POST token\"}"
@@ -194,7 +248,7 @@
                                     ]
                                 }
                             },
-                            "name": "adding paths"
+                            "name": "adding sub paths"
                         }
                     ],
                     "protocolProfileBehavior": {
@@ -207,21 +261,6 @@
             "name": "api_2",
             "description": "This is the doc string for blueprint 2.",
             "item": [
-                {
-                    "name": "v1/another-prefix/endpoint-three",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/another-prefix/endpoint-three",
-                            "host": [
-                                "{{base_Url}}/v1/another-prefix/endpoint-three"
-                            ]
-                        },
-                        "description": "Return text from request."
-                    },
-                    "response": []
-                },
                 {
                     "name": "v1/another-prefix/endpoint-four",
                     "request": {
@@ -257,21 +296,6 @@
         {
             "name": "test",
             "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another post request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "GET",
                 "header": [],
                 "url": {
@@ -281,6 +305,21 @@
                     ]
                 },
                 "description": "Another get request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another post request."
             },
             "response": []
         }
