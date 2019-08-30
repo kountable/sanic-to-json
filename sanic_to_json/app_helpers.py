@@ -1,5 +1,10 @@
-from schema_helpers import atomic_request
-from INI_helpers import extract_ini_from_doc, add_INI_data, load_config, add_responses
+from sanic_to_json.schema_helpers import atomic_request
+from sanic_to_json.INI_helpers import (
+    extract_ini_from_doc,
+    add_INI_data,
+    load_config,
+    add_responses,
+)
 
 
 def get_all_routes(app):

@@ -1,4 +1,4 @@
-from app_helpers import get_app_route_methods, format_request
+from sanic_to_json.app_helpers import get_app_route_methods, format_request
 
 
 def get_blueprints(app):

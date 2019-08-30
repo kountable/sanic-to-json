@@ -1,7 +1,7 @@
 from json import dump
-from schema_helpers import basic_JSON
-from app_helpers import get_all_routes
-from blueprint_helpers import (
+from sanic_to_json.schema_helpers import basic_JSON
+from sanic_to_json.app_helpers import get_all_routes
+from sanic_to_json.blueprint_helpers import (
     get_blueprints,
     populate_blueprint,
     add_non_blueprint_requests,
