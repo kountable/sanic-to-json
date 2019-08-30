@@ -53,8 +53,8 @@ async def post(request):
     return json(data)
 
 
-@bp1.route("/endpoint-three/{resource}/{subresource}", methods=["POST"])
-async def post(request):
+@bp1.route("/endpoint-three/<resource>/<subresource>", methods=["POST"])
+async def post(request, resource, subresource):
     """Hello World.
     And more text on the second line. 
     
@@ -62,13 +62,13 @@ async def post(request):
     [request]
     header = {"Content-Type": "application/json"}
     body ={"token": "POST token"}
- 
+
+     
     [example.resource]
     name = adding paths
     method = POST
     header = {"Content-Type": "application/json"}
     body = {"username": "{{username}}", "password": "{{password}}"}
     """
-    data = request.text
-    return json(data)
+    return json({resource: subresource})
 

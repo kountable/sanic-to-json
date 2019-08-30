@@ -77,7 +77,7 @@ def add_responses(request, config):
                 config[section]
             )
             example_request["originalRequest"]["url"] = request["request"]["url"].copy()
-            if config[section]["query"]:
+            if "query" in config[section].keys():
                 example_request["originalRequest"]["url"]["raw"] += config[section][
                     "query"
                 ]

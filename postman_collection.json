@@ -148,7 +148,7 @@
                     "response": []
                 },
                 {
-                    "name": "{subresource}",
+                    "name": "<subresource>",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -160,12 +160,12 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}",
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>",
                             "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}"
+                                "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>"
                             ]
                         },
-                        "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n \n    [example.resource]\n    name = adding paths\n    query = ?days=1&units=metric\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
+                        "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n     \n    [example.resource]\n    name = adding paths\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
                         "body": {
                             "mode": "raw",
                             "raw": "{\"token\": \"POST token\"}"
@@ -188,9 +188,9 @@
                                     "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
                                 },
                                 "url": {
-                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}?days=1&units=metric",
+                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>",
                                     "host": [
-                                        "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}?days=1&units=metric"
+                                        "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>"
                                     ]
                                 }
                             },
