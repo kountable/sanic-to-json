@@ -2,7 +2,7 @@ from sanic import Blueprint
 from sanic.response import json, text
 
 bp1 = Blueprint("api_1", url_prefix="/a-prefix", version="v1")
-bp1.__doc__ = "This is the doc string for blueprint1."
+bp1.__doc__ = "This is the doc string for blueprint 1."
 
 
 @bp1.route("/endpoint-one", methods=["GET"])
