@@ -1,3 +1,9 @@
+# Version 0.1.8
+
+## Features
+- Split up functions into data modules 
+- Split up tests for each module
+
 # Version 0.1.7
 
 ## Features

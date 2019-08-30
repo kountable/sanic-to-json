@@ -84,6 +84,5 @@ sanic-to-json is open source software [licensed as MIT](https://github.com/kount
 
 
 # To do 
-- split up functions into  data type modules
-- import generate_json in __init__ of parent folder
 - split up tests, one file for each module
+- add ability to swap in variable parameters separate from query parameters
