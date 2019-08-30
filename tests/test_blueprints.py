@@ -3,8 +3,11 @@ from sanic_to_json.blueprint_helpers import (
     get_blueprints,
     get_blueprint_routes,
     get_blueprint_docs,
+    populate_blueprint,
+    add_non_blueprint_requests,
 )
 from sanic_to_json.app_helpers import get_all_routes
+from sanic_to_json.schema_helpers import collection_json
 
 
 def test_get_blueprints():
@@ -32,3 +35,20 @@ def test_get_blueprint_docs():
         assert (
             get_blueprint_docs(blueprints, blueprint) == blueprints[blueprint].__doc__
         )
+
+
+def test_populate_blueprint():
+    """Confirm subset of collection."""
+    collection = collection_json()
+    test_collection = collection.copy()
+    for blueprint in blueprints:
+        test_collection = populate_blueprint(collection, blueprints, blueprint, routes)
+    assert collection.keys() <= test_collection.keys()
+
+
+def test_populate_non_blueprint():
+    """Confirm subset of collection."""
+    collection = collection_json()
+    test_collection = collection.copy()
+    test_collection = add_non_blueprint_requests(collection, routes)
+    assert collection.keys() <= test_collection.keys()
