@@ -19,7 +19,8 @@ def get_all_routes(app):
 
 def get_route_name(route):
     """Returns route name."""
-    name = route.split("/")[-1]
+    # split once, take last peice
+    name = route.split("/", 1)[-1]
     return name
 
 

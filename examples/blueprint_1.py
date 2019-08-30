@@ -56,15 +56,14 @@ async def post(request):
 @bp1.route("/endpoint-three/<resource>/<subresource>", methods=["POST"])
 async def post(request, resource, subresource):
     """Hello World.
-    And more text on the second line. 
     
     INI
     [request]
     header = {"Content-Type": "application/json"}
     body ={"token": "POST token"}
 
-     
-    [example.resource]
+        
+    [example.subpaths]
     name = adding paths
     method = POST
     header = {"Content-Type": "application/json"}
