@@ -30,33 +30,6 @@ def test_get_all_routes():
     assert get_all_routes(app).items() <= app.router.routes_all.items()
 
 
-def test_get_blueprints():
-    assert get_blueprints(app) == app.blueprints
-
-
-def test_get_blueprints_type():
-    assert isinstance(get_blueprints(app), dict)
-
-
-# get example app blueprints
-blueprints = get_blueprints(app)
-routes = get_all_routes(app)
-
-
-def test_get_blueprint_routes():
-    """Return a list of routes."""
-    for blueprint in blueprints:
-        assert get_blueprint_routes(blueprint, routes).items() <= routes.items()
-
-
-def test_get_blueprint_docs():
-    """Returns doc string for blueprint."""
-    for blueprint in blueprints:
-        assert (
-            get_blueprint_docs(blueprints, blueprint) == blueprints[blueprint].__doc__
-        )
-
-
 # INI functions
 test_doc = app.router.routes_all["/v1/a-prefix/endpoint-one"].handler.__doc__
 
