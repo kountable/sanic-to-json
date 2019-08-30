@@ -50,9 +50,3 @@ def add_non_blueprint_requests(
                 api_json["item"].append(request)
     return api_json
 
-
-def save_as_json(collection_name, filename="postman_collection.json"):
-    """Write dict to JSON file."""
-
-    with open(filename, "w") as file:
-        dump(collection_name, file, indent=4)

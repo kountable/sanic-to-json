@@ -1,4 +1,18 @@
+from json import dump
 from schema_helpers import basic_JSON
+from app_helpers import get_all_routes
+from blueprint_helpers import (
+    get_blueprints,
+    populate_blueprint,
+    add_non_blueprint_requests,
+)
+
+
+def save_as_json(collection_name, filename="postman_collection.json"):
+    """Write dict to JSON file."""
+
+    with open(filename, "w") as file:
+        dump(collection_name, file, indent=4)
 
 
 def generate_sanic_json(collection_name, app, filename="postman_collection.json"):
