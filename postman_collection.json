@@ -7,7 +7,7 @@
     "item": [
         {
             "name": "api_1",
-            "description": "This is the doc string for blueprint1.",
+            "description": "This is the doc string for blueprint 1.",
             "item": [
                 {
                     "name": "endpoint-one",
@@ -120,21 +120,6 @@
                 {
                     "name": "endpoint-two",
                     "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from GET request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "endpoint-two",
-                    "request": {
                         "method": "POST",
                         "header": [],
                         "url": {
@@ -148,7 +133,22 @@
                     "response": []
                 },
                 {
-                    "name": "endpoint-three",
+                    "name": "endpoint-two",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from GET request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "{subresource}",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -160,18 +160,43 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-three",
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}",
                             "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-three"
+                                "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}"
                             ]
                         },
-                        "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
+                        "description": "Hello World.\n    And more text on the second line. \n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n \n    [example.resource]\n    name = adding paths\n    query = ?days=1&units=metric\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+                            "raw": "{\"token\": \"POST token\"}"
                         }
                     },
-                    "response": [],
+                    "response": [
+                        {
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "name": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
+                                },
+                                "url": {
+                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}?days=1&units=metric",
+                                    "host": [
+                                        "{{base_Url}}/v1/a-prefix/endpoint-three/{resource}/{subresource}?days=1&units=metric"
+                                    ]
+                                }
+                            },
+                            "name": "adding paths"
+                        }
+                    ],
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     }
@@ -180,7 +205,7 @@
         },
         {
             "name": "api_2",
-            "description": "This is the doc string for blueprint2.",
+            "description": "This is the doc string for blueprint 2.",
             "item": [
                 {
                     "name": "endpoint-three",
@@ -232,21 +257,6 @@
         {
             "name": "test",
             "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another get request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "POST",
                 "header": [],
                 "url": {
@@ -256,6 +266,21 @@
                     ]
                 },
                 "description": "Another post request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another get request."
             },
             "response": []
         }

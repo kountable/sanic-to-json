@@ -52,4 +52,3 @@ def add_non_blueprint_requests(
                 request = format_request(routes, route, method, base_url=base_url)
                 api_json["item"].append(request)
     return api_json
-

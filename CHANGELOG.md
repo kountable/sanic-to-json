@@ -4,6 +4,9 @@
 - Split up functions into data modules 
 - Split up tests for each module
 
+##  Bugfixes
+- allow examples with no query parameters
+
 # Version 0.1.7
 
 ## Features
