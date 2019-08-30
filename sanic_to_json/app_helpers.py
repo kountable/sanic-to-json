@@ -1,3 +1,5 @@
+from 
+
 def get_all_routes(app):
     """Returns all routes from Sanic app, excludes duplicates."""
     all_routes = app.router.routes_all

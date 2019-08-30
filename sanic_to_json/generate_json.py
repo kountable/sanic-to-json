@@ -1,3 +1,6 @@
+from schema_helpers import basic_JSON
+
+
 def generate_sanic_json(collection_name, app, filename="postman_collection.json"):
     """Generates json script from Sanic docs.
 
