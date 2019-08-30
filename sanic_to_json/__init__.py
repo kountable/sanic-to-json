@@ -1,3 +1,3 @@
-from sanic_to_json.test import *
+from sanic_to_json.generate_json import *
 
-__all__ = ["test_fun"]
+__all__ = ["generate_sanic_json"]
