@@ -72,6 +72,8 @@ For example, as found in [endpoint-one](https://github.com/kountable/sanic-to-js
 - Blueprints should also a doc string, this will serve as the description to each collection folder in Postman. Again see `examples` folder
 `bp1.__doc__ = "This is the doc string for blueprint1."`
 
+- Documented endpoints should include a header key as shown above. 
+
 ## How to install 
 `pip install sanic-to-json`
 
@@ -85,4 +87,4 @@ sanic-to-json is open source software [licensed as MIT](https://github.com/kount
 
 # To do 
 - add ability to swap in variable parameters separate from query parameters
-- allow no header to be passed
+
