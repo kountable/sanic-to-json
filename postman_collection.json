@@ -39,98 +39,10 @@
                             "raw": {}
                         }
                     },
-                    "response": [
-                        {
-                            "originalRequest": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "name": "Content-Type",
-                                        "value": "application/json",
-                                        "type": "text"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\"token\": \"POST token\"}"
-                                },
-                                "url": {
-                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1&units=metric",
-                                    "host": [
-                                        "{{base_Url}}/v1/a-prefix/endpoint-one?days=1&units=metric"
-                                    ]
-                                }
-                            },
-                            "name": "single query"
-                        },
-                        {
-                            "originalRequest": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "name": "Content-Type",
-                                        "value": "application/json",
-                                        "type": "text"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\"token\": \"token\"}"
-                                },
-                                "url": {
-                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=3&units=metric&time=1400",
-                                    "host": [
-                                        "{{base_Url}}/v1/a-prefix/endpoint-one?days=3&units=metric&time=1400"
-                                    ]
-                                }
-                            },
-                            "name": "multiple query"
-                        },
-                        {
-                            "originalRequest": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "name": "Content-Type",
-                                        "value": "application/json",
-                                        "type": "text"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\"token\": \"POST token\"}"
-                                },
-                                "url": {
-                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-one?days=1&units=metric",
-                                    "host": [
-                                        "{{base_Url}}/v1/a-prefix/endpoint-one?days=1&units=metric"
-                                    ]
-                                }
-                            },
-                            "name": "another query"
-                        }
-                    ],
+                    "response": [],
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     }
-                },
-                {
-                    "name": "v1/a-prefix/endpoint-two",
-                    "request": {
-                        "method": "POST",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from POST request."
-                    },
-                    "response": []
                 },
                 {
                     "name": "v1/a-prefix/endpoint-two",
@@ -144,6 +56,21 @@
                             ]
                         },
                         "description": "Return JSON from GET request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "v1/a-prefix/endpoint-two",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from POST request."
                     },
                     "response": []
                 },
@@ -171,32 +98,7 @@
                             "raw": "{\"token\": \"POST token\"}"
                         }
                     },
-                    "response": [
-                        {
-                            "originalRequest": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "name": "Content-Type",
-                                        "value": "application/json",
-                                        "type": "text"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
-                                },
-                                "url": {
-                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>",
-                                    "host": [
-                                        "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>"
-                                    ]
-                                }
-                            },
-                            "name": "adding paths"
-                        }
-                    ],
+                    "response": [],
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     }
@@ -225,32 +127,7 @@
                             "raw": "{\"token\": \"POST token\"}"
                         }
                     },
-                    "response": [
-                        {
-                            "originalRequest": {
-                                "method": "POST",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "name": "Content-Type",
-                                        "value": "application/json",
-                                        "type": "text"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\"username\": \"{{username}}\", \"password\": \"{{password}}\"}"
-                                },
-                                "url": {
-                                    "raw": "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>",
-                                    "host": [
-                                        "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>"
-                                    ]
-                                }
-                            },
-                            "name": "adding sub paths"
-                        }
-                    ],
+                    "response": [],
                     "protocolProfileBehavior": {
                         "disableBodyPruning": true
                     }
@@ -296,21 +173,6 @@
         {
             "name": "test",
             "request": {
-                "method": "POST",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another post request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "GET",
                 "header": [],
                 "url": {
@@ -320,6 +182,21 @@
                     ]
                 },
                 "description": "Another get request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another post request."
             },
             "response": []
         }

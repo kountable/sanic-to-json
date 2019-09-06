@@ -64,5 +64,4 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
         config = load_config(config_string)
 
         request = add_INI_data(doc, request, config)
-        request["response"] = add_responses(request, config)
     return request
