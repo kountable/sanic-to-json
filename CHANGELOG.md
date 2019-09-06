@@ -3,6 +3,8 @@
 ## Features
 - Split up functions into data modules 
 - Split up tests for each module
+## Deprecations and Removals
+- Removed the ability to add example. Since Postman doesn't allow for Example requests to be sent, there is no point at the moment. 
 
 ##  Bugfixes
 - allow examples with no query parameters

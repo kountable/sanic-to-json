@@ -120,21 +120,6 @@
                 {
                     "name": "v1/a-prefix/endpoint-two",
                     "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
-                            "host": [
-                                "{{base_Url}}/v1/a-prefix/endpoint-two"
-                            ]
-                        },
-                        "description": "Return JSON from GET request."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "v1/a-prefix/endpoint-two",
-                    "request": {
                         "method": "POST",
                         "header": [],
                         "url": {
@@ -144,6 +129,21 @@
                             ]
                         },
                         "description": "Return JSON from POST request."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "v1/a-prefix/endpoint-two",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_Url}}/v1/a-prefix/endpoint-two",
+                            "host": [
+                                "{{base_Url}}/v1/a-prefix/endpoint-two"
+                            ]
+                        },
+                        "description": "Return JSON from GET request."
                     },
                     "response": []
                 },
@@ -296,21 +296,6 @@
         {
             "name": "test",
             "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "{{base_Url}}/test",
-                    "host": [
-                        "{{base_Url}}/test"
-                    ]
-                },
-                "description": "Another get request."
-            },
-            "response": []
-        },
-        {
-            "name": "test",
-            "request": {
                 "method": "POST",
                 "header": [],
                 "url": {
@@ -320,6 +305,21 @@
                     ]
                 },
                 "description": "Another post request."
+            },
+            "response": []
+        },
+        {
+            "name": "test",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_Url}}/test",
+                    "host": [
+                        "{{base_Url}}/test"
+                    ]
+                },
+                "description": "Another get request."
             },
             "response": []
         }
