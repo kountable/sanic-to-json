@@ -73,6 +73,7 @@ For example, as found in [endpoint-one](https://github.com/kountable/sanic-to-js
 `bp1.__doc__ = "This is the doc string for blueprint1."`
 
 - Documented endpoints should include a header key as shown above. 
+- Note: You can't send a JSON body with GET method. 
 
 ## How to install 
 `pip install sanic-to-json`
