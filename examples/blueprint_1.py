@@ -12,6 +12,7 @@ async def post(request):
     INI
     [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
+    query = ?day=1&temp=F
     """
     data = request.text
     return text(data)

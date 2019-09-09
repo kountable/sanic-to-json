@@ -22,7 +22,7 @@ generate_sanic_json("Test API", app, filename="postman_collection.json")
 The above code formats the Postman collection with 'Test API' and doc strings from Sanic app, `app`, and yields [postman_collection.json](https://github.com/kountable/sanic-to-json/blob/master/postman_collection.json)
 
 ### To add `body` and `header` elements to Postman JSON 
-Placing `INI` in doc string will cause the text below to be loaded into a python config object. 
+Placing `INI` in doc string will cause the text below to be loaded into a python config object, which then get converted to the appropiate headers and JSON body in Posttman. 
 
 For example, as found in [endpoint-three](https://github.com/kountable/sanic-to-json/blob/master/examples/blueprint_1.py)
 ```
@@ -32,7 +32,7 @@ For example, as found in [endpoint-three](https://github.com/kountable/sanic-to-
     body = {"username": "{{username}}", "password": "{{password}}"}
 ```
 
-### To add example requests
+### To add query parameters
 Similar to above placing sections under INI that are prefixed will start a example request. 
 For example, as found in [endpoint-one](https://github.com/kountable/sanic-to-json/blob/master/examples/blueprint_1.py)
 ```
@@ -41,7 +41,7 @@ For example, as found in [endpoint-one](https://github.com/kountable/sanic-to-js
     INI
     [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
-    body = {"username": "{{username}}", "password": "{{password}}"}
+    query = ?day=1&temp=F
     """
 ```
 
@@ -65,7 +65,4 @@ See the [GitHub contributor page](https://github.com/kountable/sanic-to-json/gra
 sanic-to-json is open source software [licensed as MIT](https://github.com/kountable/sanic-to-json/blob/master/LICENSE).
 
 
-# To do 
-- add ability to swap in variable parameters separate from query parameters
-- add params to main request url 
 

@@ -53,7 +53,7 @@ def format_query_params(request, config):
     """formats query parameters from config and attached to URL."""
     if "query" in config["request"].keys():
         request["request"]["url"]["raw"] += config["request"]["query"]
-        request["request"]["url"]["raw"]["host"] = [request["request"]["url"]["raw"]]
+        request["request"]["url"]["host"] = [request["request"]["url"]["raw"]]
     return request
 
 
