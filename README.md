@@ -48,10 +48,9 @@ For example, as found in [endpoint-one](https://github.com/kountable/sanic-to-js
 ## How to document Sanic app and Blueprints
 - As the example shows, the Sanic app should have a `.doc` attribute. This doc string will serve as the introduction to the API in Postman docs, e.g., `app.__doc__ = "This API does stuff."`
 
-- Blueprints should also a doc string, this will serve as the description to each collection folder in Postman. Again see `examples` folder
+- Blueprints should also include a doc string, this will serve as the description to each collection folder in Postman. Again see `examples` folder
 `bp1.__doc__ = "This is the doc string for blueprint1."`
 
-- Documented endpoints should include a header key as shown above. 
 - Note: You can't send a JSON body with GET method. 
 
 ## How to install 
