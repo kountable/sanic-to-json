@@ -33,7 +33,7 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-one"
                             ]
                         },
-                        "description": "Return text from request.\n       \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n    \n\n    [example.single]\n    name = single query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n\n    [example.multiple]\n    name = multiple query\n    method = POST\n    query = ?days=3&units=metric&time=1400\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"token\"}\n\n    [example.another]\n    name = another query\n    method = POST\n    query = ?days=1&units=metric\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"token\": \"POST token\"}\n    ",
+                        "description": "Return text from request.\n       \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\",\"x-amz-sns-message-type\": \"Notification\"}\n    ",
                         "body": {
                             "mode": "raw",
                             "raw": {}
@@ -92,7 +92,7 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>"
                             ]
                         },
-                        "description": "resource endpoint with subresource.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n        \n    [example.paths]\n    name = adding paths\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
+                        "description": "resource endpoint with subresource.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n    ",
                         "body": {
                             "mode": "raw",
                             "raw": "{\"token\": \"POST token\"}"
@@ -121,7 +121,7 @@
                                 "{{base_Url}}/v1/a-prefix/endpoint-three/<resource>/<subresource>"
                             ]
                         },
-                        "description": "resource endpoint with subresource.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n        \n    [example.subpaths]\n    name = adding sub paths\n    method = POST\n    header = {\"Content-Type\": \"application/json\"}\n    body = {\"username\": \"{{username}}\", \"password\": \"{{password}}\"}\n    ",
+                        "description": "resource endpoint with subresource.\n    \n    INI\n    [request]\n    header = {\"Content-Type\": \"application/json\"}\n    body ={\"token\": \"POST token\"}\n\n    ",
                         "body": {
                             "mode": "raw",
                             "raw": "{\"token\": \"POST token\"}"

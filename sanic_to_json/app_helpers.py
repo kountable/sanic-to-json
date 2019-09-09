@@ -1,10 +1,5 @@
 from sanic_to_json.schema_helpers import atomic_request
-from sanic_to_json.INI_helpers import (
-    extract_ini_from_doc,
-    add_INI_data,
-    load_config,
-    add_responses,
-)
+from sanic_to_json.INI_helpers import extract_ini_from_doc, add_INI_data, load_config
 
 
 def get_all_routes(app):
@@ -62,6 +57,5 @@ def format_request(routes, route, method, base_url="{{base_Url}}"):
     if "INI" in doc:
         config_string = extract_ini_from_doc(doc)
         config = load_config(config_string)
-
         request = add_INI_data(doc, request, config)
     return request

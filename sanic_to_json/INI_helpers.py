@@ -16,11 +16,11 @@ def load_config(ini_string):
     return config
 
 
-def format_headers(config_section):
+def format_headers(config):
     """Returns a list of formatted header dictionaries."""
     request_header = []
     try:
-        header_items = eval(config_section["header"])
+        header_items = eval(config["header"])
         for key in header_items:
             header = {
                 "key": key,
@@ -34,19 +34,27 @@ def format_headers(config_section):
     return request_header
 
 
-def format_json_body(config_section):
+def format_json_body(config):
     """formats JSON body from config as raw JSON."""
     body = {}
     body["mode"] = "raw"
     body["raw"] = {}
     try:
-        body_dict = eval(config_section["body"])
+        body_dict = eval(config["body"])
         for key in body_dict:
             body["raw"][key] = body_dict[key]
         body["raw"] = dumps(body["raw"])
     except KeyError:
         pass
     return body
+
+
+def format_query_params(request, config):
+    """formats query parameters from config and attached to URL."""
+    if "query" in config["request"].keys():
+        request["request"]["url"]["raw"] += config["request"]["query"]
+        request["request"]["url"]["raw"]["host"] = [request["request"]["url"]["raw"]]
+    return request
 
 
 def add_INI_data(doc, request, config):
@@ -57,5 +65,7 @@ def add_INI_data(doc, request, config):
     head = format_headers(config["request"])
     request["request"]["header"] = head
 
+    request = format_query_params(request, config)
     request["protocolProfileBehavior"] = {"disableBodyPruning": True}
     return request
+

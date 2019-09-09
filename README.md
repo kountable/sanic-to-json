@@ -42,27 +42,6 @@ For example, as found in [endpoint-one](https://github.com/kountable/sanic-to-js
     [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
     body = {"username": "{{username}}", "password": "{{password}}"}
-
-    [example.single]
-    name = single query
-    method = POST
-    query = ?days=1&units=metric
-    header = {"Content-Type": "application/json"}
-    body = {"token": "POST token"}
-
-    [example.multiple]
-    name = multiple query
-    method = POST
-    query = ?days=3&units=metric&time=1400
-    header = {"Content-Type": "application/json"}
-    body = {"token": "token"}
-
-    [example.another]
-    name = another query
-    method = POST
-    query = ?days=1&units=metric
-    header = {"Content-Type": "application/json"}
-    body = {"token": "POST token"}
     """
 ```
 
@@ -88,4 +67,5 @@ sanic-to-json is open source software [licensed as MIT](https://github.com/kount
 
 # To do 
 - add ability to swap in variable parameters separate from query parameters
+- add params to main request url 
 

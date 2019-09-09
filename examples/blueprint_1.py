@@ -12,28 +12,6 @@ async def post(request):
     INI
     [request]
     header = {"Content-Type": "application/json","x-amz-sns-message-type": "Notification"}
-    
-
-    [example.single]
-    name = single query
-    method = POST
-    query = ?days=1&units=metric
-    header = {"Content-Type": "application/json"}
-    body = {"token": "POST token"}
-
-    [example.multiple]
-    name = multiple query
-    method = POST
-    query = ?days=3&units=metric&time=1400
-    header = {"Content-Type": "application/json"}
-    body = {"token": "token"}
-
-    [example.another]
-    name = another query
-    method = POST
-    query = ?days=1&units=metric
-    header = {"Content-Type": "application/json"}
-    body = {"token": "POST token"}
     """
     data = request.text
     return text(data)
@@ -61,13 +39,6 @@ async def post(request, resource):
     [request]
     header = {"Content-Type": "application/json"}
     body ={"token": "POST token"}
-
-        
-    [example.paths]
-    name = adding paths
-    method = POST
-    header = {"Content-Type": "application/json"}
-    body = {"username": "{{username}}", "password": "{{password}}"}
     """
     return json({resource})
 
@@ -81,12 +52,6 @@ async def post(request, resource, subresource):
     header = {"Content-Type": "application/json"}
     body ={"token": "POST token"}
 
-        
-    [example.subpaths]
-    name = adding sub paths
-    method = POST
-    header = {"Content-Type": "application/json"}
-    body = {"username": "{{username}}", "password": "{{password}}"}
     """
     return json({resource: subresource})
 
